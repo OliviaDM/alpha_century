@@ -6,4 +6,7 @@ class Card < ApplicationRecord
   has_one :timestamp
   has_one :map
   has_one :coordinate
+
+  validates :user, presence: true
+  validates :is_map, presence: true
 end
