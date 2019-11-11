@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_104327) do
+ActiveRecord::Schema.define(version: 2019_11_11_134419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_11_11_104327) do
   create_table "card_fields", force: :cascade do |t|
     t.bigint "card_id"
     t.integer "order"
-    t.string "type"
+    t.string "content_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_card_fields_on_card_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_11_11_104327) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
