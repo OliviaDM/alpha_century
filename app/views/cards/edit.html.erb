@@ -1,2 +1,6 @@
-<h1>Card#edit</h1>
-<p>Find me in app/views/card/edit.html.erb</p>
+<h1>Cards#edit</h1>
+<p>Find me in app/views/cards/edit.html.erb</p>
+<form action=<%= "/cards/#{@card.id}" %>, method='PATCH'>
+  <input id="x" type="hidden" name="content">
+  <trix-editor input="x"></trix-editor>
+</form>

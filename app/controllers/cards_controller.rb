@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   def index
+    @cards = Card.all
   end
 
   def show
@@ -12,9 +13,12 @@ class CardsController < ApplicationController
   end
 
   def edit
+    @card = Card.find(params[:id])
   end
 
   def update
+    p @card = Card.find(params[:id])
+    redirect_to edit_card_path(@card.id)
   end
 
   def destroy
