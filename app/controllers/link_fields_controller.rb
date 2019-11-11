@@ -1,0 +1,2 @@
+class LinkFieldsController < ApplicationController
+end
