@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  # get 'cards/index'
+  # get 'cards/show'
+  # get 'cards/new'
+  # get 'cards/create'
+  # get 'cards/edit'
+  # get 'cards/update'
+  # get 'cards/destroy'
   get 'timelines/index'
   devise_for :users
   root to: 'pages#home'

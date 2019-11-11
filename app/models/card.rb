@@ -8,4 +8,13 @@ class Card < ApplicationRecord
   has_one :coordinate
 
   validates :user, presence: true
+
+  include PgSearch::Model
+  pg_search_scope :search_by_tags,
+                  associated_against: {
+                    tags: [:name]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 end
