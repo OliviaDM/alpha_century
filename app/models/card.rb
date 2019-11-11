@@ -8,5 +8,4 @@ class Card < ApplicationRecord
   has_one :coordinate
 
   validates :user, presence: true
-  validates :is_map, presence: true
 end
