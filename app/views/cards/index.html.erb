@@ -6,7 +6,7 @@
   <% @cards.each do |card| %>
     <div class="card">
       <h5 class="card-title"><%= card.title %></div>
-      <div class="card-text"><%= card.content %></div>
+      <div class="card-text"><%= sanitize card.content %></div>
       <%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %>
       <%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :destroy %>
     </div>
