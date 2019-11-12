@@ -3,21 +3,26 @@
   <a href="#about">About</a>
   <a href="#contact">Contact</a>
   <div class="login-container">
-    <button type="button" data-toggle="modal" data-target="#login">
-      Log In
-    </button>
-    <button type="button" data-toggle="modal" data-target="#signup">
-      Sign Up
-    </button>
+    <% if user_signed_in? %>
+      <a href="#">Notes</a>
+      <a href="#">Timeline View</a>
+      <a href="#">Map View</a>
+      <a href="#">Project Title</a>
+    <% else %>
+      <button type="button" data-toggle="modal" data-target="#login">
+        Log In
+      </button>
+      <button type="button" data-toggle="modal" data-target="#signup">
+        Sign Up
+      </button>
+    <% end %>
   </div>
 </div>
 
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     ehjozijrlkjrlkej
     <%= render 'devise/sessions/new' %>
 </div>
 
 <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     ehjozijrlkjrlkej
     <%= render 'devise/registrations/new' %>
 </div>
