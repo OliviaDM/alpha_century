@@ -8,6 +8,7 @@
 
 
 Tagging.destroy_all
+MapTagging.destroy_all
 Tag.destroy_all
 Map.destroy_all
 Card.destroy_all
@@ -22,14 +23,12 @@ jabba_tag = Tag.create!(world_id: star_wars.id, name: "jabba")
 luke_tag = Tag.create!(world_id: star_wars.id, name: "luke skywalker")
 leia_tag = Tag.create!(world_id: star_wars.id, name: "leia organa")
 han_tag = Tag.create!(world_id: star_wars.id, name: "han solo")
-map_tag = Tag.create!(world_id: star_wars.id, name: "map")
 character_tag = Tag.create!(world_id: star_wars.id, name: "character")
 event_tag = Tag.create!(world_id: star_wars.id, name: "event")
 
 
 map = Map.create!(image_url: "https://vignette.wikia.nocookie.net/battlefront/images/f/f9/Jabba%27s_Palace.PNG/revision/latest?cb=20110228035943", title: "Jabba's place", world_id: star_wars.id)
-# Tagging.create!(tag_id: jabba_tag.id, card_id: map.id)
-# Tagging.create!(tag_id: map_tag.id, card_id: map_card.id)
+MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
 
 
 jabba_content = "Jabba Desilijic Tiure, more commonly referred to as Jabba the Hutt or simply Jabba, and formally styled as His Excellency Jabba Desilijic Tiure of Nal Hutta, Eminence of Tatooine, was a Hutt gangster and crime lord, as well as a member of the Grand Hutt Council, who operated and led a criminal empire from his palace on the Outer Rim world of Tatooine. Jabba was a major figure on Tatooine, where he controlled the bulk of the trafficking in illegal goods, piracy and slavery that generated most of the planet's wealth. He was also highly influential in the entire Outer Rim as one of its most powerful crime lords."
