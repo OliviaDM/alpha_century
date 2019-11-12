@@ -19,6 +19,9 @@ user = User.create!(email: "user@email.com", password: "password", encrypted_pas
 
 star_wars = World.create!(name: "Star Wars", description: "In a Galaxy far far away...", user_id: user.id)
 
+my_little_pony = World.create!(name: "My Little Pony", description: "Friendship is Magic", user_id: user.id)
+
+
 jabba_tag = Tag.create!(world_id: star_wars.id, name: "jabba")
 luke_tag = Tag.create!(world_id: star_wars.id, name: "luke skywalker")
 leia_tag = Tag.create!(world_id: star_wars.id, name: "leia organa")

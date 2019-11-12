@@ -1,0 +1,14 @@
+<h1>Worlds</h1>
+
+<%= link_to "Add world", new_world_path %>
+
+<div class="cards">
+  <% @worlds.each do |world| %>
+    <div class="card">
+      <h5 class="card-title"><%= link_to world.name, world_cards_path(world_id: world.id) %></div>
+      <div class="card-text"><%= world.description %></div>
+      <%= link_to "Edit World description", edit_world_path(world.id)  %>
+      <%= link_to "Burn this world to cinders", world_path(world.id), method: :destroy %>
+    </div>
+  <% end %>
+</div>

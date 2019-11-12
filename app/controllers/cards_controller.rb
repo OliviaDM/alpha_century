@@ -2,11 +2,7 @@ class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:query].present?
-      @cards = Card.search_by_tags(params[:query])
-    else
-      @cards = Card.all
-    end
+    @cards = Card.where(world_id: params[:world_id])
   end
 
   def show
@@ -25,12 +21,11 @@ class CardsController < ApplicationController
 
   def edit
     @card = Card.find(params[:id])
+    @world = @card.world
   end
 
   def update
     @card.update(card_params)
-    raise
-    p "YIPEE"
     redirect_to card_path(@card.id)
     # p @card = Card.find(params[:id])
     # if @card.save
