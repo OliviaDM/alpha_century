@@ -22,7 +22,7 @@ class CardsController < ApplicationController
 
   def edit
     @card = Card.find(params[:id])
-    @tagging = Tag.new()
+    @tagging = Tagging.new()
   end
 
   def update

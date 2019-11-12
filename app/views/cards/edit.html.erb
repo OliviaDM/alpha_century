@@ -18,3 +18,10 @@
   <% end %>
 </div>
 
+<%= simple_form_for([@world, @card, @tagging]) do |f| %>
+  <%= simple_fields_for :other do |o| %>
+    <%= o.input :name, as: :string, label: 'tag' %>
+  <% end %>
+  <%= f.submit %>
+
+<% end %>
