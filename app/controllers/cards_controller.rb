@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :set_world, only: [:index, :show, :new, :edit, :update]
 
   def index
     @cards = Card.where(world_id: params[:world_id])
@@ -14,19 +15,19 @@ class CardsController < ApplicationController
 
   def create
     @card = Card.new(card_params)
-    @card.user_id = current_user.id
-    @card.is_map = false
+    @card.world_id = params[:world_id]
     @card.save
+    redirect_to world_cards_path(params[:world_id])
   end
 
   def edit
     @card = Card.find(params[:id])
-    @world = @card.world
+    @tagging = Tag.new()
   end
 
   def update
     @card.update(card_params)
-    redirect_to card_path(@card.id)
+    redirect_to world_cards_path(@world.id)
     # p @card = Card.find(params[:id])
     # if @card.save
     #   respond_to do |format|
@@ -42,12 +43,18 @@ class CardsController < ApplicationController
   end
 
   def destroy
+    @card.destroy
+    redirect_to world_cards_path(params[:world_id])
   end
 
   private
 
   def set_card
     @card = Card.find(params[:id])
+  end
+
+  def set_world
+    @world = World.find(params[:world_id])
   end
 
   def card_params

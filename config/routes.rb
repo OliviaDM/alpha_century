@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :worlds do
     resources :tags, only: [:create, :update]
-    resources :cards
+    resources :cards do
+      resources :taggings, only: [:create, :destroy]
+    end
     resources :maps
   end
 

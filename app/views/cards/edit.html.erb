@@ -8,12 +8,13 @@
 </form>
  -->
 
-<%= simple_form_for([@world, @card]) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+<%= render 'card_form', world: @world, card: @card %>
 
-  <%= f.trix_editor :content %>
-  <%= f.submit %>
-
-<% end %>
+<div class="text-muted">
+  <% @card.taggings.each do |tagging| %>
+    <div>
+      <%= "##{tagging.tag.name.gsub(" ", "_")}" %>
+    </div>
+  <% end %>
+</div>
 

@@ -1,2 +1,0 @@
-class TextFieldsController < ApplicationController
-end
