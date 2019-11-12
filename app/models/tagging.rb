@@ -3,5 +3,5 @@ class Tagging < ApplicationRecord
   belongs_to :card
 
   validates :tag, presence: true
-  validates :card, presence: true
+  validates :card, presence: true, uniqueness: { scope: :tag }
 end
