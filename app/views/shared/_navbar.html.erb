@@ -1,13 +1,22 @@
 <div class="topnav">
-  <%= link_to "Home", root_path, :class => "active" %>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
+  <%= link_to "Home", root_path %>
+  <%= link_to "About", about_path %>
+  <%= link_to "Contact", contact_path %>
   <div class="login-container">
     <% if user_signed_in? %>
-      <a href="#">Notes</a>
-      <a href="#">Timeline View</a>
-      <a href="#">Map View</a>
-      <a href="#">Project Title</a>
+      <% if controller.class.name == "CardsController" %>
+        <%= link_to "Notes", world_cards_path %>
+        <a href="#">Timeline View</a>
+        <a href="#">Map View</a>
+      <% end %>
+        <button type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Action
+        </button>
+        <div class="dropdown-menu">
+          <%= link_to "Profile", profile_path, :class => "dropdown-item" %>
+          <%= link_to "Worlds", worlds_path, :class => "dropdown-item" %>
+          <%= link_to "Log out", destroy_user_session_path, method: :delete, :class => "dropdown-item border-top" %>
+        </div>
     <% else %>
       <button type="button" data-toggle="modal" data-target="#login">
         Log In
