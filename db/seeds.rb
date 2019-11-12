@@ -17,9 +17,15 @@ User.destroy_all
 
 user = User.create!(email: "user@email.com", password: "password", encrypted_password: "password", username: "user")
 
+url = "https://cnet3.cbsistatic.com/img/fwX4_HgkOmrmdL3jfknt41h9YZU=/1092x0/2019/08/24/8656b6d6-57a9-48da-b00d-b83d2dd0c344/ecwe-nmu0aaqbms.jpg"
 star_wars = World.create!(name: "Star Wars", description: "In a Galaxy far far away...", user_id: user.id)
+star_wars.remote_photo_url = url
+star_wars.save
 
+url2 = "https://image.smythstoys.com/original/desktop/150739_4.jpg"
 my_little_pony = World.create!(name: "My Little Pony", description: "Friendship is Magic", user_id: user.id)
+my_little_pony.remote_photo_url = url2
+my_little_pony.save
 
 
 jabba_tag = Tag.create!(world_id: star_wars.id, name: "jabba")
