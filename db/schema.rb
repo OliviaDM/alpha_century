@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_085200) do
+ActiveRecord::Schema.define(version: 2019_11_12_090254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 2019_11_12_085200) do
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_coordinates_on_card_id"
     t.index ["map_id"], name: "index_coordinates_on_map_id"
+  end
+
+  create_table "map_taggings", force: :cascade do |t|
+    t.bigint "tag_id"
+    t.bigint "map_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_id"], name: "index_map_taggings_on_map_id"
+    t.index ["tag_id"], name: "index_map_taggings_on_tag_id"
   end
 
   create_table "maps", force: :cascade do |t|
@@ -97,6 +106,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_085200) do
   add_foreign_key "cards", "worlds"
   add_foreign_key "coordinates", "cards"
   add_foreign_key "coordinates", "maps"
+  add_foreign_key "map_taggings", "maps"
+  add_foreign_key "map_taggings", "tags"
   add_foreign_key "maps", "worlds"
   add_foreign_key "taggings", "cards"
   add_foreign_key "taggings", "tags"
