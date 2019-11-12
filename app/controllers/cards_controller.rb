@@ -14,8 +14,7 @@ class CardsController < ApplicationController
 
   def create
     @card = Card.new(card_params)
-    @card.user_id = current_user.id
-    @card.is_map = false
+    @card.world_id = params[:world_id]
     @card.save
   end
 
@@ -26,7 +25,7 @@ class CardsController < ApplicationController
 
   def update
     @card.update(card_params)
-    redirect_to card_path(@card.id)
+    redirect_to world_cards_path(world_id: @card.world.id)
     # p @card = Card.find(params[:id])
     # if @card.save
     #   respond_to do |format|

@@ -8,12 +8,5 @@
 </form>
  -->
 
-<%= simple_form_for([@world, @card]) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-
-  <%= f.trix_editor :content %>
-  <%= f.submit %>
-
-<% end %>
+<%= render 'card_form', world: @card.world, card: @card %>
 
