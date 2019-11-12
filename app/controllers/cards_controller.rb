@@ -3,6 +3,9 @@ class CardsController < ApplicationController
   before_action :set_world, only: [:index, :show, :new, :edit, :update]
 
   def index
+    if params[:query].present?
+      raise
+    end
     @cards = Card.where(world_id: params[:world_id])
   end
 

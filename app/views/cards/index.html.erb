@@ -3,6 +3,15 @@
 <%= link_to "New card", new_world_card_path(world_id: @world.id) %> <br>
 <%= link_to "Back to worlds", worlds_path %>
 
+<%= form_tag cards_path, method: :get do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Tags"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
 <div class="cards">
   <% @cards.each do |card| %>
     <div class="card">
