@@ -15,7 +15,7 @@ Card.destroy_all
 World.destroy_all
 User.destroy_all
 
-user = User.create!(email: "user@email.com", password: "password", encrypted_password: "password", username: "user")
+user = User.create!(email: "user@email.com", password: "password", username: "user")
 
 url = "https://cnet3.cbsistatic.com/img/fwX4_HgkOmrmdL3jfknt41h9YZU=/1092x0/2019/08/24/8656b6d6-57a9-48da-b00d-b83d2dd0c344/ecwe-nmu0aaqbms.jpg"
 star_wars = World.create!(name: "Star Wars", description: "In a Galaxy far far away...", user_id: user.id)
