@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'worlds/index'
+  get 'worlds/show'
+  get 'worlds/new'
+  get 'worlds/create'
+  get 'worlds/edit'
+  get 'worlds/update'
+  get 'worlds/destroy'
   # get 'cards/index'
   # get 'cards/show'
   # get 'cards/new'
