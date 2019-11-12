@@ -11,12 +11,16 @@ class WorldsController < ApplicationController
 
   def create
     @world = World.new(world_params)
+    @world.save
+    redirect_to worlds_path
   end
 
   def edit
   end
 
   def update
+    @world = World.update(world_params)
+    redirect_to worlds_path
   end
 
   def destroy
@@ -31,6 +35,6 @@ class WorldsController < ApplicationController
   end
 
   def world_params
-    params.require(:world).permit(:name, :description, :image)
+    params.require(:world).permit(:name, :description, :photo)
   end
 end
