@@ -1,2 +1,10 @@
-<h1>Worlds#index</h1>
-<p>Find me in app/views/worlds/index.html.erb</p>
+<h1>Worlds</h1>
+
+<div class="cards">
+  <% @worlds.each do |world| %>
+    <div class="card">
+      <h5 class="card-title"><%= world.name %></div>
+      <div class="card-text"><%= world.description %></div>
+    </div>
+  <% end %>
+</div>
