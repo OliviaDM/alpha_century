@@ -6,4 +6,6 @@ class World < ApplicationRecord
   validates :user, presence: true
   validates :name, presence: true, allow_blank: false
 
+  mount_uploader :photo, PhotoUploader
+
 end
