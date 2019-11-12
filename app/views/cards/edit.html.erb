@@ -1,6 +1,17 @@
 <h1>Cards#edit</h1>
 <p>Find me in app/views/cards/edit.html.erb</p>
-<form action=<%= "/cards/#{@card.id}" %>, method='PATCH'>
+
+<!-- <form action=<%= "/cards/#{@card.id}" %>, method='PATCH' data-remote="true">
   <input id="x" type="hidden" name="content">
   <trix-editor input="x"></trix-editor>
+  <input type="submit" id="save">
 </form>
+ -->
+
+<%= simple_form_for @card do |f| %>
+
+  <%= f.trix_editor :content %>
+  <%= f.submit %>
+
+<% end %>
+

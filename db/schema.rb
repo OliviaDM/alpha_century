@@ -10,27 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_11_134419) do
+ActiveRecord::Schema.define(version: 2019_11_12_085200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "card_fields", force: :cascade do |t|
-    t.bigint "card_id"
-    t.integer "order"
-    t.string "content_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_card_fields_on_card_id"
-  end
-
   create_table "cards", force: :cascade do |t|
     t.string "title"
-    t.bigint "user_id"
-    t.boolean "is_map"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_cards_on_user_id"
+    t.text "content"
+    t.bigint "world_id"
+    t.index ["world_id"], name: "index_cards_on_world_id"
   end
 
   create_table "coordinates", force: :cascade do |t|
@@ -44,29 +35,13 @@ ActiveRecord::Schema.define(version: 2019_11_11_134419) do
     t.index ["map_id"], name: "index_coordinates_on_map_id"
   end
 
-  create_table "image_fields", force: :cascade do |t|
-    t.bigint "card_field_id"
-    t.string "image_url"
-    t.string "image_title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["card_field_id"], name: "index_image_fields_on_card_field_id"
-  end
-
-  create_table "link_fields", force: :cascade do |t|
-    t.bigint "card_field_id"
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["card_field_id"], name: "index_link_fields_on_card_field_id"
-  end
-
   create_table "maps", force: :cascade do |t|
-    t.bigint "card_id"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_maps_on_card_id"
+    t.string "title"
+    t.bigint "world_id"
+    t.index ["world_id"], name: "index_maps_on_world_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -80,18 +55,10 @@ ActiveRecord::Schema.define(version: 2019_11_11_134419) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_tags_on_user_id"
-  end
-
-  create_table "text_fields", force: :cascade do |t|
-    t.bigint "card_field_id"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["card_field_id"], name: "index_text_fields_on_card_field_id"
+    t.bigint "world_id"
+    t.index ["world_id"], name: "index_tags_on_world_id"
   end
 
   create_table "timestamps", force: :cascade do |t|
@@ -117,17 +84,24 @@ ActiveRecord::Schema.define(version: 2019_11_11_134419) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "card_fields", "cards"
-  add_foreign_key "cards", "users"
+  create_table "worlds", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_worlds_on_user_id"
+  end
+
+  add_foreign_key "cards", "worlds"
   add_foreign_key "coordinates", "cards"
   add_foreign_key "coordinates", "maps"
-  add_foreign_key "image_fields", "card_fields"
-  add_foreign_key "link_fields", "card_fields"
-  add_foreign_key "maps", "cards"
+  add_foreign_key "maps", "worlds"
   add_foreign_key "taggings", "cards"
   add_foreign_key "taggings", "tags"
-  add_foreign_key "tags", "users"
-  add_foreign_key "text_fields", "card_fields"
+  add_foreign_key "tags", "worlds"
   add_foreign_key "timestamps", "cards"
   add_foreign_key "timestamps", "timestamps"
+  add_foreign_key "worlds", "users"
 end
