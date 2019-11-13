@@ -15,12 +15,14 @@
 <div class="cards">
   <% @cards.each do |card| %>
     <div class="card">
-      <h5 class="card-title"><%= card.title %></div>
-      <div class="card-text"><%= sanitize card.content %></div>
-      <div class="text-muted">
+      <h5><%= card.title %></h5>
+      <div class="card-text">
+        <p><%= sanitize card.content %></p>
+        <p class="text-muted">
         <% card.tags.each do |tag| %>
           <%= "##{tag.name.gsub(" ", "_")}" %>
         <% end %>
+        </p>
       </div>
       <%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %>
       <%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %>
