@@ -14,19 +14,29 @@
 
 <div class="cards">
   <% @cards.each do |card| %>
-    <div class="card">
+    <div class="card"
+         data-controller="read">
+
       <div class="card-body">
         <h5 class="card-header card-title"><%= card.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+        <% card.tags.each do |tag| %>
+          <%= "##{tag.name.gsub(" ", "_")}" %>
+        <% end %></h6>
           <% if (sanitize card.content).bytesize > 100 %>
-            <p class="card-text"><% sanitize card.content[0..100] %><span id="dots">...</span><span id="more"><% sanitize card.content[101..(sanitize card.content).bytesize] %></span></p>
-            <button onclick="readMore()" class="btn btn-primary" id="myBtn">Read more</button>
+
+            <p class="card-text"><%= sanitize card.content[0..160] %>
+              <span class="dots"
+                    data-target="read.dots">...</span>
+              <span class="more"
+                    data-target="read.more"><%= sanitize card.content[161..(sanitize card.content).bytesize] %></span>
+            </p>
+
+            <button class="btn btn-primary myBtn"
+                    data-action="click->read#readMore">Read more</button>
           <% else %>
             <p class="card-text"><%= sanitize card.content %></p>
           <% end %>
-        <p class="text-muted">
-        <% card.tags.each do |tag| %>
-          <%= "##{tag.name.gsub(" ", "_")}" %>
-        <% end %></p>
         <div class="card-link"><%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %></div>
         <div class="card-link"><%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %></div>
       </div>
