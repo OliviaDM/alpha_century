@@ -14,25 +14,29 @@
     <script type="text/javascript" src="trix.js"></script>
   </head>
   <body>
-    <%= render 'shared/navbar' %>
-    <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <footer class="footer">
-      <div class="links">
-        <a href="https://www.instagram.com/kittensofinstagram/?hl=fr" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com/KittenHappiness/" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/cats_delight" target="_blank"><i class="fab fa-twitter"></i></a>
-        <p class="pages">
-          <%= link_to "home", root_path %>
-          <span>-</span>
-          <%= link_to "about", about_path %>
-          <span>-</span>
-          <%= link_to "contact", contact_path %>
-        </p>
-        <p>coded with <i class="fas fa-heart"></i> at le wagon.</p>
+    <div id="page-container">
+      <%= render 'shared/navbar' %>
+      <div id="content-wrap">
+        <%= yield %>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
       </div>
-    </footer>
+      <footer class="footer" id="footer">
+        <div class="links">
+          <a href="https://www.instagram.com/kittensofinstagram/?hl=fr" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/KittenHappiness/" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://twitter.com/cats_delight" target="_blank"><i class="fab fa-twitter"></i></a>
+          <p class="pages">
+            <%= link_to "home", root_path %>
+            <span>-</span>
+            <%= link_to "about", about_path %>
+            <span>-</span>
+            <%= link_to "contact", contact_path %>
+          </p>
+          <p>coded with <i class="fas fa-heart"></i> at le wagon.</p>
+        </div>
+      </footer>
+    </div>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
   </body>
