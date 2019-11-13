@@ -17,7 +17,12 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-header card-title"><%= card.title %></h5>
-        <p class="card-text"><%= sanitize card.content %></p>
+          <% if (sanitize card.content).bytesize > 100 %>
+            <p class="card-text"><% sanitize card.content[0..100] %><span id="dots">...</span><span id="more"><% sanitize card.content[101..(sanitize card.content).bytesize] %></span></p>
+            <button onclick="readMore()" class="btn btn-primary" id="myBtn">Read more</button>
+          <% else %>
+            <p class="card-text"><%= sanitize card.content %></p>
+          <% end %>
         <p class="text-muted">
         <% card.tags.each do |tag| %>
           <%= "##{tag.name.gsub(" ", "_")}" %>
@@ -29,3 +34,6 @@
   <% end %>
 </div>
 
+<!--  if bytesize of content is >100 char
+        a = card.content[0..100]
+        b = card.content[101..a.bytesize] -->
