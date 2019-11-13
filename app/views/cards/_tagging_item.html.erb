@@ -1,4 +1,3 @@
-<% p "#{@world}HELLLOOO WORLD#{@card}" %>
 <div id=<%="tagging-#{tagging.id}"%>>
       <%= "##{tagging.tag.name.gsub(" ", "_")}" %>
       <%= link_to "X", world_card_tagging_path(world_id: @world.id, card_id: @card.id, id: tagging.id), method: :delete, remote: true %>

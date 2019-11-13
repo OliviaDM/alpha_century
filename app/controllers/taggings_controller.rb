@@ -1,6 +1,8 @@
 class TaggingsController < ApplicationController
 
   def create
+    @world = World.find(params[:world_id])
+    @card = Card.find(params[:card_id])
     tagname = params[:other][:name].strip.downcase
     tag = Tag.find_by(name: tagname)
     if tag

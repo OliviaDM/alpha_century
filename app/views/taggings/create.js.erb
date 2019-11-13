@@ -1,7 +1,15 @@
 var innerHTML = "<%= j render 'cards/tagging_item', world: @world, card: @card, tagging: @tagging %>"
+var test = "<%= j render 'cards/tag_form', world: @world, card: @card, tagging: Tagging.new %>"
 function addTag(innerHTML){
   const list = document.querySelector(".text-muted")
-  console.log(list)
-  list.appendChild(innerHTML)
+  list.insertAdjacentHTML('beforeend', innerHTML)
 };
-addTag(innerHTML)
+
+function refreshForm(test) {
+  var newTagForm = document.getElementById('tag_form_wrap');
+  newTagForm.innerHTML = test;
+};
+
+
+addTag(innerHTML);
+refreshForm(test);
