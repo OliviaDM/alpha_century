@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
+Timelink.destroy_all
 Tagging.destroy_all
 MapTagging.destroy_all
 Tag.destroy_all
@@ -73,4 +73,76 @@ Tagging.create!(tag_id: event_tag.id, card_id: event_card.id)
 Tagging.create!(tag_id: jabba_tag.id, card_id: event_card.id)
 Tagging.create!(tag_id: luke_tag.id, card_id: event_card.id)
 Tagging.create!(tag_id: leia_tag.id, card_id: event_card.id)
+
+
+
+test_event_tag = Tag.create!(world_id: star_wars.id, name: "wonky timeline")
+select_test_event_tag = Tag.create!(world_id: star_wars.id, name: "selected events")
+
+
+event0_card = Card.create!(world_id: star_wars.id, title: "Root", content: "Start!", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event0_card.id)
+
+
+event1a_card = Card.create!(world_id: star_wars.id, title: "first split left", content: "LEVEL 1", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event1a_card.id)
+
+event1b_card = Card.create!(world_id: star_wars.id, title: "first split right - LOOP START", content: "LEVEL 1", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event1b_card.id)
+
+
+event2a_card = Card.create!(world_id: star_wars.id, title: "leaf 1", content: "LEVEL 2", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event2a_card.id)
+
+event2b_card = Card.create!(world_id: star_wars.id, title: "shares a child with different branch", content: "LEVEL 2", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event2b_card.id)
+
+event2c_card = Card.create!(world_id: star_wars.id, title: "LOOP 2", content: "LEVEL 2", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event2c_card.id)
+
+
+event3a_card = Card.create!(world_id: star_wars.id, title: "leaf 2", content: "LEVEL 3", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event3a_card.id)
+
+event3b_card = Card.create!(world_id: star_wars.id, title: "LOOP 3", content: "LEVEL 3", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event3b_card.id)
+
+
+event4a_card = Card.create!(world_id: star_wars.id, title: "shares a child with different branch", content: "LEVEL 4", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event4a_card.id)
+
+event4b_card = Card.create!(world_id: star_wars.id, title: "leaf 3", content: "LEVEL 4", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event4b_card.id)
+
+event4c_card = Card.create!(world_id: star_wars.id, title: "LOOP 4", content: "LEVEL 4", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event4c_card.id)
+
+
+event5a_card = Card.create!(world_id: star_wars.id, title: "leaf 4", content: "LEVEL 5", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event5a_card.id)
+
+event5b_card = Card.create!(world_id: star_wars.id, title: "leaf 5", content: "LEVEL 5", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event5b_card.id)
+
+event5c_card = Card.create!(world_id: star_wars.id, title: "LOOP 5 - final", content: "LEVEL 5", is_event: true)
+Tagging.create!(tag_id: test_event_tag.id, card_id: event5c_card.id)
+
+
+Timelink.create!(parent_event: event0_card, child_event: event1a_card)
+Timelink.create!(parent_event: event0_card, child_event: event1b_card)
+
+Timelink.create!(parent_event: event1a_card, child_event: event2a_card)
+Timelink.create!(parent_event: event1a_card, child_event: event2b_card)
+Timelink.create!(parent_event: event1b_card, child_event: event2c_card)
+
+Timelink.create!(parent_event: event2b_card, child_event: event3a_card)
+Timelink.create!(parent_event: event2c_card, child_event: event3b_card)
+
+Timelink.create!(parent_event: event3b_card, child_event: event4a_card)
+Timelink.create!(parent_event: event3b_card, child_event: event4b_card)
+Timelink.create!(parent_event: event3b_card, child_event: event4c_card)
+
+Timelink.create!(parent_event: event4a_card, child_event: event5a_card)
+Timelink.create!(parent_event: event4a_card, child_event: event5b_card)
+Timelink.create!(parent_event: event4c_card, child_event: event5c_card)
 
