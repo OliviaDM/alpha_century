@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_101920) do
+ActiveRecord::Schema.define(version: 2019_11_13_125943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_101920) do
     t.datetime "updated_at", null: false
     t.text "content"
     t.bigint "world_id"
+    t.boolean "is_event"
     t.index ["world_id"], name: "index_cards_on_world_id"
   end
 
@@ -70,6 +71,15 @@ ActiveRecord::Schema.define(version: 2019_11_12_101920) do
     t.index ["world_id"], name: "index_tags_on_world_id"
   end
 
+  create_table "timelinks", force: :cascade do |t|
+    t.bigint "parent_event_id"
+    t.bigint "child_event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_event_id"], name: "index_timelinks_on_child_event_id"
+    t.index ["parent_event_id"], name: "index_timelinks_on_parent_event_id"
+  end
+
   create_table "timestamps", force: :cascade do |t|
     t.date "date"
     t.bigint "card_id"
@@ -112,6 +122,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_101920) do
   add_foreign_key "taggings", "cards"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tags", "worlds"
+  add_foreign_key "timelinks", "cards", column: "child_event_id"
+  add_foreign_key "timelinks", "cards", column: "parent_event_id"
   add_foreign_key "timestamps", "cards"
   add_foreign_key "timestamps", "timestamps"
   add_foreign_key "worlds", "users"

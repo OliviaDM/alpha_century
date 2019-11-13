@@ -67,7 +67,7 @@ Tagging.create!(tag_id: character_tag.id, card_id: han_card.id)
 event_content = "In 4 ABY, the rebel droids C-3PO and R2-D2 traveled to Jabba's Palace under Luke Skywalker's instructions as part of a mission to rescue Han Solo. Skywalker offered the droids as a gift in an attempt to secure the release of Solo, who was frozen in carbonite. As expected, Jabba refused and pressed the droids into his service. Later, Leia Organa arrived disguised as the bounty hunter Boushh with the captive Wookiee Chewbacca, Solo's co-pilot. She was joined by Lando Calrissian, who was disguised as one of Jabba's guards.[3]
 
 Leia managed to free Han from carbonite but was captured by Jabba. The following day, Skywalker arrived and reiterated his demand to free Solo and his friends. Jabba refused and threw Skywalker down the trapdoor to the rancor[3] Pateesa.[14] who also killed the Gamorrean guard Jubnuk. Skywalker managed to kill Pateesa by collapsing the dividing door on top of the rancor. Jabba attempted to feed Skywalker, Solo, and Chewbacca to the sarlacc at the Great Pit of Carkoon. However, the rebels escaped and killed Jabba and his henchmen, dealing a blow to his criminal empire.[3]"
-event_card = Card.create!(world_id: star_wars.id, title: "Rescuing Han Solo", content: event_content)
+event_card = Card.create!(world_id: star_wars.id, title: "Rescuing Han Solo", content: event_content, is_event: true)
 Tagging.create!(tag_id: han_tag.id, card_id: event_card.id)
 Tagging.create!(tag_id: event_tag.id, card_id: event_card.id)
 Tagging.create!(tag_id: jabba_tag.id, card_id: event_card.id)

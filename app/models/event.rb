@@ -1,0 +1,3 @@
+class Event < Card
+
+end
