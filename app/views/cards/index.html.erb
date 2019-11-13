@@ -22,16 +22,15 @@
         <% card.tags.each do |tag| %>
           <%= "##{tag.name.gsub(" ", "_")}" %>
         <% end %></h6>
-          <% if (sanitize card.content).bytesize > 160 %>
+          <% if (sanitize card.content).bytesize > 140 %>
 
-            <p class="card-text"><%= sanitize card.content[0..160] %>
+            <p class="card-text"><%= sanitize card.content[0..140] %>
               <span class="dots"
                     data-target="read.dots">...</span>
               <span class="more"
-                    data-target="read.more"><%= sanitize card.content[161..(sanitize card.content).bytesize] %></span>
+                    data-target="read.more"><%= sanitize card.content[141..(sanitize card.content).bytesize] %></span>
             </p>
-
-            <button class="btn btn-primary myBtn"
+            <button class="btn btn-link myBtn"
                     data-action="click->read#readMore">Read more</button>
           <% else %>
             <p class="card-text"><%= sanitize card.content %></p>
