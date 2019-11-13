@@ -15,7 +15,7 @@ class Card < ApplicationRecord
                     tags: [:name]
                   }
 
-  def tag_search(tag_array)
+  def self.tag_search(tag_array)
     cards = Card.all
     tag_array.each do |tag|
       sub_cards = Card.search_by_tags(tag)
