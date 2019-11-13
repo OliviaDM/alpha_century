@@ -1,8 +1,4 @@
 <h1>Timeline#index</h1>
 <p>Find me in app/views/timeline/index.html.erb</p>
 
-<% @events.each do |ev| %>
-  <%= ev %>
-<% end %>
-
-<div id="timeline"  data-string='<%= { id: 1, name: 'helllo'}.to_json %>'> </div>
+<div id="timeline"  data-string='<%= @hash %>'> </div>
