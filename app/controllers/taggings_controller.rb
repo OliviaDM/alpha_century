@@ -8,17 +8,18 @@ class TaggingsController < ApplicationController
     if tag
       @tagging = Tagging.new(tag_id: tag.id, card_id: params[:card_id])
       @tagging.save
-      respond_to do |format|
-        format.html { redirect_to edit_world_card_path(world_id: params[:world_id], id: params[:card_id]) }
-        format.js
-      end
-    else
+
+    elsif !tagname.blank?
       tag = Tag.create!(world_id: params[:world_id], name: tagname)
       @tagging = Tagging.create!(tag_id: tag.id, card_id: params[:card_id])
-      respond_to do |format|
-        format.html { redirect_to edit_world_card_path(world_id: params[:world_id], id: params[:card_id]) }
-        format.js
-      end
+
+    end
+
+    @tagging = Tagging.create!(tag_id: params[:tagging][:tag_id], card_id: params[:card_id]) if params[:tagging].present? && params[:tagging][:tag_id].present?
+
+    respond_to do |format|
+      format.html { redirect_to edit_world_card_path(world_id: params[:world_id], id: params[:card_id]) }
+      format.js
     end
   end
 

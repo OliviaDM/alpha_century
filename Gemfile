@@ -20,7 +20,6 @@ gem 'devise'
 gem 'pg_search', '~> 2.3.0'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
-
 group :development do
   gem 'web-console', '>= 3.3.0'
 end
