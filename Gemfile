@@ -12,8 +12,14 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'sassc-rails'
 gem 'simple_form'
+gem 'trix-rails', require: 'trix'
 gem 'uglifier'
 gem 'webpacker'
+
+gem 'devise'
+gem 'pg_search', '~> 2.3.0'
+gem 'cloudinary', '~> 1.9.1'
+gem 'carrierwave', '~> 1.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

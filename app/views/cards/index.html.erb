@@ -1,0 +1,30 @@
+<h1>Cards#index</h1>
+
+<%= link_to "New card", new_world_card_path(world_id: @world.id) %> <br>
+<%= link_to "Back to worlds", worlds_path %>
+
+<%= form_tag world_cards_path, method: :get do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Seperate tags by commas"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+<div class="cards">
+  <% @cards.each do |card| %>
+    <div class="card">
+      <h5 class="card-title"><%= card.title %></div>
+      <div class="card-text"><%= sanitize card.content %></div>
+      <div class="text-muted">
+        <% card.tags.each do |tag| %>
+          <%= "##{tag.name.gsub(" ", "_")}" %>
+        <% end %>
+      </div>
+      <%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %>
+      <%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %>
+    </div>
+  <% end %>
+</div>
+
