@@ -7,16 +7,17 @@
 }
 
 .card {
-  overflow: hidden;
+  overflow: auto;
   background: white;
-  height: 400px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   border: 2px solid #311A75;
-  padding: .4rem;
+  padding: 0px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .more {
   display: none;
 }
+

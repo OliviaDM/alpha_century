@@ -24,8 +24,8 @@ export default class extends Controller {
       dots.style.display = "none";
       myBtn.innerHTML = "Read less";
       more.style.display = "inline";
+      // card.style.width = 100%
     }
-
 
   }
 }
