@@ -24,5 +24,9 @@ class Card < ApplicationRecord
     cards
   end
 
+  def self.events_tag_search(tag_array)
+    Card.where(is_event: true) & Card.tag_search(tag_array)
+  end
+
 
 end

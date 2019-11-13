@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :maps
   end
 
-  get 'timelines/index'
+  get 'timelines/index', to: 'timelines#index'
   devise_for :users
   root to: 'pages#home'
   get 'profile', to: 'pages#profile'
