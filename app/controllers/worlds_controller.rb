@@ -11,15 +11,19 @@ class WorldsController < ApplicationController
 
   def create
     @world = World.new(world_params)
-    @world.save
-    redirect_to worlds_path
+    @world.user_id = current_user.id
+    if @world.save
+      redirect_to world_cards_path(world_id: @world.id)
+    else
+      redirect_to new_world_path
+    end
   end
 
   def edit
   end
 
   def update
-    @world = World.update(world_params)
+    @world.update(world_params)
     redirect_to worlds_path
   end
 

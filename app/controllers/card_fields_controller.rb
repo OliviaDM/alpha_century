@@ -1,2 +1,0 @@
-class CardFieldsController < ApplicationController
-end
