@@ -12,17 +12,9 @@
 
 <div class="text-muted">
   <% @card.taggings.each do |tagging| %>
-    <div>
-      <%= "##{tagging.tag.name.gsub(" ", "_")}" %>
-      <%= link_to "X", world_card_tagging_path(world_id: @world.id, card_id: @card.id, id: tagging.id), method: :delete %>
-    </div>
+    <%= render 'tagging_item', tagging: tagging %>
   <% end %>
 </div>
-
-<%= simple_form_for([@world, @card, @tagging]) do |f| %>
-  <%= simple_fields_for :other do |o| %>
-    <%= o.input :name, as: :string, label: 'tag' %>
-  <% end %>
-  <%= f.submit %>
-
-<% end %>
+<div id="tag_form_wrap">
+<%= render 'tag_form', world: @world, card: @card, tagging: @tagging %>
+</div>

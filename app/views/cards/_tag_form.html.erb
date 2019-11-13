@@ -1,0 +1,14 @@
+<%= simple_form_for([world, card, tagging], remote: true) do |f| %>
+  <div id="search-tag-form">
+    <%= f.association :tag, label_method: :name %>
+  </div>
+  <button id="button-add-new-tag">Create tag</button>
+  <div id="add-tag-form" class="hide-div" >
+    <%= simple_fields_for :other do |o| %>
+      <%= o.input :name, as: :string, label: 'tag'%>
+   <% end %>
+  <button id="button-search-new-tag" class="hide-div">Return</button>
+  </div>
+  <%= f.submit value="Add tag" %>
+
+<% end %>

@@ -1,0 +1,23 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 32px;
+  margin: 48px;
+  grid-auto-rows: auto;
+}
+
+.card {
+  overflow: auto;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border: 2px solid #311A75;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.more {
+  display: none;
+}
+
