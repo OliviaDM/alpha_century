@@ -15,8 +15,10 @@
 
 // Page format
 #page-container {
-  position: relative;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #content-wrap {
@@ -24,7 +26,6 @@
 }
 
 #footer {
-  position: absolute;
   bottom: 0;
   width: 100%;            /* Footer height */
 }
