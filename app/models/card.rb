@@ -13,8 +13,16 @@ class Card < ApplicationRecord
   pg_search_scope :search_by_tags,
                   associated_against: {
                     tags: [:name]
-                  },
-                  using: {
-                    tsearch: { prefix: true }
                   }
+
+  def self.tag_search(tag_array)
+    cards = Card.all
+    tag_array.each do |tag|
+      sub_cards = Card.search_by_tags(tag)
+      cards = cards & sub_cards
+    end
+    cards
+  end
+
+
 end

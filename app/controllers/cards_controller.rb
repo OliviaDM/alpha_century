@@ -4,6 +4,11 @@ class CardsController < ApplicationController
 
   def index
     @cards = Card.where(world_id: params[:world_id])
+    if params[:query].present?
+      tags = params[:query].split(',')
+      tags.map! { |tag| tag.strip }
+      @cards = Card.tag_search(tags)
+    end
   end
 
   def show
