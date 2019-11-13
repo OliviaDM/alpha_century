@@ -1,0 +1,7 @@
+var innerHTML = "<%= j render 'cards/tagging_item', world: @world, card: @card, tagging: @tagging %>"
+function addTag(innerHTML){
+  const list = document.querySelector(".text-muted")
+  console.log(list)
+  list.appendChild(innerHTML)
+};
+addTag(innerHTML)
