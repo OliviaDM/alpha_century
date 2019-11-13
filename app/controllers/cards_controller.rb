@@ -3,12 +3,12 @@ class CardsController < ApplicationController
   before_action :set_world, only: [:index, :show, :new, :edit, :update]
 
   def index
+    @cards = Card.where(world_id: params[:world_id])
     if params[:query].present?
       tags = params[:query].split(',')
       tags.map! { |tag| tag.strip }
-      raise
+      @cards = Card.tag_search(tags)
     end
-    @cards = Card.where(world_id: params[:world_id])
   end
 
   def show
