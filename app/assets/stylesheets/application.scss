@@ -13,6 +13,23 @@
 @import "pages/index";
 @import "trix";
 
+
 .hide-div{
   display: none;
+
+// Page format
+#page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+  bottom: 0;
+  width: 100%;            /* Footer height */
 }
