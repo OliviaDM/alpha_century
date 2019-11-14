@@ -1,11 +1,12 @@
-.banner {
+.banner-world {
   font-family: 'Raleway', sans-serif;
   background-size: cover;
   background-position: center;
-  padding: 100px 0px 320px 0px ;
+  padding: 80px 0px 240px 0px ;
+  position: relative;
 }
 
-.banner h1 {
+.banner-world h1 {
   font-family: 'Orbitron', sans-serif;
   margin: 0;
   color: white;
@@ -14,9 +15,29 @@
   font-weight: bold;
 }
 
-.banner p {
+.banner-world p {
   font-size: 16px;
   color: white;
   opacity: .7;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  max-height: 176px;
+}
+
+.banner-world .myBtn{
+  color: #46E5E5;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.banner-world .myBtn:hover {
+  color: #DA42D9;
+}
+
+#read_more_btn {
+  margin-top: -24px;
+  margin-bottom: 10px;
+}
+
+.world-link {
+  position: absolute;
+  bottom: 24px;
 }
