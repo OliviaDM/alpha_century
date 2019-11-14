@@ -35,8 +35,10 @@ han_tag = Tag.create!(world_id: star_wars.id, name: "han solo")
 character_tag = Tag.create!(world_id: star_wars.id, name: "character")
 event_tag = Tag.create!(world_id: star_wars.id, name: "event")
 
-
-map = Map.create!(image_url: "https://vignette.wikia.nocookie.net/battlefront/images/f/f9/Jabba%27s_Palace.PNG/revision/latest?cb=20110228035943", title: "Jabba's place", world_id: star_wars.id)
+url3 = "https://vignette.wikia.nocookie.net/battlefront/images/f/f9/Jabba%27s_Palace.PNG/revision/latest?cb=20110228035943"
+map = Map.new(title: "Jabba's place", world_id: star_wars.id)
+map.remote_photo_url = url3
+map.save
 MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
 
 
