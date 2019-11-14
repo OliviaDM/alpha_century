@@ -35,8 +35,10 @@ han_tag = Tag.create!(world_id: star_wars.id, name: "han solo")
 character_tag = Tag.create!(world_id: star_wars.id, name: "character")
 event_tag = Tag.create!(world_id: star_wars.id, name: "event")
 
-
-map = Map.create!(image_url: "https://vignette.wikia.nocookie.net/battlefront/images/f/f9/Jabba%27s_Palace.PNG/revision/latest?cb=20110228035943", title: "Jabba's place", world_id: star_wars.id)
+url3 = "https://vignette.wikia.nocookie.net/battlefront/images/f/f9/Jabba%27s_Palace.PNG/revision/latest?cb=20110228035943"
+map = Map.new(title: "Jabba's place", world_id: star_wars.id)
+map.remote_photo_url = url3
+map.save
 MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
 
 
@@ -80,57 +82,57 @@ test_event_tag = Tag.create!(world_id: star_wars.id, name: "wonky timeline")
 select_event_tag = Tag.create!(world_id: star_wars.id, name: "selected events")
 
 
-event0_card = Card.create!(world_id: star_wars.id, title: "Root", content: "Start!", is_event: true)
+event0_card = Card.create!(world_id: star_wars.id, title: "Action start!", content: "Start!", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event0_card.id)
 
 
-event1a_card = Card.create!(world_id: star_wars.id, title: "first split left", content: "LEVEL 1", is_event: true)
+event1a_card = Card.create!(world_id: star_wars.id, title: "first fork: choice 1", content: "LEVEL 1", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event1a_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event1a_card.id)
 
-event1b_card = Card.create!(world_id: star_wars.id, title: "first split right - LOOP START", content: "LEVEL 1", is_event: true)
+event1b_card = Card.create!(world_id: star_wars.id, title: "first fork: choice 2 - LOOP START", content: "LEVEL 1", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event1b_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event1b_card.id)
 
 
-event2a_card = Card.create!(world_id: star_wars.id, title: "leaf 1", content: "LEVEL 2", is_event: true)
+event2a_card = Card.create!(world_id: star_wars.id, title: "ending 1", content: "LEVEL 2", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event2a_card.id)
 
-event2b_card = Card.create!(world_id: star_wars.id, title: "shares a child with different branch", content: "LEVEL 2", is_event: true)
+event2b_card = Card.create!(world_id: star_wars.id, title: "the adventure continues", content: "LEVEL 2", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event2b_card.id)
 
-event2c_card = Card.create!(world_id: star_wars.id, title: "LOOP 2", content: "LEVEL 2", is_event: true)
+event2c_card = Card.create!(world_id: star_wars.id, title: "WHOOO LOOPING", content: "LEVEL 2", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event2c_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event2c_card.id)
 
 
-event3a_card = Card.create!(world_id: star_wars.id, title: "leaf 2", content: "LEVEL 3", is_event: true)
+event3a_card = Card.create!(world_id: star_wars.id, title: "ending 2", content: "LEVEL 3", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event3a_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event3a_card.id)
 
-event3b_card = Card.create!(world_id: star_wars.id, title: "LOOP 3", content: "LEVEL 3", is_event: true)
+event3b_card = Card.create!(world_id: star_wars.id, title: "MORE LOOPING", content: "LEVEL 3", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event3b_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event3b_card.id)
 
 
-event4a_card = Card.create!(world_id: star_wars.id, title: "shares a child with different branch", content: "LEVEL 4", is_event: true)
+event4a_card = Card.create!(world_id: star_wars.id, title: "and on and on", content: "LEVEL 4", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event4a_card.id)
 
-event4b_card = Card.create!(world_id: star_wars.id, title: "leaf 3", content: "LEVEL 4", is_event: true)
+event4b_card = Card.create!(world_id: star_wars.id, title: "ending 3", content: "LEVEL 4", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event4b_card.id)
 
-event4c_card = Card.create!(world_id: star_wars.id, title: "LOOP 4", content: "LEVEL 4", is_event: true)
+event4c_card = Card.create!(world_id: star_wars.id, title: "STILL LOOPING", content: "LEVEL 4", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event4c_card.id)
 
 
-event5a_card = Card.create!(world_id: star_wars.id, title: "leaf 4", content: "LEVEL 5", is_event: true)
+event5a_card = Card.create!(world_id: star_wars.id, title: "ending 4", content: "LEVEL 5", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event5a_card.id)
 Tagging.create!(tag_id: select_event_tag.id, card_id: event5a_card.id)
 
-event5b_card = Card.create!(world_id: star_wars.id, title: "leaf 5", content: "LEVEL 5", is_event: true)
+event5b_card = Card.create!(world_id: star_wars.id, title: "ending 5", content: "LEVEL 5", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event5b_card.id)
 
-event5c_card = Card.create!(world_id: star_wars.id, title: "LOOP 5 - final", content: "LEVEL 5", is_event: true)
+event5c_card = Card.create!(world_id: star_wars.id, title: "AND ANOTHER EVENT OF... LOOPING!", content: "LEVEL 5", is_event: true)
 Tagging.create!(tag_id: test_event_tag.id, card_id: event5c_card.id)
 
 
