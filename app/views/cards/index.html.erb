@@ -2,17 +2,16 @@
 
 <%= link_to "New card", new_world_card_path(world_id: @world.id) %> <br>
 <%= link_to "Back to worlds", worlds_path %>
+<% array_of_tag = @tags.to_json %>
 
-<%= form_tag world_cards_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Seperate tags by commas"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
-<select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 200px">
-</select>
+<form id="search_bar" action="" name="query" method="get" data-tags='<%= array_of_tag%>'>
+  <div>
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
+    </select>
+  </div>
+  <input type="submit">
+</form>
+
 
 
 <div class="cards">

@@ -3,6 +3,7 @@ import "./tag_click";
 import $ from 'jquery';
 import 'select2';
 
+
 import { draw_graph } from '../timeline_graph'
 
 if (document.querySelector('#timeline')) {
@@ -16,10 +17,11 @@ const application = Application.start();
 const context = require.context("../controllers", true, /\.js$/);
 application.load(definitionsFromContext(context));
 
-const cities = ["Amsterdam","Bali","Barcelona","Belo Horizonte","Berlin","Bordeaux","Brussels","Buenos Aires","Casablanca","Chengdu","Copenhagen","Kyoto","Lausanne","Lille","Lisbon","London","Lyon","Madrid","Marseille","Melbourne","Mexico","Milan","Montréal","Nantes","Oslo","Paris","Rio de Janeiro","Rennes","Rome","São Paulo","Seoul","Shanghai","Shenzhen","Singapore","Stockholm","Tel Aviv","Tokyo"];
+
+let cities = document.querySelector("#search_bar").getAttribute("data-tags")
+let parse_search_data = JSON.parse(cities).tag
 
 $(document).ready(function() {
-    $('.js-example-basic-multiple').select2({ data: cities });
+    $('.js-example-basic-multiple').select2({data: parse_search_data});
 });
-
 
