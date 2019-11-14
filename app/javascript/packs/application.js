@@ -1,4 +1,5 @@
 import "bootstrap";
+import "./tag_click";
 
 import { draw_graph } from '../timeline_graph'
 
@@ -12,4 +13,5 @@ import { definitionsFromContext } from "stimulus/webpack-helpers";
 const application = Application.start();
 const context = require.context("../controllers", true, /\.js$/);
 application.load(definitionsFromContext(context));
+
 
