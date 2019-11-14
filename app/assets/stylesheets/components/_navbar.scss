@@ -5,6 +5,9 @@
   height: 53px;
   background-color: #311A75;
   font-family: 'Orbitron', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 5000;
 }
 
 // .topnav .login-container .dropdown .dropdown-toggle {

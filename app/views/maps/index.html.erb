@@ -1,0 +1,13 @@
+<%= link_to "Add map", new_world_map_path(world_id: @world) %>
+
+<select name="map-select" id="map-select">
+  <option value=-1>Select a map</option>
+  <% @map_hash[:maps].each do |map| %>
+    <option value=<%= map["id"] %>><%= map["title"] %></option>
+  <% end %>
+
+</select>
+
+<div id="map" data-hash='<%=@map_hash.to_json%>'>
+
+</div>

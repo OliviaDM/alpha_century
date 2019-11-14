@@ -5,9 +5,14 @@ import 'select2';
 
 
 import { draw_graph } from '../timeline_graph'
+import { map_display } from '../map_display'
 
 if (document.querySelector('#timeline')) {
   draw_graph();
+}
+
+if (document.querySelector('#map-select')) {
+  map_display();
 }
 
 import { Application } from "stimulus";
@@ -24,4 +29,8 @@ let parse_search_data = JSON.parse(cities).tag
 $(document).ready(function() {
     $('.js-example-basic-multiple').select2({data: parse_search_data});
 });
+
+import { TxtType } from '../typewriter.js'
+
+
 

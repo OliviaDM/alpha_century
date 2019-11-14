@@ -9,8 +9,8 @@
       <% if user_signed_in? %>
         <% if controller.class.name == "CardsController" %>
           <%= link_to "notes", world_cards_path %>
-          <a href="#">timeline view</a>
-          <a href="#">map view</a>
+          <%= link_to "timeline view", world_timelines_path %>
+          <%= link_to "map view", world_maps_path %>
         <% end %>
           <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="https://www.dejohnpetservices.com/wp-content/uploads/cats-animals-kittens-background.jpg" alt="cute af kitten" class="avatar-bordered">
