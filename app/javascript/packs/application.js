@@ -5,7 +5,7 @@ import { draw_graph } from '../timeline_graph'
 import { map_display } from '../map_display'
 
 if (document.querySelector('#timeline')) {
-  drawgraph();
+  draw_graph();
 }
 
 if (document.querySelector('#map-select')) {
