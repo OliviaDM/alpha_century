@@ -1,49 +1,69 @@
-<h1>Cards#index</h1>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 20vh;">
+  <div class="container", data-controller="read">
+    <h1><%= sanitize @world.name %></h1>
+    <% if (sanitize @world.description).bytesize > 140 %>
+      <p><%= sanitize @world.description[0..140] %>
+        <span class="dots"
+            data-target="read.dots">...</span>
+        <span class="more"
+            data-target="read.more"><%= sanitize @world.description[141..(sanitize @world.description).bytesize] %></span>
+      </p>
+        <button class="btn btn-link myBtn"
+                data-action="click->read#readMore">Read more</button>
+    <% else %>
+      <p><%= sanitize @world.description %></p>
+    <% end %>
 
-<%= link_to "New card", new_world_card_path(world_id: @world.id) %> <br>
-<%= link_to "Back to worlds", worlds_path %>
+    <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
+    <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
+  </div>
+</div>
 
-<%= form_tag world_cards_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Seperate tags by commas"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
+<div class="container">
 
-<div class="cards">
-  <% @cards.each do |card| %>
-    <div class="card"
-         data-controller="read">
-      <h5 class="card-header card-title"><%= card.title %></h5>
-      <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted">
-        <% card.tags.each do |tag| %>
-          <%= "##{tag.name.gsub(" ", "_")}" %>
-        <% end %></h6>
-          <% if (sanitize card.content).bytesize > 140 %>
-
-            <p class="card-text"><%= sanitize card.content[0..140] %>
-              <span class="dots"
-                    data-target="read.dots">...</span>
-              <span class="more"
-                    data-target="read.more"><%= sanitize card.content[141..(sanitize card.content).bytesize] %></span>
-            </p>
-            <button class="btn btn-link myBtn"
-                    data-action="click->read#readMore">Read more</button>
-          <% else %>
-            <p class="card-text"><%= sanitize card.content %></p>
-          <% end %>
-      </div>
-      <div class="card-footer">
-        <ul class="list-inline">
-          <li class= "card-link list-inline-item"><%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %></li>
-          <li class="card-link list-inline-item"><%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %></li>
-        </ul>
-      </div>
-    </div>
+  <%= form_tag world_cards_path, method: :get do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "form-control",
+      placeholder: "Seperate tags by commas"
+    %>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
   <% end %>
+
+  <div class="cards">
+    <% @cards.each do |card| %>
+      <div class="card"
+           data-controller="read">
+        <h5 class="card-header card-title"><%= card.title %></h5>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+          <% card.tags.each do |tag| %>
+            <%= "##{tag.name.gsub(" ", "_")}" %>
+          <% end %></h6>
+            <% if (sanitize card.content).bytesize > 140 %>
+
+              <p class="card-text"><%= sanitize card.content[0..140] %>
+                <span class="dots"
+                      data-target="read.dots">...</span>
+                <span class="more"
+                      data-target="read.more"><%= sanitize card.content[141..(sanitize card.content).bytesize] %></span>
+              </p>
+              <button class="btn btn-link myBtn"
+                      data-action="click->read#readMore">Read more</button>
+            <% else %>
+              <p class="card-text"><%= sanitize card.content %></p>
+            <% end %>
+        </div>
+        <div class="card-footer">
+          <ul class="list-inline">
+            <li class= "card-link list-inline-item"><%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %></li>
+            <li class="card-link list-inline-item"><%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
 </div>
 
 <!--  if bytesize of content is >100 char
