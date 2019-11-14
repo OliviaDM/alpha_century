@@ -30,17 +30,6 @@
 </form>
 
 <div class="container">
-
-
-  <%= form_tag world_cards_path, method: :get do %>
-    <%= text_field_tag :query,
-      params[:query],
-      class: "form-control",
-      placeholder: "Seperate tags by commas"
-    %>
-    <%= submit_tag "Search", class: "btn btn-primary" %>
-  <% end %>
-
   <div class="cards">
     <% @cards.each do |card| %>
       <div class="card"
