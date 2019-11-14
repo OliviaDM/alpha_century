@@ -5,9 +5,8 @@ class CardsController < ApplicationController
   def index
     @world = World.find(params[:world_id])
     @cards = Card.where(world_id: params[:world_id])
-    if params[:query].present?
-      tags = params[:query].split(',')
-      tags.map! { |tag| tag.strip }
+    if params[:states].present?
+      tags = params[:states]
       @cards = Card.tag_search(tags)
     end
     @tags = {tag: @world.tags.map { |e| e.name }}

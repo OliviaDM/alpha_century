@@ -4,7 +4,7 @@
 <%= link_to "Back to worlds", worlds_path %>
 <% array_of_tag = @tags.to_json %>
 
-<form id="search_bar" action="" name="query" method="get" data-tags='<%= array_of_tag%>'>
+<form id="search_bar" action='<%="/worlds/#{@world.id}/cards"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
   <div>
     <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
     </select>
