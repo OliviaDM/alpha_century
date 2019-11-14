@@ -1,4 +1,4 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
+<div class="banner-world" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
   <div class="container", data-controller="read">
     <h1><%= sanitize @world.name %></h1>
     <% if (sanitize @world.description).bytesize > 140 %>
@@ -14,11 +14,9 @@
       <p><%= sanitize @world.description %></p>
     <% end %>
     <div class="world-link">
-      <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
+      <%= link_to "Edit World", edit_world_path(@world.id), class: "btn btn-primary"  %>
       <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
     </div>
-    <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
-    <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
   </div>
 </div>
 <% array_of_tag = @tags.to_json %>
@@ -33,6 +31,7 @@
 
 <div class="container">
   <div class="cards">
+    <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
     <% @cards.each do |card| %>
       <div class="card"
            data-controller="read">
