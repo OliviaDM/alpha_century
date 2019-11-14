@@ -7,7 +7,7 @@
     <%= link_to "contact", contact_path %>
     <div class="login-container">
       <% if user_signed_in? %>
-        <% if controller.class.name == "CardsController" %>
+        <% if controller.class.name == "CardsController" or controller.class.name == "MapsController" or controller.class.name == "TimelinesController" %>
           <%= link_to "notes", world_cards_path %>
           <%= link_to "timeline view", world_timelines_path %>
           <%= link_to "map view", world_maps_path %>
