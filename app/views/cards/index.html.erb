@@ -1,4 +1,4 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 20vh;">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
   <div class="container", data-controller="read">
     <h1><%= sanitize @world.name %></h1>
     <% if (sanitize @world.description).bytesize > 140 %>
