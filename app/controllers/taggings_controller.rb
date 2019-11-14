@@ -1,5 +1,4 @@
 class TaggingsController < ApplicationController
-
   def create
     @world = World.find(params[:world_id])
     @card = Card.find(params[:card_id])
