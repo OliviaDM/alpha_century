@@ -1,4 +1,4 @@
-
+//import * as d3 from "d3";
 function draw_graph() {
 
       let dataset = JSON.parse(document.querySelector('#timeline').dataset.string);
