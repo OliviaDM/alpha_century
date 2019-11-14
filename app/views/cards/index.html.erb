@@ -40,13 +40,13 @@
           <% card.tags.each do |tag| %>
             <%= "##{tag.name.gsub(" ", "_")}" %>
           <% end %></h6>
-            <% if (sanitize card.content).bytesize > 140 %>
+            <% if (sanitize card.content).bytesize > 240 %>
 
-              <p class="card-text"><%= sanitize card.content[0..140] %>
+              <p class="card-text"><%= sanitize card.content[0..240] %>
                 <span class="dots"
                       data-target="read.dots">...</span>
                 <span class="more"
-                      data-target="read.more"><%= sanitize card.content[141..(sanitize card.content).bytesize] %></span>
+                      data-target="read.more"><%= sanitize card.content[241..(sanitize card.content).bytesize] %></span>
               </p>
               <button class="btn btn-link myBtn"
                       data-action="click->read#readMore">Read more</button>
@@ -55,10 +55,8 @@
             <% end %>
         </div>
         <div class="card-footer">
-          <ul class="list-inline">
-            <li class= "card-link list-inline-item"><%= link_to "Edit card", edit_world_card_path(world_id: card.world.id, id: card.id)  %></li>
-            <li class="card-link list-inline-item"><%= link_to "Burn this card to cinders", world_card_path(world_id: card.world.id, id: card.id), method: :delete %></li>
-          </ul>
+          <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
+          <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
         </div>
       </div>
     <% end %>
