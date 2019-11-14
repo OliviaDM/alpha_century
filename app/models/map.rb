@@ -3,6 +3,8 @@ class Map < ApplicationRecord
   belongs_to :world
   has_one :user, through: :world
 
-  validates :image_url, presence: true
+  validates :photo, presence: true
   validates :world, presence: true
+
+  mount_uploader :photo, PhotoUploader
 end

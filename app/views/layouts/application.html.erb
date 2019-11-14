@@ -9,12 +9,9 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
-    <link rel="stylesheet" type="text/css" href="trix.css">
-    <script type="text/javascript" src="trix.js"></script>
-    <script type="text/javascript" src="https://mbostock.github.com/d3/d3.js?2.6.0"></script>
-    <script type="text/javascript" src="https://mbostock.github.com/d3/d3.layout.js?2.6.0"></script>
-    <script type="text/javascript" src="https://mbostock.github.com/d3/d3.geom.js?2.6.0"></script>
+    <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
   </head>
   <body>
     <div id="page-container">
@@ -29,13 +26,6 @@
           <a href="https://www.instagram.com/kittensofinstagram/?hl=fr" target="_blank"><i class="fab fa-instagram"></i></a>
           <a href="https://www.facebook.com/KittenHappiness/" target="_blank"><i class="fab fa-facebook"></i></a>
           <a href="https://twitter.com/cats_delight" target="_blank"><i class="fab fa-twitter"></i></a>
-          <p class="pages">
-            <%= link_to "home", root_path %>
-            <span>-</span>
-            <%= link_to "about", about_path %>
-            <span>-</span>
-            <%= link_to "contact", contact_path %>
-          </p>
           <p>coded with <i class="fas fa-heart"></i> at le wagon.</p>
         </div>
       </footer>

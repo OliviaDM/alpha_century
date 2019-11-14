@@ -5,9 +5,9 @@ Rails.application.routes.draw do
       resources :taggings, only: [:create, :destroy]
     end
     resources :maps
+    resources :timelines, only: [:index]
   end
 
-  get 'timelines/index', to: 'timelines#index'
   devise_for :users
   root to: 'pages#home'
   get 'profile', to: 'pages#profile'
