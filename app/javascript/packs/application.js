@@ -5,7 +5,7 @@ import { draw_graph } from '../timeline_graph'
 import { map_display } from '../map_display'
 
 if (document.querySelector('#timeline')) {
-  draw_graph();
+  drawgraph();
 }
 
 if (document.querySelector('#map-select')) {
@@ -18,5 +18,8 @@ import { definitionsFromContext } from "stimulus/webpack-helpers";
 const application = Application.start();
 const context = require.context("../controllers", true, /\.js$/);
 application.load(definitionsFromContext(context));
+
+
+import { TxtType } from '../typewriter.js'
 
 
