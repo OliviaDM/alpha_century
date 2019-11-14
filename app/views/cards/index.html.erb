@@ -8,14 +8,15 @@
         <span class="more"
             data-target="read.more"><%= sanitize @world.description[141..(sanitize @world.description).bytesize] %></span>
       </p>
-        <button class="btn btn-link myBtn"
+        <button class="btn btn-link myBtn" id="read_more_btn"
                 data-action="click->read#readMore">Read more</button>
     <% else %>
       <p><%= sanitize @world.description %></p>
     <% end %>
-
-    <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
-    <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
+    <div class="world-link">
+      <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
+      <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
+    </div>
   </div>
 </div>
 
