@@ -11,6 +11,9 @@
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
+<select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 200px">
+</select>
+
 
 <div class="cards">
   <% @cards.each do |card| %>
