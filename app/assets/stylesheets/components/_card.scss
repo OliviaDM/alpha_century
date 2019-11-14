@@ -9,12 +9,16 @@
 .card {
   overflow: auto;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: #311A75 0 0 10px;
   border: 2px solid #311A75;
   padding: 0px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.card:hover{
+  box-shadow: 0 0 8px 2px #311A75;
 }
 
 .more {
@@ -23,6 +27,10 @@
 
 .card-header {
   font-family: 'Orbitron', sans-serif;
+  background-color: rgba(70, 229, 229, 0.3);
+  color: #180858;
+  width: 100%;
+  text-align: center;
 }
 
 .card-body, .card-footer {
