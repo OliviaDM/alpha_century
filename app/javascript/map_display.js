@@ -11,7 +11,7 @@ function map_display() {
   function change_map(id) {
     current_map = id;
     const new_map = find_map(id);
-    map.innerHTML = `<img height="300" width="400" src="${new_map.image_url}">`;
+    map.innerHTML = `<img height="300" width="400" src="https://res.cloudinary.com/dhnkmpy8d/${new_map.photo}">`;
   };
 
   dropdown.addEventListener("click", (event) => {
