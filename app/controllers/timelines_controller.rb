@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
   def index
-    @hash = Timeline.new(["selected events"]).json_ify
+    @hash = Timeline.new(["wonky timeline"]).json_ify
   end
 end
