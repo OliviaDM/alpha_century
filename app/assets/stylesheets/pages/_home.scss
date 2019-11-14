@@ -1,1 +1,25 @@
 // Specific CSS for your home-page
+.banner {
+    padding: 200px 0 400px;
+}
+
+.banner h1 a {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  color: #46E5E5;
+  text-shadow: #46E5E5 0 0 10px;
+  font-size: 90px;
+}
+
+.banner button {
+  display: block;
+  margin: auto;
+  padding: 3px 10px;
+  background: #550E59;
+  font-size: 35px;
+  font-weight: black;
+  color: #DA42D9;
+  text-shadow: #DA42D9 0 0 10px;
+  border: 3px solid #DA42D9;
+  box-shadow: #DA42D9 0 0 10px;
+}
