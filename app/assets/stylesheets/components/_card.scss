@@ -64,12 +64,12 @@
   text-align: center;
 }
 
-.fas {
+.fa-edit, .fa-dumpster-fire {
   font-size: 2rem;
   color: #311A75;
 }
 
-.fas:hover {
+.fa-edit:hover, .fa-dumpster-fire:hover {
   text-decoration: none;
   color: #DA42D9;
 }
@@ -80,6 +80,7 @@
 
 .myBtn:hover {
   color: #DA42D9;
+  text-decoration: none;
 }
 
 .new-card {
@@ -91,4 +92,10 @@
 
 .fa-plus {
   font-size: 800%;
+  color: #311A75;
+}
+
+.fa-plus:hover {
+  text-decoration: none;
+  color: #DA42D9;
 }
