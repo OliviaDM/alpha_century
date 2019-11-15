@@ -9,10 +9,6 @@ function map_display() {
     return maps_info.maps.find(e => e.id.toString() == id);
   }
 
-  function draw_marker(x, y, map) {
-
-  }
-
   function change_map(id) {
     current_map = id;
     const new_map = find_map(id);
@@ -22,9 +18,15 @@ function map_display() {
 
     const map_img = document.querySelector("#map-img");
     map_img.addEventListener("click", (event) => {
-      console.log(event);
+      // console.log(event);
       const h = document.getElementById("map-img").clientHeight;
-      console.log(h);
+      // console.log(h);
+
+      function draw_marker(x, y) {
+        map.insertAdjacentHTML('beforeend', `<img class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x - 35}px; left: ${y - 10}px;">`);
+      };
+
+      draw_marker(event.clientY, event.clientX);
     });
   };
 

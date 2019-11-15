@@ -11,3 +11,29 @@
 <div id="map" data-hash='<%=@map_hash.to_json%>'>
 
 </div>
+
+<% array_of_tag = @tags.to_json %>
+<form id="search_bar" action='<%="/worlds/#{@world.id}/maps"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
+  <div>
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
+    </select>
+  </div>
+  <input type="submit">
+</form>
+
+
+<div class="cards">
+  <% @cards.each do |card| %>
+    <% tag_string = "" %>
+    <% card.tags.each do |tag| %>
+      <% tag_string += "#{tag.name.gsub(" ", "_")} " %>
+    <% end %>
+    <div class="<%= tag_string %>" id="<%= card.id%>">
+      <div class="card">
+        <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
