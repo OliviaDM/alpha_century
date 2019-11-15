@@ -9,7 +9,7 @@ function draw_graph() {
       var linkDistance = 100;
       var colors = d3.scale.category10();
 
-      var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
+      var svg = d3.select("#timeline").append("svg").attr({"width":w,"height":h});
 
       var force = d3.layout.force()
           .nodes(dataset.nodes)
