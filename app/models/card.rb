@@ -1,7 +1,7 @@
 class Card < ApplicationRecord
   belongs_to :world
   has_one :user, through: :world
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_one :timestamp
   has_one :map
