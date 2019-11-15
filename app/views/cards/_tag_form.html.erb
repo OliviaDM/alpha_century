@@ -2,15 +2,16 @@
   <div id="search-tag-form">
     <%= f.association :tag, collection: world.tags.order(:name) %>
   </div>
-  <div id="switch_button">
-    <button id="button-add-new-tag">Create tag</button>
-    <div id="add-tag-form" class="hide-div" >
+  <div id="add-tag-form" class="hide-div" >
       <%= simple_fields_for :other do |o| %>
         <%= o.input :name, as: :string, label: 'tag'%>
      <% end %>
-    <button id="button-search-new-tag" class="hide-div">Return</button>
-    </div>
   </div>
+  <div id="switch_button">
+    <button id="button-add-new-tag">Create tag</button>
+    <button id="button-search-new-tag" class="hide-div">Return</button>
+  </div>
+
   <%= f.submit value="Add tag" %>
 
 <% end %>
