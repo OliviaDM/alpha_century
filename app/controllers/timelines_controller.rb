@@ -1,5 +1,7 @@
 class TimelinesController < ApplicationController
   def index
-    @hash = Timeline.new(["wonky timeline"]).json_ify
+    @world = World.find(params[:world_id])
+    @tags = {tag: @world.tags.map { |e| e.name }}
+    @hash = Timeline.new(params[:states]).json_ify
   end
 end
