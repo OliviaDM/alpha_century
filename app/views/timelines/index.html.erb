@@ -1,4 +1,19 @@
 <h1>Timeline#index</h1>
 <p>Find me in app/views/timeline/index.html.erb</p>
+<% array_of_tag = @tags.to_json %>
+<form id="search_bar" action='<%="/worlds/#{@world.id}/timelines"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
+  <div>
+    <label for="id_label_multiple" style="width: 75%">
+      <% if params[:states].present? %>
+        <% params[:states].each do |tag| %>
+          <%= tag %>
+        <%end %>
+      <% end %>
+      <select id="id_label_multiple" class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
+      </select>
+    </label>
+  </div>
+  <input type="submit">
+</form>
 
 <div id="timeline"  data-string='<%= @hash %>'> </div>
