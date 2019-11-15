@@ -18,20 +18,17 @@
     <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
     </select>
   </div>
-  <input type="submit">
+  <button id="tag-btn">Search</button>
 </form>
-
 
 <div class="cards">
   <% @cards.each do |card| %>
     <% tag_string = "" %>
     <% card.tags.each do |tag| %>
-      <% tag_string += "#{tag.name.gsub(" ", "_")} " %>
+      <% tag_string += "#{tag.name}," %>
     <% end %>
-    <div class="<%= tag_string %>" id="<%= card.id%>">
-      <div class="card">
-        <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
-      </div>
+    <div class="card" data-cardtags="<%= tag_string %>" id="<%= card.id%>">
+      <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
     </div>
 
   <% end %>

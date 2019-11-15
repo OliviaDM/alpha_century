@@ -9,10 +9,10 @@ class MapsController < ApplicationController
     end
     @map_hash = { maps: maps }
     @cards = Card.where(world_id: params[:world_id])
-    if params[:states].present?
-      tags = params[:states]
-      @cards = Card.tag_search(tags)
-    end
+    # if params[:states].present?
+    #   tags = params[:states]
+    #   @cards = Card.tag_search(tags)
+    # end
     @tags = {tag: @world.tags.map { |e| e.name }}
   end
 
