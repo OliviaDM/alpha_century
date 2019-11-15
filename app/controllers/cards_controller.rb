@@ -34,7 +34,7 @@ class CardsController < ApplicationController
 
   def update
     @card.update(card_params)
-    redirect_to world_cards_path(@world.id)
+    redirect_to edit_world_card_path(world_id: @card.world.id, id: @card.id)
     # p @card = Card.find(params[:id])
     # if @card.save
     #   respond_to do |format|
