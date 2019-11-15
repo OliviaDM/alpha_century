@@ -1,6 +1,10 @@
 class Timeline
   def initialize(tag_array)
-    @events = Card.events_tag_search(tag_array)
+    if tag_array.nil?
+      @events = Card.where(is_event: true)
+    else
+      @events = Card.events_tag_search(tag_array)
+    end
     @links = Timelink.all.map { |tl| { target: tl.child_event, source: tl.parent_event } }
   end
 
