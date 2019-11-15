@@ -23,6 +23,24 @@
   max-height: 176px;
 }
 
+.world-link {
+  display: flex;
+  align-items: flex-end;
+}
+
+.world-link .btn{
+  text-decoration: none;
+  margin: 0 40px;
+  padding: 3px 10px;
+  background: #550E59;
+  font-size: 20px;
+  font-weight: black;
+  color: #DA42D9;
+  text-shadow: #DA42D9 0 0 10px;
+  border: 3px solid #DA42D9;
+  box-shadow: #DA42D9 0 0 10px;
+}
+
 .banner-world .myBtn{
   color: #46E5E5;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
