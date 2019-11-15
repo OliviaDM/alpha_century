@@ -31,7 +31,12 @@
 
 <div class="container">
   <div class="cards">
-    <%= link_to "New card", new_world_card_path(world_id: @world.id), class: "btn btn-primary" %>
+    <div class="card">
+      <h5 class="card-header card-title">New card</h5>
+      <div class="card-body new-card">
+        <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
+      </div>
+    </div>
     <% @cards.each do |card| %>
       <div class="card"
            data-controller="read">
