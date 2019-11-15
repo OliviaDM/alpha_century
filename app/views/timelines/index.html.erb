@@ -1,6 +1,7 @@
 <h1>Timeline#index</h1>
 <p>Find me in app/views/timeline/index.html.erb</p>
 <% array_of_tag = @tags.to_json %>
+
 <form id="search_bar" action='<%="/worlds/#{@world.id}/timelines"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
   <div>
     <label for="id_label_multiple" style="width: 75%">
@@ -17,5 +18,8 @@
   </div>
   <input type="submit">
 </form>
-
+<br>
 <div id="timeline"  data-string='<%= @hash %>'> </div>
+<br>
+
+
