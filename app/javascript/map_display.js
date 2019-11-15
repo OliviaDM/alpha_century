@@ -15,7 +15,7 @@ function map_display() {
     current_map = id;
     const new_map = find_map(id);
 
-    const w = document.documentElement.clientWidth;
+    const w = document.documentElement.clientWidth / 2;
     map.innerHTML = `<img id="map-img" width="${w}" src="https://res.cloudinary.com/dhnkmpy8d/${new_map.photo}" style="position: relative;">`;
 
     const map_img = document.querySelector("#map-img");

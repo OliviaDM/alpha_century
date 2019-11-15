@@ -27,7 +27,7 @@
     <% card.tags.each do |tag| %>
       <% tag_string += "#{tag.name}," %>
     <% end %>
-    <div class="card" data-cardtags="<%= tag_string %>" id="<%= card.id%>">
+    <div class="card" data-cardtags="<%= tag_string %>" id="<%= card.id%>" style="height: 40px; min-height:40px; padding: 10px;">
       <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
     </div>
 
