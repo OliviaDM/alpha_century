@@ -3,47 +3,109 @@
   margin: 24px 0;
   height: 240px;
   background: white;
-  box-shadow: #311A75 0 0 10px;
+  box-shadow: #46E5E5 0 0 10px;
   border: 2px solid #311A75;
   display: flex;
   align-items: center;
+  .world-image {
+    background-size: cover;
+  }
 }
 
 .world:hover{
-  box-shadow: 0 0 8px 2px #311A75;
+  box-shadow: 0 0 12px 4px #46E5E5;
 }
 
-.world-img {
+.world-image {
+  background-position: center;
+  background-size: cover;
+  flex-grow: 2;
+  flex-basis:0;
   height: 100%;
-  width: 120px;
-  object-fit: cover;
 }
 
-.world h2 a {
+.world-header {
   display: flex;
-  text-decoration: none;
-  font-family: Orbitron, sans-serif;
-  font-size: 32px;
-  color: #180858;
-  margin: 0;
   background-color: rgba(70, 229, 229, 0.3);
   width: 100%;
-  height: 60px;
-  text-align: center;
+  height: 50px;
   justify-content: center;
   justify-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.world p {
+.world-header h2 a {
+  text-decoration: none;
+  color: #180858;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+}
+
+.world-text {
+  align-self: flex-start;
+  flex-grow: 1;
   font-family: Raleway, sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.4;
   opacity: .7;
-  margin-bottom: 0;
-  margin-top: 8px;
+  padding: 8px 24px;
 }
 
 .world-infos {
+  flex-basis: 0;
   height: 100%;
-  padding: 8px 24px;
+  flex-grow: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.world-footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 8px 32px;
+}
+
+#add_world {
+  text-decoration: none;
+  margin: 0 8px;
+  padding: 3px 10px;
+  background: #550E59;
+  font-size: 20px;
+  font-weight: black;
+  color: #DA42D9;
+  text-shadow: #DA42D9 0 0 10px;
+  border: 3px solid #DA42D9;
+  box-shadow: #DA42D9 0 0 10px;
+}
+
+.world-new{
+  opacity: 0.7;
+}
+
+.world-new:hover{
+  opacity: 0.9;
+}
+
+#world-new {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5% 5%;
+  object-cover: fill;
+}
+
+.worldtitle {
+  font-family: 'Orbitron', sans-serif;
+  padding: 16px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 56px;
+  font-weight: bold;
+}
+
+#noneed {
+  font-family: 'Orbitron', sans-serif;
 }

@@ -1,34 +1,51 @@
-<div class="container">
-  <h1>Worlds</h1>
+<div class="background">
+  <div class="container pb-2">
+    <h1 class="worldtitle">Your Worlds</h1>
 
-  <%= link_to "Add world", new_world_path %>
+    <%= link_to "Add world", new_world_path, id:"add_world", class: "btn btn-primary" %>
 
-
-
-  <div class="worlds">
-    <% @worlds.each do |world| %>
-      <div class="world">
-        <%= cl_image_tag world.photo, height: 300, width: 400, crop: :fill, class:"world-image" %>
-        <div class="world-infos", data-controller="read">
-          <h2><%= link_to world.name, world_cards_path(world_id: world.id) %></h2>
-          <% if (sanitize world.description).bytesize > 320 %>
-            <p><%= sanitize world.description[0..320] %>
-              <span class="dots"
-                    data-target="read.dots">...</span>
-              <span class="more"
-                    data-target="read.more"><%= sanitize world.description[321..(sanitize world.description).bytesize] %></span>
-            </p>
-            <button class="btn btn-link myBtn" id="read_more_btn"
-                    data-action="click->read#readMore">Read more</button>
-          <% else %>
-            <p><%= sanitize world.description %></p>
-          <% end %>
-          <div class="world-footer">
-            <%= link_to "", edit_world_path(world.id), class: "fas fa-edit"  %>
-            <%= link_to "", world_path(world.id), method: :delete, class: "fas fa-dumpster-fire" %>
+    <div class="worlds">
+      <div class="world world-new">
+        <div class="world-image" style="background-image:url('https://t4.ftcdn.net/jpg/01/38/57/25/240_F_138572552_0v1vXZOJzU1bR50Uq66mH4cBIRe9g1FX.jpg');">
+        </div>
+        <div class="world-infos">
+          <div class="world-header world-title">
+            <h2 id="noneed">New world</h2>
+          </div>
+          <div class="world-text", id="world-new">
+            <p><%= link_to "", new_world_path, class: "fas fa-plus " %></p>
           </div>
         </div>
       </div>
-    <% end %>
+      <% @worlds.each do |world| %>
+        <div class="world">
+          <div class="world-image" style="background-image:url('<%= cl_image_path world.photo%>');">
+          </div>
+         <div class="world-infos", data-controller="read">
+          <div class="world-header world-title">
+            <h2><%= link_to world.name, world_cards_path(world_id: world.id) %></h2>
+          </div>
+          <div class="world-text">
+            <% if (sanitize world.description).bytesize > 500 %>
+              <p><%= sanitize world.description[0..500] %>
+                <span class="dots"
+                      data-target="read.dots">...</span>
+                <span class="more"
+                      data-target="read.more"><%= sanitize world.description[501..(sanitize world.description).bytesize] %></span>
+              </p>
+              <button class="btn btn-link myBtn" id="read_more_btn"
+                      data-action="click->read#readMore">Read more</button>
+            <% else %>
+              <p><%= sanitize world.description %></p>
+            <% end %>
+          </div>
+            <div class="world-footer">
+              <%= link_to "", edit_world_path(world.id), class: "fas fa-edit"  %>
+              <%= link_to "", world_path(world.id), method: :delete, class: "fas fa-dumpster-fire" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

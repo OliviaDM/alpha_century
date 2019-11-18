@@ -1,3 +1,5 @@
+
+<div class="background">
 <div class="banner-world" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
   <div class="container", data-controller="read">
     <h1><%= sanitize @world.name %></h1>
@@ -27,13 +29,13 @@
     </select>
   </div>
   <input type="submit" class="btn btn-primary" value="Search">
-</form>
-
-<div class="container">
+  </form>
+  
+<div class="container pb-2">
   <div class="cards">
 
-    <div class="card">
-      <h5 class="card-header card-title">New card</h5>
+    <div class="card card-new">
+      <h5 class="card-header card-title">New note</h5>
       <div class="card-body new-card">
         <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
       </div>
@@ -67,10 +69,10 @@
           <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
           <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
         </div>
-      </div>
-    <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
 </div>
 
 <!--  if bytesize of content is >100 char
