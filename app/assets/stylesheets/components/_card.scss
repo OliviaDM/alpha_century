@@ -94,6 +94,14 @@
   padding: 20% 15%;
 }
 
+.card-new {
+  opacity: 0.7;
+}
+
+.card-new:hover {
+  opacity: 0.9;
+}
+
 .fa-plus {
   font-size: 800%;
   color: #311A75;
@@ -102,4 +110,12 @@
 .fa-plus:hover {
   text-decoration: none;
   color: #DA42D9;
+}
+
+#card-shadow {
+  box-shadow: #46E5E5 0 0 10px;
+}
+
+#card-shadow:hover {
+  box-shadow: 0 0 12px 4px #46E5E5;
 }
