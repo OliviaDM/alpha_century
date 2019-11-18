@@ -1,6 +1,30 @@
 // Specific CSS for your home-page
+body {
+  background-color: #550E59;
+}
+
+// main {
+//   background-color: #550E59;
+//   position: relative;
+//   width: 100%;
+// }
+
+h1,
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+}
+
+h3,
+p {
+  font-family: 'Raleway', sans-serif;
+}
+
 .banner {
     padding: 200px 0 400px;
+    // position: fixed;
+    // height: 100%;
+    // width: 100%;
 }
 
 .banner h1 a {
@@ -9,6 +33,10 @@
   color: #46E5E5;
   text-shadow: #46E5E5 0 0 10px;
   font-size: 90px;
+}
+
+.banner h1 a:hover {
+  text-decoration: none;
 }
 
 .banner button {
@@ -29,6 +57,7 @@
   background-color: #180858;
   color: #46E5E5;
   font-size: 30px;
+  box-shadow: #DA42D9 0 0 30px;
 }
 
 #img {
@@ -40,6 +69,8 @@
 
 #sponsors {
   height: 300px;
+  background-color: #DA42D9;
+  box-shadow: #DA42D9 0 0 30px;
 }
 
 #sponsors ul li {
@@ -49,4 +80,50 @@
 #sponsors ul li img {
   height: 100px;
   object-fit: contain;
+}
+
+#img-cards {
+  flex-grow: 2;
+  width: 100%;
+}
+
+// #img-map {
+//   background-image: url('https://starwarsblog.starwars.com/wp-content/uploads/2017/01/GA_Naboo.jpg');
+// }
+
+// #img-timeline {
+//   background-image: url('<%= image_path "timeline-view.png" %>');
+// }
+
+#img-cards,
+#img-map,
+#img-timeline {
+  background-size: cover;
+}
+
+// .card .card-img-bottom {
+//   flex-grow: 1;
+// }
+
+.card {
+  // overflow: auto;
+  // background: white;
+  // box-shadow: #311A75 0 0 10px;
+  // border: 2px solid #311A75;
+  // padding: 0px;
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  min-height: 400px;
+}
+
+#sponsors h2,
+#how-it-works h2 {
+  color: #46E5E5;
+  text-shadow: #46E5E5 0 0 10px;
+}
+
+#how-it-works .card {
+  box-shadow: #DA42D9 0 0 30px;
+  border: none;
 }

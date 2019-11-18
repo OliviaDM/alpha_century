@@ -1,25 +1,33 @@
 <div class="banner background">
-  <h1 class="text-center">
-    <a href="" class="typewrite" data-period="2000" data-type='[ "FUCK THE WORLD.", "BUILD YOUR OWN." ]'>
-      <span class="wrap"></span>
-    </a>
+  <div>
+    <h1 class="text-center">
+      <a href="" class="typewrite" data-period="2000" data-type='[ "FUCK THE WORLD.", "BUILD YOUR OWN." ]'>
+        <span class="wrap"></span>
+      </a>
   </h1>
   <button>Sign Up!</button>
+  </div>
 </div>
 <div class="container pb-4 my-5" id="how-it-works">
   <h2 class="text-center">How it works</h2>
   <div class="cards">
     <div class="card">
-      <h3 class="text-center">Stop loosing your notes</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra metus ut erat egestas fermentum.</p>
+        <h3 class="text-center pt-3">Stop loosing your notes</h3>
+        <br>
+        <p class="px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra metus ut erat egestas fermentum.</p>
+      <div id="img-cards" style="background-image: url('<%= image_path "cards.png" %>');"></div>
     </div>
     <div class="card">
-      <h3 class="text-center">Map your world</h3>
-      <p>Ut felis urna, aliquam a lorem non, efficitur vulputate velit. Nullam finibus libero eu dui iaculis ornare.</p>
+      <h3 class="text-center pt-3">Map your world</h3>
+      <br>
+      <p class="px-3">Ut felis urna, aliquam a lorem non, efficitur vulputate velit. Nullam finibus libero eu dui iaculis ornare.</p>
+      <div id="img-cards" style="background-image: url('<%= image_path "https://starwarsblog.starwars.com/wp-content/uploads/2017/01/GA_Naboo.jpg" %>');"></div>
     </div>
     <div class="card">
-      <h3 class="text-center">See on a timeline how your story unfolds</h3>
-      <p>Vestibulum pellentesque suscipit nisl sed accumsan. Mauris et lectus varius, vehicula elit a, iaculis mi.</p>
+      <h3 class="text-center pt-3">See your story unfolds</h3>
+      <br>
+      <p class="px-3">Vestibulum pellentesque suscipit nisl sed accumsan. Mauris et lectus varius, vehicula elit a, iaculis mi.</p>
+      <div id="img-cards" style="background-image: url('<%= image_path "timeline-view.png" %>');"></div>
     </div>
   </div>
 </div>
@@ -31,7 +39,7 @@
       <p class="m-5">George Lucas</p>
     </div>
 </div>
-<div class="container py-4" id="sponsors">
+<div class="container py-4 mt-5" id="sponsors">
   <h2 class="text-center">They use our product</h2>
   <ul class="list-group list-group-horizontal d-flex justify-content-center my-5">
     <li>
@@ -45,3 +53,4 @@
     </li>
   </ul>
 </div>
+
