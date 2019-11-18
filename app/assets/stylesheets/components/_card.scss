@@ -18,6 +18,10 @@
   min-height: 400px;
 }
 
+.card.selected {
+  background-color: lightgrey;
+}
+
 .card:hover{
   box-shadow: 0 0 8px 2px #311A75;
 }

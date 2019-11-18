@@ -23,3 +23,29 @@
   border: 3px solid #DA42D9;
   box-shadow: #DA42D9 0 0 10px;
 }
+
+#user-testimonial {
+  background-color: #180858;
+  color: #46E5E5;
+  font-size: 30px;
+}
+
+#img {
+  background-image: linear-gradient(90deg, rgba(70,229,229,0.20477941176470584) 30%, rgba(24,8,88,1) 100%), url('https://www.dailydot.com/wp-content/uploads/2018/06/george-lucas-2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+
+#sponsors {
+  height: 300px;
+}
+
+#sponsors ul li {
+  list-style: none;
+}
+
+#sponsors ul li img {
+  height: 100px;
+  object-fit: contain;
+}
