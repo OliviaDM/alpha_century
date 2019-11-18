@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 function map_display() {
 
 
@@ -23,18 +25,39 @@ function map_display() {
     const map_y = map_img.offsetLeft;
     map_img.addEventListener("contextmenu", (event) => {
       // console.log(event);
+
       console.log(event);
       event.preventDefault();
       const h = document.getElementById("map-img").clientHeight;
 
       console.log([event.offsetX, event.offsetY]);
-      console.log([event.offsetLeft, event.offsetTop]);
-      console.log([event.screenX, event.screenY]);
-      console.log([event.clientX, event.clientY]);
-      console.log([event.pageX, event.pageY]);
+
+      const token = $('meta[name=csrf-token]').attr('content')
+      //const card_id = document.querySelector(".selected")
+
+      const fd = new FormData()
+      const test = JSON.stringify({ long: `${event.offsetX}`, lat: `${event.offsetY}`, map_id: `${current_map}`, card_id: `${selected_id}`})
+      fd.append('coordinates', test)
+      console.log(fd)
+      console.log()
+
+
+
+      fetch('/coordinates/create',
+        { method: "POST",
+          body: fd,
+          headers: {
+            'X-CSRF-Token': token
+          },
+          credentials: 'same-origin'
+        })
+      .then(response => response.json())
+      .then(data => {console.log(data)})
+      .catch(error => console.log(error.message))
+        // .then(json => console.log(json));
 
       function draw_marker(x, y) {
-        map.insertAdjacentHTML('beforeend', `<img class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
+        map.insertAdjacentHTML('beforeend', `<img id="marker-" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
       };
 
       // draw_marker(event.clientY, event.clientX);
