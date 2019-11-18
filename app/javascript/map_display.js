@@ -19,19 +19,26 @@ function map_display() {
     map.innerHTML = `<img id="map-img" width="${w}" src="https://res.cloudinary.com/dhnkmpy8d/${new_map.photo}" style="position: relative;">`;
 
     const map_img = document.querySelector("#map-img");
+    const map_x = map_img.offsetTop;
+    const map_y = map_img.offsetLeft;
     map_img.addEventListener("contextmenu", (event) => {
       // console.log(event);
-      console.log("RIGHT CLICK");
+      console.log(event);
       event.preventDefault();
       const h = document.getElementById("map-img").clientHeight;
-      console.log(h);
+
+      console.log([event.offsetX, event.offsetY]);
+      console.log([event.offsetLeft, event.offsetTop]);
+      console.log([event.screenX, event.screenY]);
+      console.log([event.clientX, event.clientY]);
+      console.log([event.pageX, event.pageY]);
 
       function draw_marker(x, y) {
-        console.log("DRAWING");
-        map.insertAdjacentHTML('beforeend', `<img class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x - 35}px; left: ${y - 10}px;">`);
+        map.insertAdjacentHTML('beforeend', `<img class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
       };
 
-      draw_marker(event.clientY, event.clientX);
+      // draw_marker(event.clientY, event.clientX);
+      draw_marker(event.offsetY, event.offsetX);
     });
   };
 
