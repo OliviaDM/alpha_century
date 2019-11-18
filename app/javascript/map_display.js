@@ -38,10 +38,7 @@ function map_display() {
       const fd = new FormData()
       const test = JSON.stringify({ long: `${event.offsetX}`, lat: `${event.offsetY}`, map_id: `${current_map}`, card_id: `${selected_id}`})
       fd.append('coordinates', test)
-      console.log(fd)
-      console.log()
-
-
+      let coordinate_object;
 
       fetch('/coordinates/create',
         { method: "POST",
@@ -52,16 +49,21 @@ function map_display() {
           credentials: 'same-origin'
         })
       .then(response => response.json())
-      .then(data => {console.log(data)})
-      .catch(error => console.log(error.message))
+      .then(data => {
+        console.log(data);
+        coordinate_object = data;
+        console.log(coordinate_object)
+        draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
+        });
         // .then(json => console.log(json));
 
-      function draw_marker(x, y) {
-        map.insertAdjacentHTML('beforeend', `<img id="marker-" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
+      function draw_marker(x, y, id) {
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
       };
 
       // draw_marker(event.clientY, event.clientX);
-      draw_marker(event.offsetY, event.offsetX);
+      // console.log(coordinate_object)
+      // draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
     });
   };
 
