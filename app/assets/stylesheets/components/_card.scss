@@ -119,3 +119,17 @@
 #card-shadow:hover {
   box-shadow: 0 0 12px 4px #46E5E5;
 }
+
+.cardtitle {
+  font-family: 'Orbitron', sans-serif;
+  padding: 16px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.world-link {
+  padding-left: 0px;
+  margin-left: -32px;
+}
