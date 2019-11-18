@@ -2,11 +2,11 @@
   <div class="container", data-controller="read">
     <h1><%= sanitize @world.name %></h1>
     <% if (sanitize @world.description).bytesize > 140 %>
-      <p><%= sanitize @world.description[0..140] %>
+      <p><span class="less" data-target="read.less"><%= sanitize @world.description[0..140] %></span>
         <span class="dots"
             data-target="read.dots">...</span>
         <span class="more"
-            data-target="read.more"><%= sanitize @world.description[141..(sanitize @world.description).bytesize] %></span>
+            data-target="read.more"><%= sanitize @world.description %></span>
       </p>
         <button class="btn btn-link myBtn" id="read_more_btn"
                 data-action="click->read#readMore">Read more</button>
@@ -47,13 +47,15 @@
           <% card.tags.each do |tag| %>
             <%= "##{tag.name.gsub(" ", "_")}" %>
           <% end %></h6>
-            <% if (sanitize card.content).bytesize > 240 %>
+            <% if (sanitize card.content).bytesize > 240 || card.content != card.clean_content %>
 
-              <p class="card-text"><%= sanitize card.content[0..240] %>
-                <span class="dots"
-                      data-target="read.dots">...</span>
-                <span class="more"
-                      data-target="read.more"><%= sanitize card.content[241..-1] %></span>
+              <p class="card-text">
+                <div class="less" data-target="read.less"><%= sanitize card.clean_content[0..240] %>
+                </div>
+                <span class="dots" data-target="read.dots">...</span>
+                <span class="more" data-target="read.more">
+                  <%= sanitize card.img_content("100%") %>
+                  </span>
               </p>
               <button class="btn btn-link myBtn"
                       data-action="click->read#readMore">Read more</button>
