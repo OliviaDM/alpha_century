@@ -3,7 +3,7 @@
   margin: 24px 0;
   height: 240px;
   background: white;
-  box-shadow: #311A75 0 0 10px;
+  box-shadow: #46E5E5 0 0 10px;
   border: 2px solid #311A75;
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@
 }
 
 .world:hover{
-  box-shadow: 0 0 8px 2px #311A75;
+  box-shadow: 0 0 12px 4px #46E5E5;
 }
 
 .world-image {
@@ -70,7 +70,7 @@
 
 #add_world {
   text-decoration: none;
-  margin: 0 40px;
+  margin: 0 8px;
   padding: 3px 10px;
   background: #550E59;
   font-size: 20px;
@@ -95,4 +95,17 @@
   justify-content: center;
   padding: 5% 5%;
   object-cover: fill;
+}
+
+.worldtitle {
+  font-family: 'Orbitron', sans-serif;
+  padding: 16px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 56px;
+  font-weight: bold;
+}
+
+#noneed {
+  font-family: 'Orbitron', sans-serif;
 }

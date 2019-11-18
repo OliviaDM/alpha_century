@@ -1,8 +1,8 @@
 <div class="background">
-  <div class="container">
-    <h1>Worlds</h1>
+  <div class="container pb-2">
+    <h1 class="worldtitle">Your Worlds</h1>
 
-    <%= link_to "Add world", new_world_path, id:"add_world", class: "btn btn primary" %>
+    <%= link_to "Add world", new_world_path, id:"add_world", class: "btn btn-primary" %>
 
     <div class="worlds">
       <div class="world world-new">
@@ -10,7 +10,7 @@
         </div>
         <div class="world-infos">
           <div class="world-header world-title">
-            <h2>New world</h2>
+            <h2 id="noneed">New world</h2>
           </div>
           <div class="world-text", id="world-new">
             <p><%= link_to "", new_world_path, class: "fas fa-plus " %></p>

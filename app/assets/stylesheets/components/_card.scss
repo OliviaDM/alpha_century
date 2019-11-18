@@ -111,3 +111,11 @@
   text-decoration: none;
   color: #DA42D9;
 }
+
+#card-shadow {
+  box-shadow: #46E5E5 0 0 10px;
+}
+
+#card-shadow:hover {
+  box-shadow: 0 0 12px 4px #46E5E5;
+}
