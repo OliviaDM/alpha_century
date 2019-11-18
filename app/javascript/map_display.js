@@ -7,7 +7,9 @@ function map_display() {
   const maps_info = JSON.parse(document.querySelector('#map').dataset.hash);
   const map = document.querySelector('#map');
   const obliterate_button = document.querySelector("#delete_marker");
-  const token = $('meta[name=csrf-token]').attr('content')
+  const token = $('meta[name=csrf-token]').attr('content');
+  let h;
+  let w;
 
   let current_map = "-1";
 
@@ -39,10 +41,12 @@ function map_display() {
 
   function change_map(id) {
     current_map = id;
-    display_markers()
+    const card_id_array = []
+    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
+    display_markers(card_id_array)
     const new_map = find_map(id);
 
-    const w = document.documentElement.clientWidth / 2;
+    w = document.documentElement.clientWidth / 2;
     map.innerHTML = `<img id="map-img" width="${w}" src="https://res.cloudinary.com/dhnkmpy8d/${new_map.photo}" style="position: relative;">`;
 
     const map_img = document.querySelector("#map-img");
@@ -54,9 +58,7 @@ function map_display() {
 
       console.log(event);
       event.preventDefault();
-      const h = document.getElementById("map-img").clientHeight;
-
-      console.log([event.offsetX, event.offsetY]);
+      h = document.getElementById("map-img").clientHeight;
 
       // const token = $('meta[name=csrf-token]').attr('content')
       //const card_id = document.querySelector(".selected")
@@ -78,7 +80,6 @@ function map_display() {
       .then(data => {
         console.log(data);
         coordinate_object = data;
-        console.log(coordinate_object)
         if(selected_id != "null") {
           draw_marker(event.offsetY, event.offsetX);
           }
@@ -143,6 +144,7 @@ function map_display() {
   });
 
   function refresh_cards() {
+    const array_of_id = [];
     cards.forEach((card) => {
       const card_tags = card.dataset.cardtags.split(',');
       tags.forEach( (tag) => {
@@ -151,9 +153,11 @@ function map_display() {
           return false;
         };
         card.style.display = "block";
+        array_of_id.push(card.id)
         return true;
       });
     });
+    display_markers(array_of_id)
   };
 
   search_btn.addEventListener("click", (event) => {
@@ -161,11 +165,10 @@ function map_display() {
     refresh_search_tags();
     refresh_cards();
   });
-  function display_markers() {
-    const card_id_array = []
-    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
+  function display_markers(array) {
+    document.querySelectorAll(".marker").forEach(element => element.remove())
     const fd = new FormData()
-    const test = JSON.stringify({map_id: `${current_map}`, card_ids: `${card_id_array}`})
+    const test = JSON.stringify({map_id: `${current_map}`, card_ids: `${array}`})
     fd.append('coordinates', test)
     let coordinate_object;
 
