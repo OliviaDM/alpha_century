@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'coordinates/new'
   post 'coordinates/create'
   get 'coordinates/update'
-  get 'coordinates/destroy'
+  post 'coordinates/destroy'
+  post 'coordinates/index'
   resources :worlds do
     resources :tags, only: [:create, :update]
     resources :cards do

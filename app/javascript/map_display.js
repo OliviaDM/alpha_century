@@ -6,8 +6,32 @@ function map_display() {
   const dropdown = document.querySelector("#map-select");
   const maps_info = JSON.parse(document.querySelector('#map').dataset.hash);
   const map = document.querySelector('#map');
+  const obliterate_button = document.querySelector("#delete_marker");
+  const token = $('meta[name=csrf-token]').attr('content')
 
   let current_map = "-1";
+
+  obliterate_button.addEventListener("click", (event) => {
+    if (selected_id != "null") {
+      if (document.querySelector(`#marker-${selected_id}`)) {
+        document.querySelector(`#marker-${selected_id}`).remove()
+        const fd = new FormData()
+        const test = JSON.stringify({map_id: `${current_map}`, card_id: `${selected_id}`})
+        fd.append('coordinates', test)
+        let coordinate_object;
+
+        fetch('/coordinates/destroy',
+          { method: "POST",
+            body: fd,
+            headers: {
+              'X-CSRF-Token': token
+            },
+            credentials: 'same-origin'
+          }
+        )
+      }
+    }
+  });
 
   function find_map(id) {
     return maps_info.maps.find(e => e.id.toString() == id);
@@ -15,6 +39,7 @@ function map_display() {
 
   function change_map(id) {
     current_map = id;
+    display_markers()
     const new_map = find_map(id);
 
     const w = document.documentElement.clientWidth / 2;
@@ -23,6 +48,7 @@ function map_display() {
     const map_img = document.querySelector("#map-img");
     const map_x = map_img.offsetTop;
     const map_y = map_img.offsetLeft;
+
     map_img.addEventListener("contextmenu", (event) => {
       // console.log(event);
 
@@ -32,7 +58,7 @@ function map_display() {
 
       console.log([event.offsetX, event.offsetY]);
 
-      const token = $('meta[name=csrf-token]').attr('content')
+      // const token = $('meta[name=csrf-token]').attr('content')
       //const card_id = document.querySelector(".selected")
 
       const fd = new FormData()
@@ -53,12 +79,17 @@ function map_display() {
         console.log(data);
         coordinate_object = data;
         console.log(coordinate_object)
-        draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
+        if(selected_id != "null") {
+          draw_marker(event.offsetY, event.offsetX);
+          }
         });
         // .then(json => console.log(json));
 
-      function draw_marker(x, y, id) {
-        map.insertAdjacentHTML('beforeend', `<img id="marker-${id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
+      function draw_marker(x, y) {
+        if(document.querySelector(`#marker-${selected_id}`)){
+          document.querySelector(`#marker-${selected_id}`).remove()
+        }
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${selected_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
       };
 
       // draw_marker(event.clientY, event.clientX);
@@ -130,8 +161,31 @@ function map_display() {
     refresh_search_tags();
     refresh_cards();
   });
+  function display_markers() {
+    const card_id_array = []
+    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
+    const fd = new FormData()
+    const test = JSON.stringify({map_id: `${current_map}`, card_ids: `${card_id_array}`})
+    fd.append('coordinates', test)
+    let coordinate_object;
 
-
+    fetch('/coordinates/index',
+      { method: "POST",
+        body: fd,
+        headers: {
+          'X-CSRF-Token': token
+        },
+        credentials: 'same-origin'
+      })
+    .then(response => response.json())
+    .then(data => {
+      data.forEach((element) => {
+        console.log(element.lat)
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${parseInt(element.lat, 10) + 40}px; left: ${parseInt(element.long, 10) - 10}px;">`);
+      });
+      }
+    );
+  };
 };
 
 export { map_display };
