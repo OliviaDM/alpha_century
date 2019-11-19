@@ -9,9 +9,13 @@ export default class extends Controller {
 
   readMore(e) {
 
-    $('#modal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
-    })
+    // $('#modal').on('shown.bs.modal', function () {
+    //   $('#myInput').trigger('focus')
+    // })
+    // const currentIndex = console.log(parseInt(e.currentTarget.dataset.index))
+    // $(`#modal${currentIndex}`).modal('show')
+    // const box = $(`#modal${currentIndex}`)
+    // console.log(box)
 //     const dots = this.dotsTarget
 //     const more = this.moreTarget
 //     const less = this.lessTarget

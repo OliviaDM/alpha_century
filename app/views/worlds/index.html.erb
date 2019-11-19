@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <% @worlds.each do |world| %>
+      <% @worlds.each_with_index do |world, index| %>
         <div class="world">
           <div class="world-image" style="background-image:url('<%= cl_image_path world.photo%>');">
           </div>
@@ -26,15 +26,19 @@
             <h2><%= link_to world.name, world_cards_path(world_id: world.id) %></h2>
           </div>
           <div class="world-text">
-            <% if (sanitize world.description).bytesize > 500 %>
-              <p><%= sanitize world.description[0..500] %>
+            <% if (sanitize world.description).bytesize > 240 %>
+              <p><%= sanitize world.description[0..240] %>
                 <span class="dots"
                       data-target="read.dots">...</span>
                 <span class="more"
-                      data-target="read.more"><%= sanitize world.description[501..(sanitize world.description).bytesize] %></span>
+                      data-target="read.more"><%= sanitize world.description[241..(sanitize world.description).bytesize] %></span>
               </p>
               <button class="btn btn-link myBtn" id="read_more_btn"
-                      data-action="click->read#readMore">Read more</button>
+                      data-action="click->read#readMore"data-toggle="modal"
+                      data-target="#modal<%= index %>"
+                      data-index="<%= index %>">Read more</button>
+                <% content = sanitize world.description  %>
+                <%= render partial: "cards/modal", locals: { name: "modal#{index}", text: content } %>
             <% else %>
               <p><%= sanitize world.description %></p>
             <% end %>
