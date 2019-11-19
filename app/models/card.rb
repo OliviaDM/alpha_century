@@ -5,7 +5,7 @@ class Card < ApplicationRecord
   has_many :tags, through: :taggings
   has_one :timestamp
   has_one :map
-  has_one :coordinate
+  has_many :coordinates, dependent: :destroy
 
   validates :world, presence: true
 
