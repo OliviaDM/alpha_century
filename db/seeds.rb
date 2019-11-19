@@ -172,4 +172,13 @@ map_pitch.save
 # MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
 
 # tags
+character_tag2 = Tag.create!(world_id: pitch.id, name: "character")
+event_tag2 = Tag.create!(world_id: pitch.id, name: "event")
+location_tag2 = Tag.create(world_id: pitch.id, name: "location")
 
+# notes
+
+me_content = ""
+me_card = Card.create!(world_id: pitch.id, title: "me", content: me_content)
+Tagging.create!(tag_id: me_tag.id, card_id: me_card.id)
+Tagging.create!(tag_id: character_tag.id, card_id: me_card.id)
