@@ -27,15 +27,16 @@ function draw_graph() {
           .append("line")
           .attr("id",function(d,i) {return 'edge'+i})
           .attr('marker-end','url(#arrowhead)')
-          .attr("style", function(d) { return ("stroke-width: 1px;");})
+          .attr("style", function(d) { return ("stroke-width: 5px;");})
           .style("stroke","#ccc")
           .style("pointer-events", "none")
           .on('mouseover', function(d,i) {
-            d3.select(this)
+            console.log("TPUCH EDGE");
+            svg.select(this)
               .attr("style", function(d) { return ("stroke-width: 3px;");});
           })
           .on('mouseout', function(d,i) {
-            d3.select(this)
+            svg.select(this)
               .attr("style", function(d) { return ("stroke-width: 1px;");});
           });
 
@@ -72,7 +73,7 @@ function draw_graph() {
                 .style('fill','rgb(12,240,233)')
                 .classed('selected', true);
             };
-          })
+          });
           // .call(force.drag)
 
       const nodelabels = svg.selectAll(".nodelabel")
