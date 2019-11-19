@@ -27,20 +27,16 @@ function draw_graph() {
           .append("line")
           .attr("id",function(d,i) {return 'edge'+i})
           .attr('marker-end','url(#arrowhead)')
+          .attr("style", function(d) { return ("stroke-width: 1px;");})
           .style("stroke","#ccc")
           .style("pointer-events", "none")
           .on('mouseover', function(d,i) {
             d3.select(this)
-              .attr({'r':10});
-            d3.select(`#${this.id}label`)
-              .attr({'display':'inline'});
+              .attr("style", function(d) { return ("stroke-width: 3px;");});
           })
           .on('mouseout', function(d,i) {
             d3.select(this)
-              .attr({'r':7});
-            d3.select(`#${this.id}label`)
-              .attr({'display':'none'});
-
+              .attr("style", function(d) { return ("stroke-width: 1px;");});
           });
 
       const nodes = svg.selectAll("circle")
