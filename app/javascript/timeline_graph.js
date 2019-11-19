@@ -28,16 +28,56 @@ function draw_graph() {
           .attr("id",function(d,i) {return 'edge'+i})
           .attr('marker-end','url(#arrowhead)')
           .style("stroke","#ccc")
-          .style("pointer-events", "none");
+          .style("pointer-events", "none")
+          .on('mouseover', function(d,i) {
+            d3.select(this)
+              .attr({'r':10});
+            d3.select(`#${this.id}label`)
+              .attr({'display':'inline'});
+          })
+          .on('mouseout', function(d,i) {
+            d3.select(this)
+              .attr({'r':7});
+            d3.select(`#${this.id}label`)
+              .attr({'display':'none'});
+
+          });
 
       const nodes = svg.selectAll("circle")
           .data(dataset.nodes)
           .enter()
           .append("circle")
           .attr("id",function(d,i) {return 'node'+i})
-          .attr({"r":5})
-          .style("fill","rgb(12,240,233)")
-          .call(force.drag)
+          .attr({"r":7})
+          .style("fill","rgb(198, 45, 205)")
+          .on('mouseover', function(d,i) {
+            d3.select(this)
+              .attr({'r':10});
+            d3.select(`#${this.id}label`)
+              .attr({'display':'inline'});
+          })
+          .on('mouseout', function(d,i) {
+            d3.select(this)
+              .attr({'r':7});
+            d3.select(`#${this.id}label`)
+              .attr({'display':'none'});
+
+          })
+          .on('click', function(d,i) {
+            if (d3.select(this).classed("selected")) {
+              d3.select(this)
+                .style("fill","rgb(198, 45, 205)")
+                .classed('selected', false);
+            } else {
+              d3.select('.selected')
+                .style("fill","rgb(198, 45, 205)")
+                .classed('selected', false);
+              d3.select(this)
+                .style('fill','rgb(12,240,233)')
+                .classed('selected', true);
+            };
+          })
+          // .call(force.drag)
 
       const nodelabels = svg.selectAll(".nodelabel")
          .data(dataset.nodes)
@@ -50,7 +90,7 @@ function draw_graph() {
                 "stroke":"white",
                 "font-weight":"lighter",
                 "display":"none",
-                "font-size":15})
+                "font-size":24})
          .text(function(d){return d.name;});
 
       const edgepaths = svg.selectAll(".edgepath")
@@ -122,21 +162,21 @@ function draw_graph() {
 
     });
 
-    const edgeElements = document.querySelectorAll("line");
-    edgeElements.forEach((e) => {
-      e.addEventListener("click", (ev) => {
-        console.log("CLICKED");
-      });
-    });
+    // const edgeElements = document.querySelectorAll("line");
+    // edgeElements.forEach((e) => {
+    //   e.addEventListener("click", (ev) => {
+    //     console.log("CLICKED");
+    //   });
+    // });
 
 
-    const nodeElements = document.querySelectorAll("circle");
-    edgeElements.forEach((e) => {
-      e.addEventListener("mouseover", (event) => {
-        document.querySelector(`${e.id}label`).style.display = "inline";
-        console.log("ON IT");
-      });
-    });
+    // const nodeElements = document.querySelectorAll("circle");
+    // edgeElements.forEach((e) => {
+    //   e.addEventListener("mouseover", (event) => {
+    //     document.querySelector(`${e.id}label`).style.display = "inline";
+    //     console.log("ON IT");
+    //   });
+    // });
 };
 
 export { draw_graph };
