@@ -170,3 +170,6 @@ map_pitch = Map.new(title: "Pitch", world_id: pitch.id)
 map_pitch.remote_photo_url = url5
 map_pitch.save
 # MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
+
+# tags
+
