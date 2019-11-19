@@ -59,14 +59,14 @@
                   <%= sanitize card.img_content("100%") %>
                 </span>
               </p>
+              <% content = sanitize card.content  %>
               <button class="btn btn-link myBtn"
                       data-action="click->read#readMore"
                       data-toggle="modal"
                       data-target="#modal<%= index %>"
+                      data-content="<%= content %>"
                       data-index="<%= index %>">Read more</button>
 
-                <% content = sanitize card.content  %>
-                <%= render partial: "cards/modal", locals: { name: "modal#{index}", text: content } %>
             <% else %>
               <p class="card-text"><%= sanitize card.content %></p>
             <% end %>

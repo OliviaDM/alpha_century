@@ -9,30 +9,18 @@ export default class extends Controller {
 
   readMore(e) {
 
-    // $('#modal').on('shown.bs.modal', function () {
-    //   $('#myInput').trigger('focus')
-    // })
-    // const currentIndex = console.log(parseInt(e.currentTarget.dataset.index))
-    // $(`#modal${currentIndex}`).modal('show')
-    // const box = $(`#modal${currentIndex}`)
-    // console.log(box)
-//     const dots = this.dotsTarget
-//     const more = this.moreTarget
-//     const less = this.lessTarget
-//     const myBtn = e.currentTarget
 
-//     console.log(less);
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('content') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-title').text('New message to ' + recipient)
+      modal.find('.modal-body input').val(recipient)
+      recipient.innerText = modal.find('.modal-body input').val(recipient)
 
-//     if (dots.style.display === "none") {
-//       dots.style.display = "inline";
-//       myBtn.innerHTML = "Read more";
-//       less.style.display = "inline";
-//       more.style.display = "none";
-//     } else {
-//       dots.style.display = "none";
-//       myBtn.innerHTML = "Read less";
-//       less.style.display = "none"
-//       more.style.display = "inline";
-//     }
+    })
+
   }
 }
