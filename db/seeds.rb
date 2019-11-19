@@ -179,5 +179,5 @@ location_tag2 = Tag.create(world_id: pitch.id, name: "location")
 # notes
 
 me_content = ""
-me_card = Card.create!(world_id: pitch.id, title: "me", content: me_content)
+me_card = Card.create!(world_id: pitch.id, title: "Me", content: me_content)
 Tagging.create!(tag_id: character_tag.id, card_id: me_card.id)
