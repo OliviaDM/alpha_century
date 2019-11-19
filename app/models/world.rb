@@ -1,7 +1,7 @@
 class World < ApplicationRecord
   belongs_to :user
-  has_many :cards
-  has_many :tags
+  has_many :cards, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :user, presence: true
   validates :name, presence: true, allow_blank: false

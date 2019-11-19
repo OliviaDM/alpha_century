@@ -1,5 +1,5 @@
 class Map < ApplicationRecord
-  has_many :coordinates
+  has_many :coordinates, dependent: :destroy
   belongs_to :world
   has_one :user, through: :world
 
