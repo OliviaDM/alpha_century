@@ -9,7 +9,7 @@ function map_display() {
   const obliterate_button = document.querySelector("#delete_marker");
   const token = $('meta[name=csrf-token]').attr('content');
   let h;
-  let w;
+  let w = document.documentElement.clientWidth / 2
 
   let current_map = "-1";
 
@@ -41,9 +41,8 @@ function map_display() {
 
   function change_map(id) {
     current_map = id;
-    const card_id_array = []
-    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
-    display_markers(card_id_array)
+
+
     const new_map = find_map(id);
 
     w = document.documentElement.clientWidth / 2;
@@ -64,7 +63,7 @@ function map_display() {
       //const card_id = document.querySelector(".selected")
 
       const fd = new FormData()
-      const test = JSON.stringify({ long: `${event.offsetX}`, lat: `${event.offsetY}`, map_id: `${current_map}`, card_id: `${selected_id}`})
+      const test = JSON.stringify({ long: `${event.offsetX * 1.0 / w }`, lat: `${event.offsetY * 1.0 / h}`, map_id: `${current_map}`, card_id: `${selected_id}`})
       fd.append('coordinates', test)
       let coordinate_object;
 
@@ -97,6 +96,11 @@ function map_display() {
       // console.log(coordinate_object)
       // draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
     });
+    const card_id_array = []
+    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
+    map_img.addEventListener("load", e =>
+      display_markers(card_id_array)
+    )
   };
 
   dropdown.addEventListener("click", (event) => {
@@ -168,6 +172,7 @@ function map_display() {
   function display_markers(array) {
     document.querySelectorAll(".marker").forEach(element => element.remove())
     const fd = new FormData()
+    let h = document.getElementById("map").clientHeight
     const test = JSON.stringify({map_id: `${current_map}`, card_ids: `${array}`})
     fd.append('coordinates', test)
     let coordinate_object;
@@ -182,9 +187,9 @@ function map_display() {
       })
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       data.forEach((element) => {
-        console.log(element.lat)
-        map.insertAdjacentHTML('beforeend', `<img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${parseInt(element.lat, 10) + 40}px; left: ${parseInt(element.long, 10) - 10}px;">`);
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) - 10}px;">`);
       });
       }
     );
