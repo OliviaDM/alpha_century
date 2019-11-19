@@ -40,7 +40,7 @@
         <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
       </div>
     </div>
-    <% @cards.each do |card| %>
+    <% @cards.each_with_index do |card, index| %>
       <div class="card"
            data-controller="read">
         <h5 class="card-header card-title"><%= card.title %></h5>
@@ -57,7 +57,7 @@
                 <span class="dots" data-target="read.dots">...</span>
                 <span class="more" data-target="read.more">
                   <%= sanitize card.img_content("100%") %>
-                  </span>
+                </span>
               </p>
               <button class="btn btn-link myBtn"
                       data-action="click->read#readMore"data-target="#modal<%= index %>">Read more</button>
@@ -71,7 +71,6 @@
           <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
           <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
         </div>
->>>>>>> a9c1de368a1fd78edc42e090f902ca1960b77210
         </div>
       <% end %>
     </div>
