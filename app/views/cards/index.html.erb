@@ -1,73 +1,77 @@
-<div class="background">
-  <div class="banner-world" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
-    <div class="container", data-controller="read">
-      <h1><%= sanitize @world.name %></h1>
-      <% if (sanitize @world.description).bytesize > 140 %>
-        <p><%= sanitize @world.description[0..140] %>
-          <span class="dots"
-              data-target="read.dots">...</span>
-          <span class="more"
-              data-target="read.more"><%= sanitize @world.description[141..(sanitize @world.description).bytesize] %></span>
-        </p>
-          <button class="btn btn-link myBtn" id="read_more_btn"
-                  data-action="click->read#readMore">Read more</button>
-      <% else %>
-        <p><%= sanitize @world.description %></p>
-      <% end %>
-      <div class="world-link">
-        <%= link_to "Edit World", edit_world_path(@world.id), class: "btn btn-primary"  %>
-        <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
-      </div>
-     </div>
-  </div>
-  <% array_of_tag = @tags.to_json %>
 
-  <form id="search_bar" action='<%="/worlds/#{@world.id}/cards"%>' name="query" method="get" data-tags='<%= array_of_tag%>' class="container">
-    <div>
-      <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
-      </select>
+<div class="background">
+<div class="banner-world" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
+  <div class="container", data-controller="read">
+    <h1><%= sanitize @world.name %></h1>
+    <% if (sanitize @world.description).bytesize > 140 %>
+      <p><span class="less" data-target="read.less"><%= sanitize @world.description[0..140] %></span>
+        <span class="dots"
+            data-target="read.dots">...</span>
+        <span class="more"
+            data-target="read.more"><%= sanitize @world.description %></span>
+      </p>
+        <button class="btn btn-link myBtn" id="read_more_btn"
+                data-action="click->read#readMore">Read more</button>
+    <% else %>
+      <p><%= sanitize @world.description %></p>
+    <% end %>
+    <div class="world-link">
+      <%= link_to "Edit World", edit_world_path(@world.id), class: "btn btn-primary"  %>
+      <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
     </div>
-    <input type="submit" class="btn btn-primary" value="Search">
+   </div>
+</div>
+<% array_of_tag = @tags.to_json %>
+
+<form id="search_bar" action='<%="/worlds/#{@world.id}/cards"%>' name="query" method="get" data-tags='<%= array_of_tag%>' class="container">
+  <div>
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
+    </select>
+  </div>
+  <input type="submit" class="btn btn-primary" value="Search">
   </form>
 
-  <div class="container pb-2">
-    <div class="cards">
-      <div class="card card-new">
-        <h5 class="card-header card-title">New note</h5>
-        <div class="card-body new-card">
-          <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
-        </div>
-      </div>
-      <% @cards.each_with_index do |card, index| %>
-        <div class="card", id="card-shadow",
-             data-controller="read">
-          <h5 class="card-header card-title"><%= card.title %></h5>
-          <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">
-            <% card.tags.each do |tag| %>
-              <%= "##{tag.name.gsub(" ", "_")}" %>
-            <% end %></h6>
-              <% if (sanitize card.content).bytesize > 240 %>
+<div class="container pb-2">
+  <div class="cards">
 
-                <p class="card-text"><%= sanitize card.content[0..240] %>
-                  <span class="dots"
-                        data-target="read.dots">...</span>
-                  <span class="more"
-                        data-target="read.more"><%= sanitize card.content[241..(sanitize card.content).bytesize] %></span>
-                </p>
-                <button class="btn btn-link myBtn"
-                        data-action="click->read#readMore"
-                        data-target="#modal<%= index %>">Read more</button>
+    <div class="card card-new">
+      <h5 class="card-header card-title">New note</h5>
+      <div class="card-body new-card">
+        <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
+      </div>
+    </div>
+    <% @cards.each do |card| %>
+      <div class="card"
+           data-controller="read">
+        <h5 class="card-header card-title"><%= card.title %></h5>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+          <% card.tags.each do |tag| %>
+            <%= "##{tag.name.gsub(" ", "_")}" %>
+          <% end %></h6>
+            <% if (sanitize card.content).bytesize > 240 || card.content != card.clean_content %>
+
+              <p class="card-text">
+                <div class="less" data-target="read.less"><%= sanitize card.clean_content[0..240] %>
+                </div>
+                <span class="dots" data-target="read.dots">...</span>
+                <span class="more" data-target="read.more">
+                  <%= sanitize card.img_content("100%") %>
+                  </span>
+              </p>
+              <button class="btn btn-link myBtn"
+                      data-action="click->read#readMore"data-target="#modal<%= index %>">Read more</button>
                 <% content = sanitize card.content  %>
                 <%= render partial: "cards/modal", locals: { name: "modal#{index}", text: content } %>
-              <% else %>
-                <p class="card-text"><%= sanitize card.content %></p>
-              <% end %>
-          </div>
-          <div class="card-footer">
-            <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
-            <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
-          </div>
+            <% else %>
+              <p class="card-text"><%= sanitize card.content %></p>
+            <% end %>
+        </div>
+        <div class="card-footer">
+          <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
+          <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
+        </div>
+>>>>>>> a9c1de368a1fd78edc42e090f902ca1960b77210
         </div>
       <% end %>
     </div>
