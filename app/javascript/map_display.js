@@ -38,6 +38,15 @@ function map_display() {
   function find_map(id) {
     return maps_info.maps.find(e => e.id.toString() == id);
   }
+  function marker_pop_up(id) {
+      let e = document.getElementById(`parent-${id}`);
+      e.onmouseover = function() {
+      document.getElementById(`popup-${id}`).style.display = 'block';
+      }
+      e.onmouseout = function() {
+      document.getElementById(`popup-${id}`).style.display = 'none';
+      }
+    }
 
   function change_map(id) {
     current_map = id;
@@ -89,7 +98,8 @@ function map_display() {
         if(document.querySelector(`#marker-${selected_id}`)){
           document.querySelector(`#marker-${selected_id}`).remove()
         }
-        map.insertAdjacentHTML('beforeend', `<div id="parent-${selected_id}"><img id="marker-${selected_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;"><div id="popup-${selected_id}" style="background-color: white; display: none; position: absolute; top: ${x + 40}px; left: ${y + 10}px;">description text here</div></div>`);
+        const title = document.getElementById(`${selected_id}`).innerText;
+        map.insertAdjacentHTML('beforeend', `<div id="parent-${selected_id}"><img id="marker-${selected_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;"><div id="popup-${selected_id}" style="background-color: white; display: none; position: absolute; top: ${x + 40}px; left: ${y + 10}px;">${title}</div></div>`);
         marker_pop_up(selected_id)
       };
 
@@ -196,15 +206,6 @@ function map_display() {
       });
       }
     );
-    function marker_pop_up(id) {
-      let e = document.getElementById(`parent-${id}`);
-      e.onmouseover = function() {
-      document.getElementById(`popup-${id}`).style.display = 'block';
-      }
-      e.onmouseout = function() {
-      document.getElementById(`popup-${id}`).style.display = 'none';
-      }
-    }
   };
 };
 
