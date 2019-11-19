@@ -190,7 +190,8 @@ function map_display() {
     .then(data => {
       console.log(data)
       data.forEach((element) => {
-        map.insertAdjacentHTML('beforeend', `<div id="parent-${element.card_id}"><img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) - 10}px;"><div id="popup-${element.card_id}" style="background-color: white; display: none; position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) + 10}px;">description text here</div></div>`);
+        const title = document.getElementById(`${element.card_id}`).innerText;
+        map.insertAdjacentHTML('beforeend', `<div id="parent-${element.card_id}"><img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) - 10}px;"><div id="popup-${element.card_id}" style="background-color: white; display: none; position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) + 10}px;">${title}</div></div>`);
         marker_pop_up(element.card_id);
       });
       }
