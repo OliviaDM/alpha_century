@@ -2,8 +2,11 @@
   <%= f.label :title %>
   <%= f.text_field :title %>
 
-  <%= f.text_area :content %>
+  <%= f.label :content %>
   <%= f.trix_editor :content %>
+
+  <%= f.input :is_event, as: :boolean %>
+
   <%= f.submit %>
 
 <% end %>

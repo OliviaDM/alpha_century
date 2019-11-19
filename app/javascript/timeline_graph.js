@@ -2,7 +2,32 @@
 function draw_graph() {
 
       let dataset = JSON.parse(document.querySelector('#timeline').dataset.string);
+      let select1 = null;
+      let select2 = null;
+      const select1_col = 'rgb(12,240,233)';
+      const select2_col = 'rgb(12,255,210)';
+      const unselect_col = "rgb(198, 45, 205)";
       // console.log(data_hash.links);
+
+      function display_btn(from, to) {
+        const btn = document.querySelector('#create_link_btn');
+        const d_btn = document.querySelector('#delete_link_btn');
+        const from_id = parseInt(from.id.substring(4),10);
+        const to_id = parseInt(to.id.substring(4),10);
+
+        console.log(dataset.nodes[from_id]);
+
+        btn.innerHTML = `Create a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
+        btn.style.display = "inline";
+
+        d_btn.innerHTML = `Delete a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
+        d_btn.style.display = "inline";
+      };
+
+      function undisplay_btn() {
+        document.querySelector('#create_link_btn').style.display = "none";
+        document.querySelector('#delete_link_btn').style.display = "none";
+      };
 
       const w = 1000, h = 600;
 
@@ -27,18 +52,9 @@ function draw_graph() {
           .append("line")
           .attr("id",function(d,i) {return 'edge'+i})
           .attr('marker-end','url(#arrowhead)')
-          .attr("style", function(d) { return ("stroke-width: 5px;");})
+          .attr("style", function(d) { return ("stroke-width: 1px;");})
           .style("stroke","#ccc")
-          .style("pointer-events", "none")
-          .on('mouseover', function(d,i) {
-            console.log("TPUCH EDGE");
-            svg.select(this)
-              .attr("style", function(d) { return ("stroke-width: 3px;");});
-          })
-          .on('mouseout', function(d,i) {
-            svg.select(this)
-              .attr("style", function(d) { return ("stroke-width: 1px;");});
-          });
+          .style("pointer-events", "none");
 
       const nodes = svg.selectAll("circle")
           .data(dataset.nodes)
@@ -46,7 +62,7 @@ function draw_graph() {
           .append("circle")
           .attr("id",function(d,i) {return 'node'+i})
           .attr({"r":7})
-          .style("fill","rgb(198, 45, 205)")
+          .style("fill", unselect_col)
           .on('mouseover', function(d,i) {
             d3.select(this)
               .attr({'r':10});
@@ -61,20 +77,63 @@ function draw_graph() {
 
           })
           .on('click', function(d,i) {
-            if (d3.select(this).classed("selected")) {
+            if (!select1) {
               d3.select(this)
-                .style("fill","rgb(198, 45, 205)")
-                .classed('selected', false);
+                .style('fill',select1_col)
+                .classed('select1', true);
+              select1 = this;
+            } else if (!select2) {
+              if (this == select1) {
+                d3.select(this)
+                  .style("fill", unselect_col)
+                  .classed('select1', false);
+                select1 = null;
+              } else {
+                d3.select(this)
+                  .style('fill',select2_col)
+                  .classed('select2', true);
+                select2 = this;
+                display_btn(select1,select2);
+              };
             } else {
-              d3.select('.selected')
-                .style("fill","rgb(198, 45, 205)")
-                .classed('selected', false);
-              d3.select(this)
-                .style('fill','rgb(12,240,233)')
-                .classed('selected', true);
+              if (this == select1) {
+                d3.select(this)
+                  .style("fill", unselect_col)
+                  .classed('select1', false);
+                d3.select(select2)
+                  .style("fill",select1_col)
+                  .classed('select1', true)
+                  .classed('select2', false);
+                select1 = select2
+                select2 = null;
+                undisplay_btn();
+              } else if (this == select2) {
+                d3.select(this)
+                  .style('fill', unselect_col)
+                  .classed('select2', false);
+                select2 = null;
+                undisplay_btn();
+              } else {
+                d3.select(select2)
+                  .style("fill", unselect_col)
+                  .classed('select2', false);
+                d3.select(this)
+                  .style("fill",select2_col)
+                  .classed('select2', true);
+                select2 = this;
+                display_btn(select1,select2);
+              };
             };
           });
           // .call(force.drag)
+
+      // !sel1 !sel2 --> sel1, make node sel1
+      // sel1 !sel2 -->
+             //this node = sel1 --> !sel1, unselct node
+            // this node not sel1 --> sel2, make node sel2
+      // sel1 sel2 -->
+             //this node is sel1 --> unmake sel1, make other node sel1, !sel2
+             //
 
       const nodelabels = svg.selectAll(".nodelabel")
          .data(dataset.nodes)
