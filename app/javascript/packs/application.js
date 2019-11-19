@@ -6,6 +6,7 @@ import 'select2';
 
 import { draw_graph } from '../timeline_graph'
 import { map_display } from '../map_display'
+import { photo_upload } from '../photo_upload'
 
 if (document.querySelector('#timeline')) {
   draw_graph();
@@ -13,6 +14,10 @@ if (document.querySelector('#timeline')) {
 
 if (document.querySelector('#map-select')) {
   map_display();
+}
+
+if (document.querySelector('.trix-content')) {
+  photo_upload();
 }
 
 import { Application } from "stimulus";

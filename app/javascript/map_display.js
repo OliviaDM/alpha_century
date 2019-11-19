@@ -1,11 +1,39 @@
+import $ from 'jquery'
+
 function map_display() {
 
 
   const dropdown = document.querySelector("#map-select");
   const maps_info = JSON.parse(document.querySelector('#map').dataset.hash);
   const map = document.querySelector('#map');
+  const obliterate_button = document.querySelector("#delete_marker");
+  const token = $('meta[name=csrf-token]').attr('content');
+  let h;
+  let w = document.documentElement.clientWidth / 2
 
   let current_map = "-1";
+
+  obliterate_button.addEventListener("click", (event) => {
+    if (selected_id != "null") {
+      if (document.querySelector(`#marker-${selected_id}`)) {
+        document.querySelector(`#marker-${selected_id}`).remove()
+        const fd = new FormData()
+        const test = JSON.stringify({map_id: `${current_map}`, card_id: `${selected_id}`})
+        fd.append('coordinates', test)
+        let coordinate_object;
+
+        fetch('/coordinates/destroy',
+          { method: "POST",
+            body: fd,
+            headers: {
+              'X-CSRF-Token': token
+            },
+            credentials: 'same-origin'
+          }
+        )
+      }
+    }
+  });
 
   function find_map(id) {
     return maps_info.maps.find(e => e.id.toString() == id);
@@ -13,33 +41,66 @@ function map_display() {
 
   function change_map(id) {
     current_map = id;
+
+
     const new_map = find_map(id);
 
-    const w = document.documentElement.clientWidth / 2;
+    w = document.documentElement.clientWidth / 2;
     map.innerHTML = `<img id="map-img" width="${w}" src="https://res.cloudinary.com/dhnkmpy8d/${new_map.photo}" style="position: relative;">`;
 
     const map_img = document.querySelector("#map-img");
     const map_x = map_img.offsetTop;
     const map_y = map_img.offsetLeft;
+
     map_img.addEventListener("contextmenu", (event) => {
       // console.log(event);
+
       console.log(event);
       event.preventDefault();
-      const h = document.getElementById("map-img").clientHeight;
+      h = document.getElementById("map-img").clientHeight;
 
-      console.log([event.offsetX, event.offsetY]);
-      console.log([event.offsetLeft, event.offsetTop]);
-      console.log([event.screenX, event.screenY]);
-      console.log([event.clientX, event.clientY]);
-      console.log([event.pageX, event.pageY]);
+      // const token = $('meta[name=csrf-token]').attr('content')
+      //const card_id = document.querySelector(".selected")
+
+      const fd = new FormData()
+      const test = JSON.stringify({ long: `${event.offsetX * 1.0 / w }`, lat: `${event.offsetY * 1.0 / h}`, map_id: `${current_map}`, card_id: `${selected_id}`})
+      fd.append('coordinates', test)
+      let coordinate_object;
+
+      fetch('/coordinates/create',
+        { method: "POST",
+          body: fd,
+          headers: {
+            'X-CSRF-Token': token
+          },
+          credentials: 'same-origin'
+        })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        coordinate_object = data;
+        if(selected_id != "null") {
+          draw_marker(event.offsetY, event.offsetX);
+          }
+        });
+        // .then(json => console.log(json));
 
       function draw_marker(x, y) {
-        map.insertAdjacentHTML('beforeend', `<img class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
+        if(document.querySelector(`#marker-${selected_id}`)){
+          document.querySelector(`#marker-${selected_id}`).remove()
+        }
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${selected_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${x + 40}px; left: ${y - 10}px;">`);
       };
 
       // draw_marker(event.clientY, event.clientX);
-      draw_marker(event.offsetY, event.offsetX);
+      // console.log(coordinate_object)
+      // draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
     });
+    const card_id_array = []
+    document.querySelectorAll(".card").forEach(element => card_id_array.push(element.id))
+    map_img.addEventListener("load", e =>
+      display_markers(card_id_array)
+    )
   };
 
   dropdown.addEventListener("click", (event) => {
@@ -87,6 +148,7 @@ function map_display() {
   });
 
   function refresh_cards() {
+    const array_of_id = [];
     cards.forEach((card) => {
       const card_tags = card.dataset.cardtags.split(',');
       tags.forEach( (tag) => {
@@ -95,9 +157,11 @@ function map_display() {
           return false;
         };
         card.style.display = "block";
+        array_of_id.push(card.id)
         return true;
       });
     });
+    display_markers(array_of_id)
   };
 
   search_btn.addEventListener("click", (event) => {
@@ -105,8 +169,31 @@ function map_display() {
     refresh_search_tags();
     refresh_cards();
   });
+  function display_markers(array) {
+    document.querySelectorAll(".marker").forEach(element => element.remove())
+    const fd = new FormData()
+    let h = document.getElementById("map").clientHeight
+    const test = JSON.stringify({map_id: `${current_map}`, card_ids: `${array}`})
+    fd.append('coordinates', test)
+    let coordinate_object;
 
-
+    fetch('/coordinates/index',
+      { method: "POST",
+        body: fd,
+        headers: {
+          'X-CSRF-Token': token
+        },
+        credentials: 'same-origin'
+      })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      data.forEach((element) => {
+        map.insertAdjacentHTML('beforeend', `<img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) - 10}px;">`);
+      });
+      }
+    );
+  };
 };
 
 export { map_display };

@@ -28,5 +28,20 @@ class Card < ApplicationRecord
     Card.where(is_event: true) & Card.tag_search(tag_array)
   end
 
+  def clean_content
+    reg = /^<figure data-trix-attachment="(.)+<\/span><\/figcaption><\/a><\/figure>$/
+    self.content.gsub(reg, "")
+  end
+
+  def img_content(card_width)
+    reg = /<img src="([^ ]+)" width="(\d+)" height="(\d+)">/
+    if match = self.content.scan(reg)
+      new_string = self.content
+      match.each do |match|
+        new_string.gsub!(match[0] + "\" width=\"#{match[1]}\" height=\"#{match[2]}\"", match[0] + "\" width=\"#{card_width}\"")
+      end
+      return new_string
+    end
+  end
 
 end
