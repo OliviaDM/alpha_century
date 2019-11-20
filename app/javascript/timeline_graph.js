@@ -4,10 +4,10 @@ function draw_graph() {
       let dataset = JSON.parse(document.querySelector('#timeline').dataset.string);
       let select1 = null;
       let select2 = null;
-      const select1_col = 'rgb(12,240,233)';
-      const select2_col = 'rgb(12,255,210)';
+      const select1_col = 'rgb(12,220,245)';
+      const select2_col = 'rgb(12,250,200)';
       const unselect_col = "rgb(198, 45, 205)";
-      // console.log(data_hash.links);
+
 
       function display_btn(from, to) {
         const btn = document.querySelector('#create_link_btn');
@@ -44,19 +44,9 @@ function draw_graph() {
           .then(response => response.json())
           .then(data => {
             if (data) {
-              // console.log(dataset.edges);
-              // console.log(dataset.nodes[to_id]);
-              // console.log(dataset.edges.indexOf({target: dataset.nodes[to_id], source: dataset.nodes[from_id]}));
-              // console.log(to_id);
-              // console.log(from_id);
-              // console.log(dataset.nodes.map( e => [e.id, e.index, e.name]));
-              // console.log(dataset.edges.map( e => [e.target.index, e.source.index] ));
               const edgy = dataset.edges.find( e => e.target.index == to_id && e.source.index == from_id);
               const ind = dataset.edges.indexOf(edgy);
               dataset.edges.splice(ind, 1);
-
-
-              // dataset.edges.push({target: to_id, source: from_id});
 
               force
                 .nodes(dataset.nodes)
@@ -68,10 +58,6 @@ function draw_graph() {
             };
             });
         });
-
-
-
-
 
         btn.addEventListener("click", (event) => {
           const fd = new FormData();
@@ -109,6 +95,17 @@ function draw_graph() {
         document.querySelector('#create_link_btn').style.display = "none";
         document.querySelector('#delete_link_btn').style.display = "none";
       };
+
+      const name_toggle = document.querySelector('#name_toggle');
+      name_toggle.addEventListener("click", (event) => {
+        const labels = document.querySelectorAll('text');
+        console.log(labels);
+        if (name_toggle.checked) {
+          labels.forEach( l => l.style.display = "inline");
+        } else {
+          labels.forEach( l => l.style.display = "none");
+        };
+      });
 
       function restart() {
 
