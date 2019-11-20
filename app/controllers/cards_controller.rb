@@ -22,6 +22,7 @@ class CardsController < ApplicationController
   end
 
   def create
+    @world = World.find(params[:world_id])
     @card = Card.new(card_params)
     @card.world_id = params[:world_id]
     @card.content = " " if @card.content.nil?
@@ -43,6 +44,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
+    @world = World.find(params[:world_id])
     @card.destroy
     check_permission(@world)
     redirect_to world_cards_path(params[:world_id])
