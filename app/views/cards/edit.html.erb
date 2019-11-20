@@ -1,20 +1,16 @@
-<h1>Cards#edit</h1>
-<p>Find me in app/views/cards/edit.html.erb</p>
+<body class="background">
+  <h1 class="worldtitle">Edit your card</h1>
 
-<!-- <form action=<%= "/cards/#{@card.id}" %>, method='PATCH' data-remote="true">
-  <input id="x" type="hidden" name="content">
-  <trix-editor input="x"></trix-editor>
-  <input type="submit" id="save">
-</form>
- -->
+  <div class="container" style="background-color: white">
+    <%= render 'card_form', world: @world, card: @card %>
+  </div>
 
-<%= render 'card_form', world: @world, card: @card %>
-
-<div class="text-muted">
-  <% @card.taggings.each do |tagging| %>
-    <%= render 'tagging_item', tagging: tagging %>
-  <% end %>
-</div>
-<div id="tag_form_wrap">
-<%= render 'tag_form', world: @world, card: @card, tagging: @tagging %>
-</div>
+  <div class="text-muted container" style="background-color: white;">
+    <% @card.taggings.each do |tagging| %>
+      <%= render 'tagging_item', tagging: tagging %>
+    <% end %>
+  </div>
+  <div id="tag_form_wrap">
+    <%= render 'tag_form', world: @world, card: @card, tagging: @tagging %>
+  </div>
+</body>

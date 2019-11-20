@@ -1,19 +1,20 @@
 <%= simple_form_for([world, card, tagging], remote: true) do |f| %>
-  <div id="search-tag-form">
-    <%= f.association :tag, collection: world.tags.order(:name) %>
-  </div>
-  <div id="add-tag-form" class="hide-div" >
-      <%= simple_fields_for :other do |o| %>
-        <%= o.input :name, as: :string, label: 'tag'%>
-     <% end %>
-  </div>
-  <div id="switch_button">
-    <button id="button-add-new-tag">Create tag</button>
-    <button id="button-search-new-tag" class="hide-div">Return</button>
-  </div>
+  <div class="container" style="background-color: white">
+    <div id="search-tag-form">
+      <%= f.association :tag, collection: world.tags.order(:name) %>
+    </div>
+    <div id="add-tag-form" class="hide-div" >
+        <%= simple_fields_for :other do |o| %>
+          <%= o.input :name, as: :string, label: 'tag'%>
+       <% end %>
+    </div>
+    <div id="switch_button">
+      <button id="button-add-new-tag">Create tag</button>
+      <button id="button-search-new-tag" class="hide-div">Return</button>
+    </div>
 
-  <%= f.submit value="Add tag" %>
-
+    <%= f.submit value="Add tag" %>
+  </div>
 <% end %>
 
 

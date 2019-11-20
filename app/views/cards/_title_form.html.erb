@@ -1,7 +1,13 @@
 <%= simple_form_for([@world, @card]) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="container">
+    <div>
+      <h3 style="color: white"><%= f.label :title %></h3>
+      <%= f.text_field :title %>
+    </div>
+    <div style="padding-top: 20px">
+      <%= f.submit class: "btn btn-primary"%>
+    </div>
+  </div>
 
-  <%= f.submit %>
 
 <% end %>
