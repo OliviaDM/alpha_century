@@ -1,11 +1,11 @@
 class Timeline
-  def initialize(tag_array)
+  def initialize(tag_array, world_id)
     if tag_array.nil?
-      @events = Card.where(is_event: true)
+      @events = Card.where(is_event: true, world_id: world_id)
     else
-      @events = Card.events_tag_search(tag_array)
+      @events = Card.events_tag_search(tag_array, world_id)
     end
-    @links = Timelink.all.map { |tl| { target: tl.child_event, source: tl.parent_event } }
+    @links = Timelink.all.map { |tl| { target: tl.child_event, source: tl.parent_event, original: true } }
   end
 
   def json_ify
@@ -25,18 +25,22 @@ class Timeline
       unless edge[:source] == edge[:target]
         if @events.include?(edge[:source]) && @events.include?(edge[:target])
 
-          good_links.push(timelink_to_edge(edge))
+          format_link = timelink_to_edge(edge)
+
+          if good_links.select { |e| e[:target] == format_link[:target] && e[:source] == format_link[:source] }.empty?
+            good_links.push(format_link)
+          end
 
         elsif @events.include?(edge[:source])
 
           new_children = start_links.select { |e| e[:source] == edge[:target] }
-          new_edges = new_children.map { |e| { source: edge[:source], target: e[:target] } }
+          new_edges = new_children.map { |e| { source: edge[:source], target: e[:target], original: false } }
           start_links = start_links.reject { |e| e[:source] == edge[:target] } + new_edges
 
         elsif @events.include?(edge[:target])
 
           new_parents = start_links.select { |e| e[:target] == edge[:source] }
-          new_edges = new_parents.map { |e| { source: e[:source], target: edge[:target] } }
+          new_edges = new_parents.map { |e| { source: e[:source], target: edge[:target], original: false } }
           start_links = start_links.reject { |e| e[:target] == edge[:source] } + new_edges
 
         else
@@ -55,7 +59,7 @@ class Timeline
   private
 
   def timelink_to_edge(timelink)
-    { source: @events.find_index(timelink[:source]), target: @events.find_index(timelink[:target]) }
+    { source: @events.find_index(timelink[:source]), target: @events.find_index(timelink[:target]), original: timelink[:original] }
   end
 
   def merge_useless_nodes(dummy, edge, array)

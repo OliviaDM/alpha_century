@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <% @worlds.each do |world| %>
+      <% @worlds.each_with_index do |world, index| %>
         <div class="world">
           <div class="world-image" style="background-image:url('<%= cl_image_path world.photo%>');">
           </div>
@@ -33,13 +33,21 @@
                 <span class="more"
                       data-target="read.more"><%= sanitize world.description[151..(sanitize world.description).bytesize] %></span>
               </p>
-              <button class="btn btn-link myBtn" id="read_more_btn"
-                      data-action="click->read#readMore">Read more</button>
+              <% content = sanitize world.description  %>
+              <button class="btn btn-link myBtn"
+                      class="read_more_btn"
+                      data-action="click->read#readMore"
+                      data-toggle="modal"
+                      data-target="#world<%= index %>"
+                      data-index="<%= index %>"
+                      data-title="<%= world.name %>"
+                      data-content="<%= content %>">Read more</button>
             <% else %>
               <p><%= sanitize world.description %></p>
             <% end %>
           </div>
-            <div class="world-footer">
+            <div class="world-footer"
+                 data-target="read.buttons">
               <%= link_to "", edit_world_path(world.id), class: "fas fa-edit"  %>
               <%= link_to "", world_path(world.id), method: :delete, class: "fas fa-dumpster-fire" %>
             </div>

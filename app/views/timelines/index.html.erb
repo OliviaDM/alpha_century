@@ -1,5 +1,5 @@
-<h1>Timeline#index</h1>
-<p>Find me in app/views/timeline/index.html.erb</p>
+<h1>Timeline</h1>
+
 <% array_of_tag = @tags.to_json %>
 
 <form id="search_bar" action='<%="/worlds/#{@world.id}/timelines"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
@@ -18,8 +18,16 @@
   </div>
   <input type="submit">
 </form>
+
+<input type="checkbox" id="name_toggle"> Toggle event names
+
 <br>
 <div id="timeline"  data-string='<%= @hash %>'> </div>
 <br>
+
+<button id="create_link_btn" class="btn btn-light" style="display: none; width: 40%">
+</button>
+<button id="delete_link_btn" class="btn btn-danger" style="display: none; width: 40%">
+</button>
 
 
