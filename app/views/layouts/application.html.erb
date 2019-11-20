@@ -27,6 +27,7 @@
       <%= render 'shared/navbar' %>
       <div id="content-wrap">
         <%= yield %>
+        <%= render partial: "shared/modal" %>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
       </div>
