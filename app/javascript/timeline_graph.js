@@ -270,10 +270,10 @@ function draw_graph() {
        .attr({"x":function(d){return d.x;},
               "y":function(d){return d.y;},
               "class":"nodelabel",
-              "stroke":"white",
+              "stroke":"grey",
               "font-weight":"lighter",
               "display":"none",
-              "font-size":24})
+              "font-size":20})
        .text(function(d){return d.name;});
 
     restart();
