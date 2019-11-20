@@ -1,14 +1,21 @@
 <%= simple_form_for(@world) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-
-  <%= f.input :photo %>
-  <%= f.input :photo_cache, as: :hidden %>
-
-  <%= f.submit %>
+  <div class="container">
+    <div>
+      <h3 style="color: white"><%= f.label :name %></h3>
+      <%= f.text_field :name %>
+    </div>
+    <div style="margin-top: 10px">
+      <h3 style="color: white"><%= f.label :description %></h3>
+      <%= f.input :description, label: false, :as => :text, :input_html => { 'rows' => 8} %>
+    </div>
+    <div style="margin-top: 10px">
+      <h3 style="color: white; font-size: 18px"><%= f.input :photo %></h3>
+      <%= f.input :photo_cache, as: :hidden%>
+    </div>
+    <div>
+      <h3 style="color: white; font-size: 18px"><%= f.submit class: "btn btn-primary" %></h3>
+    </div>
+  </div>
 
 <% end %>
 
