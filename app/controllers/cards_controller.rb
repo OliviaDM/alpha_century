@@ -16,7 +16,7 @@ class CardsController < ApplicationController
   end
 
   def new
-    @card = Card.new
+    @card = Card.new()
   end
 
   def create
@@ -65,6 +65,6 @@ class CardsController < ApplicationController
   end
 
   def card_params
-    params.require(:card).permit(:title, :content)
+    params.require(:card).permit(:title, :content, :is_event)
   end
 end
