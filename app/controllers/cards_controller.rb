@@ -10,6 +10,7 @@ class CardsController < ApplicationController
       @cards = Card.tag_search(tags)
     end
     @tags = {tag: @world.tags.map { |e| e.name }}
+    check_permission(@world)
   end
 
   def show
@@ -17,6 +18,7 @@ class CardsController < ApplicationController
 
   def new
     @card = Card.new()
+    check_permission(@world)
   end
 
   def create
@@ -24,33 +26,25 @@ class CardsController < ApplicationController
     @card.world_id = params[:world_id]
     @card.content = " " if @card.content.nil?
     @card.save
+    check_permission(@world)
     redirect_to edit_world_card_path(world_id: @card.world.id, id: @card.id)
   end
 
   def edit
     @card = Card.find(params[:id])
     @tagging = Tagging.new()
+    check_permission(@world)
   end
 
   def update
     @card.update(card_params)
+    check_permission(@world)
     redirect_to edit_world_card_path(world_id: @card.world.id, id: @card.id)
-    # p @card = Card.find(params[:id])
-    # if @card.save
-    #   respond_to do |format|
-    #     format.html { redirect_to card_path(@card.id) }
-    #     format.js  # <-- will render `app/views/reviews/create.js.erb`
-    #   end
-    # else
-    #   respond_to do |format|
-    #     format.html { render 'cards/show' }
-    #     format.js  # <-- idem
-    #   end
-    # end
   end
 
   def destroy
     @card.destroy
+    check_permission(@world)
     redirect_to world_cards_path(params[:world_id])
   end
 
