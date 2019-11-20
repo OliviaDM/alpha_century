@@ -53,6 +53,22 @@ p {
   box-shadow: #DA42D9 0 0 10px;
 }
 
+#how-it-works {
+  scroll-behavior: smooth;
+}
+
+#how-it-works h2 a {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  color: #46E5E5;
+  text-shadow: #46E5E5 0 0 10px;
+}
+
+#how-it-works h2 a:hover {
+  text-shadow: #46E5E5 0 0 5px;
+  text-decoration: none;
+}
+
 #user-testimonial {
   background-color: #180858;
   color: #46E5E5;
@@ -65,6 +81,11 @@ p {
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
+  width: 50%;
+}
+
+#txt {
+  width: 50%;
 }
 
 #sponsors {
@@ -126,4 +147,16 @@ p {
 #how-it-works .card {
   box-shadow: #DA42D9 0 0 30px;
   border: none;
+}
+
+@media(max-width: 992px) {
+  #img {
+    display: none;
+  }
+  #user-testimonial {
+    text-align: center;
+  }
+  #txt {
+    width: 100%;
+  }
 }

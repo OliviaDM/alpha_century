@@ -5,7 +5,7 @@ class Card < ApplicationRecord
   has_many :tags, through: :taggings
   has_one :timestamp
   has_one :map
-  has_one :coordinate
+  has_many :coordinates, dependent: :destroy
 
   validates :world, presence: true
 
@@ -24,8 +24,8 @@ class Card < ApplicationRecord
     cards
   end
 
-  def self.events_tag_search(tag_array)
-    Card.where(is_event: true) & Card.tag_search(tag_array)
+  def self.events_tag_search(tag_array, world_id)
+    Card.where(is_event: true, world_id: world_id) & Card.tag_search(tag_array)
   end
 
   def clean_content

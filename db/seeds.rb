@@ -27,6 +27,12 @@ my_little_pony = World.create!(name: "My Little Pony", description: "Friendship 
 my_little_pony.remote_photo_url = url2
 my_little_pony.save
 
+url4 = "https://upload.wikimedia.org/wikipedia/commons/5/5b/White_Hart_Lane_from_South_End.JPG"
+pitch = World.create!(name: "The Pitch", description:"Absolute pitch (AP), often called perfect pitch, is a rare ability of a person to identify or re-create a given musical note without the benefit of a reference tone. AP can be demonstrated via linguistic labeling ('naming' a note), auditory imagery, or sensorimotor responses. For example, an AP possessor can accurately reproduce a heard tone on a musical instrument without 'hunting' for the correct pitch. The frequency of AP in the general population is not known. The assumed occurrence of less than 1:10.000 is widely reported, but it is not supported by evidence. However, a review of more recent and international studies indicates prevalence of at least 4% amongst music students.", user_id: user.id)
+pitch.remote_photo_url = url4
+pitch.save
+
+# STAR WARS
 
 jabba_tag = Tag.create!(world_id: star_wars.id, name: "jabba")
 luke_tag = Tag.create!(world_id: star_wars.id, name: "luke skywalker")
@@ -156,4 +162,22 @@ Timelink.create!(parent_event: event4a_card, child_event: event5b_card)
 Timelink.create!(parent_event: event4c_card, child_event: event5c_card)
 
 Timelink.create!(parent_event: event5c_card, child_event: event1b_card)
+# ___________________________________________________________
 
+# PITCH
+url5 = "https://images-na.ssl-images-amazon.com/images/I/81qB66B7bsL._SX450_.jpg"
+map_pitch = Map.new(title: "Pitch", world_id: pitch.id)
+map_pitch.remote_photo_url = url5
+map_pitch.save
+# MapTagging.create!(tag_id: jabba_tag.id, map_id: map.id)
+
+# tags
+character_tag2 = Tag.create!(world_id: pitch.id, name: "character")
+event_tag2 = Tag.create!(world_id: pitch.id, name: "event")
+location_tag2 = Tag.create(world_id: pitch.id, name: "location")
+
+# notes
+
+me_content = ""
+me_card = Card.create!(world_id: pitch.id, title: "me", content: me_content)
+Tagging.create!(tag_id: character_tag.id, card_id: me_card.id)
