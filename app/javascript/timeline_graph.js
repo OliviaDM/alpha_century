@@ -98,12 +98,10 @@ function draw_graph() {
 
       const name_toggle = document.querySelector('#name_toggle');
       name_toggle.addEventListener("click", (event) => {
-        const labels = document.querySelectorAll('text');
-        console.log(labels);
         if (name_toggle.checked) {
-          labels.forEach( l => l.style.display = "inline");
+          nodelabels.attr({'display':'inline'});
         } else {
-          labels.forEach( l => l.style.display = "none");
+          nodelabels.attr({'display':'none'});
         };
       });
 
@@ -193,9 +191,10 @@ function draw_graph() {
         .on('mouseout', function(d,i) {
           d3.select(this)
             .attr({'r':7});
-          d3.select(`#${this.id}label`)
-            .attr({'display':'none'});
-
+          if (!name_toggle.checked) {
+            d3.select(`#${this.id}label`)
+              .attr({'display':'none'});
+          };
         })
         .on('click', function(d,i) {
           if (!select1) {
