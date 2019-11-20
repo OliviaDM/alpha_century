@@ -42,12 +42,12 @@
                       data-index="<%= index %>"
                       data-title="<%= world.name %>"
                       data-content="<%= content %>">Read more</button>
-                <%#= render partial: "worlds/modal", locals: { name: "world#{index}", text: content } %>
             <% else %>
               <p><%= sanitize world.description %></p>
             <% end %>
           </div>
-            <div class="world-footer">
+            <div class="world-footer"
+                 data-target="read.buttons">
               <%= link_to "", edit_world_path(world.id), class: "fas fa-edit"  %>
               <%= link_to "", world_path(world.id), method: :delete, class: "fas fa-dumpster-fire" %>
             </div>

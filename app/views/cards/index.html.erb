@@ -20,7 +20,8 @@
     <% else %>
       <p><%= sanitize @world.description %></p>
     <% end %>
-    <div class="world-link">
+    <div class="world-link"
+         data-target="read.buttons">
       <%= link_to "Edit World", edit_world_path(@world.id), class: "btn btn-primary"  %>
       <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
     </div>
@@ -50,7 +51,8 @@
            data-controller="read">
         <h5 class="card-header card-title"><%= card.title %></h5>
         <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">
+          <h6 class="card-subtitle mb-2 text-muted"
+              data-target="read.tags">
           <% card.tags.each do |tag| %>
             <%= "##{tag.name.gsub(" ", "_")}" %>
           <% end %></h6>
@@ -77,7 +79,8 @@
               <p class="card-text"><%= sanitize card.content %></p>
             <% end %>
         </div>
-        <div class="card-footer">
+        <div class="card-footer"
+              data-target="read.buttons">
           <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
           <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
         </div>
