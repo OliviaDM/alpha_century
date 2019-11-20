@@ -76,7 +76,7 @@ function draw_graph() {
           .then(response => response.json())
           .then(data => {
             if (data.id) {
-              dataset.edges.push({target: to_id, source: from_id});
+              dataset.edges.push({target: to_id, source: from_id, original: true});
 
               force
                 .nodes(dataset.nodes)
@@ -115,7 +115,13 @@ function draw_graph() {
             .append("line")
             .attr("id",function(d,i) {return 'edge'+i})
             .attr('marker-end','url(#arrowhead)')
-            .attr("style", function(d) { return ("stroke-width: 1px;");})
+            .attr("style", function(d) {
+              if (d.original) {
+                return ("stroke-width: 2px;");
+              } else {
+                return ("stroke-width: 1px;");
+              };
+            })
             .style("stroke","#ccc")
             .style("pointer-events", "none");
 
@@ -276,8 +282,6 @@ function draw_graph() {
               .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
               .attr('fill', '#ccc')
               .attr('stroke','#ccc');
-
-
 
   };
 
