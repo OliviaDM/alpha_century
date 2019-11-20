@@ -175,34 +175,66 @@ map_pitch.save
 character_tag2 = Tag.create!(world_id: pitch.id, name: "character")
 event_tag2 = Tag.create!(world_id: pitch.id, name: "event")
 location_tag2 = Tag.create(world_id: pitch.id, name: "location")
+olivia_tag = Tag.create(world_id: pitch.id, name: "olivia")
+corentin_tag = Tag.create(world_id: pitch.id, name: "corentin")
+nicola_tag = Tag.create(world_id: pitch.id, name: "nicola")
+arnaut_tag = Tag.create(world_id: pitch.id, name: "arnaut")
+you_tag = Tag.create(world_id: pitch.id, name: "you")
 
 # notes
 
 me_content = "Sometimes I'll start a sentence, and I don't even know where it's going. I just hope I find it along the way. Like an improv conversation. An improversation."
-me_card = Card.create!(world_id: pitch.id, title: "Me", content: me_content)
-Tagging.create!(tag_id: character_tag.id, card_id: me_card.id)
-# needs extra tags?
+me_card = Card.create!(world_id: pitch.id, title: "The Pitcher", content: me_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: me_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: me_card.id)
+
+assistant_content = "What you're saying is the truth, because it is EXACTLY what I want to hear! WUBBLUBBADUBDUB"
+assistant_card = Card.create!(world_id: pitch.id, title: "The Catcher", content: assistant_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: assistant_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: assistant_card.id)
+
+support_content = "I saved a life: my own. Am I a hero? I really can't say... but, yes."
+support_card = Card.create!(world_id: pitch.id, title: "The Unsung Heroes", content: support_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: support_card.id)
+Tagging.create!(tag_id: olivia_tag.id, card_id: support_card.id)
+Tagging.create!(tag_id: nicola_tag.id, card_id: support_card.id)
+
 
 audience_content = "*Shout the region we're presenting in, followed by a generic and totally 'genuine' remark that this audience is the best we've seen, that we love them and that this would not have been possible without them*"
 audience_card = Card.create!(world_id: pitch.id, title: "Audience", content: audience_content)
-Tagging.create!(tag_id: character_tag.id, card_id: audience_card.id)
+Tagging.create!(tag_id: character_tag2.id, card_id: audience_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: audience_card.id)
 
 
-opening_content = ""
+opening_content = "*insert bold statement here*"
 opening_card = Card.create!(world_id: pitch.id, title: "Bold statement", content: opening_content)
-Tagging.create!(tag_id: event_tag.id, card_id: opening_card.id)
+Tagging.create!(tag_id: event_tag2.id, card_id: opening_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: opening_card.id)
 
 
-statistic_content = ""
+statistic_content = "*insert mind-blowing statistic here*"
 statistic_card = Card.create!(world_id: pitch.id, title: "Mind-blowing statistic", content: statistic_content)
-Tagging.create!(tag_id: event_tag.id, card_id: statistic_card.id)
+Tagging.create!(tag_id: event_tag2.id, card_id: statistic_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: statistic_card.id)
 
 
-segway_content = ""
+segway_content = "*insert clever segway here*"
 segway_card = Card.create!(world_id: pitch.id, title: "Clever segway", content: segway_content)
-Tagging.create!(tag_id: event_tag.id, card_id: segway_card.id)
+Tagging.create!(tag_id: event_tag2.id, card_id: segway_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: segway_card.id)
+
 
 painpoint_content = "The painpoint is unstructured notes, lack of acessibility to structuring tools that are scalable and aren't timeconsuming. Really focus on the 'niche' of storytellers-creators like writers/videogame designers/etc., even though the app can be used for a multitude of things."
 painpoint_card = Card.create!(world_id: pitch.id, title: "Pain point", content: painpoint_content)
-Tagging.create!(tag_id: event_tag.id, card_id: painpoint_card.id)
+Tagging.create!(tag_id: event_tag2.id, card_id: painpoint_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: painpoint_card.id)
 
+google_content = ""
+google_card = Card.create!(world_id: pitch.id, title: "Google Digital Atelier", content: segway_content)
+Tagging.create!(tag_id: location_tag2.id, card_id: google_card.id)
+Tagging.create!(tag_id: audience_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: support_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: olivia_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: nicola_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: google_card.id)
