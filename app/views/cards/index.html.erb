@@ -10,12 +10,18 @@
         <span class="more"
             data-target="read.more"><%= sanitize @world.description %></span>
       </p>
-        <button class="btn btn-link myBtn" id="read_more_btn"
-                data-action="click->read#readMore">Read more</button>
+      <% content = sanitize @world.description  %>
+        <button class="btn btn-link myBtn"
+                      class="read_more_btn"
+                      data-action="click->read#readMore"
+                      data-toggle="modal"
+                      data-title="<%= @world.name %>"
+                      data-content="<%= content %>">Read more</button>
     <% else %>
       <p><%= sanitize @world.description %></p>
     <% end %>
-    <div class="world-link">
+    <div class="world-link"
+         data-target="read.buttons">
       <%= link_to "Edit World", edit_world_path(@world.id), class: "btn btn-primary"  %>
       <%= link_to "Back to worlds", worlds_path, class: "btn btn-primary" %>
     </div>
@@ -30,7 +36,7 @@
   </div>
   <input type="submit" class="btn btn-primary" value="Search">
   </form>
-  
+
 <div class="container pb-2">
   <div class="cards">
 
@@ -40,12 +46,13 @@
         <%= link_to "", new_world_card_path(world_id: @world.id), class:"fas fa-plus" %>
       </div>
     </div>
-    <% @cards.each do |card| %>
+    <% @cards.each_with_index do |card, index| %>
       <div class="card"
            data-controller="read">
         <h5 class="card-header card-title"><%= card.title %></h5>
         <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-muted">
+          <h6 class="card-subtitle mb-2 text-muted"
+              data-target="read.tags">
           <% card.tags.each do |tag| %>
             <%= "##{tag.name.gsub(" ", "_")}" %>
           <% end %></h6>
@@ -57,15 +64,23 @@
                 <span class="dots" data-target="read.dots">...</span>
                 <span class="more" data-target="read.more">
                   <%= sanitize card.img_content("100%") %>
-                  </span>
+                </span>
               </p>
+              <% content = sanitize card.content  %>
               <button class="btn btn-link myBtn"
-                      data-action="click->read#readMore">Read more</button>
+                      data-action="click->read#readMore"
+                      data-toggle="modal"
+                      data-target="#modal<%= index %>"
+                      data-content="<%= content %>"
+                      data-title="<%= card.title %>"
+                      data-index="<%= index %>">Read more</button>
+
             <% else %>
               <p class="card-text"><%= sanitize card.content %></p>
             <% end %>
         </div>
-        <div class="card-footer">
+        <div class="card-footer"
+              data-target="read.buttons">
           <%= link_to "", edit_world_card_path(world_id: card.world.id, id: card.id), class: "fas fa-edit"  %>
           <%= link_to "", world_card_path(world_id: card.world.id, id: card.id), method: :delete, class: "fas fa-dumpster-fire" %>
         </div>
