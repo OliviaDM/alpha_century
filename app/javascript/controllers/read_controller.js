@@ -18,9 +18,8 @@ export default class extends Controller {
     const modalyText = modal.querySelector('.modal-body')
     modalyText.innerText = texty
 
-
-    const tagsy = this.hasTagsTarget
-    if (tagsy) {
+    if (this.hasTagsTarget) {
+      const tagsy = this.tagsTarget
       modalyText.insertAdjacentElement('afterbegin', tagsy)
     }
 
