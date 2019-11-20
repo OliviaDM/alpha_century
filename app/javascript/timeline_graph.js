@@ -7,79 +7,50 @@ function draw_graph() {
   const select1_col = 'rgb(12,220,245)';
   const select2_col = 'rgb(12,250,200)';
   const unselect_col = "rgb(198, 45, 205)";
-  let i = 0;
-  let j = 0;
+
+  const btn = document.querySelector('#create_link_btn');
+  const d_btn = document.querySelector('#delete_link_btn');
 
 
-  function display_btn(from, to) {
-    const btn = document.querySelector('#create_link_btn');
-    const d_btn = document.querySelector('#delete_link_btn');
-    const from_id = parseInt(from.id.substring(4),10);
-    const to_id = parseInt(to.id.substring(4),10);
+  function display_btn() {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
+
 
     btn.innerHTML = `Create a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
     btn.style.display = "inline";
 
     d_btn.innerHTML = `Delete a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
     d_btn.style.display = "inline";
+  };
 
-    const token = $('meta[name=csrf-token]').attr('content');
+  const token = $('meta[name=csrf-token]').attr('content');
 
-    d_btn.addEventListener("click", (event) => {
-      const fd = new FormData();
-      const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
-      fd.append('timelink', link_info);
-
-
-      fetch('/timelinks/destroy',
-      {
-        method: "POST",
-        body: fd,
-        headers: {
-          'X-CSRF-Token': token
-        },
-        credentials: 'same-origin'
-      })
-        .then(response => response.json())
-        .then(data => {
-          // console.log(from_id);
-          if (data) {
-            const edgy = dataset.edges.find( e => e.target.index == to_id && e.source.index == from_id);
-            const ind = dataset.edges.indexOf(edgy);
-            dataset.edges.splice(ind, 1);
-
-            force
-              .nodes(dataset.nodes)
-              .links(dataset.edges)
-              .start();
-
-            restart();
-
-          };
-          // console.log(dataset.ed);
-        });
-    });
-
-    btn.addEventListener("click", (event) => {
-      const fd = new FormData();
-      const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
-      fd.append('timelink', link_info);
+  d_btn.addEventListener("click", (event) => {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
 
 
-      fetch('/timelinks/create',
-        { method: "POST",
-          body: fd,
-          headers: {
-            'X-CSRF-Token': token
-          },
-          credentials: 'same-origin'
-        })
+    const fd = new FormData();
+    const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
+    fd.append('timelink', link_info);
+
+
+    fetch('/timelinks/destroy',
+    {
+      method: "POST",
+      body: fd,
+      headers: {
+        'X-CSRF-Token': token
+      },
+      credentials: 'same-origin'
+    })
       .then(response => response.json())
       .then(data => {
-        // console.log(dataset.edges);
-        // console.log(from_id);
-        if (data.id) {
-          dataset.edges.push({target: to_id, source: from_id});
+        if (data) {
+          const edgy = dataset.edges.find( e => e.target.index == to_id && e.source.index == from_id);
+          const ind = dataset.edges.indexOf(edgy);
+          dataset.edges.splice(ind, 1);
 
           force
             .nodes(dataset.nodes)
@@ -89,12 +60,46 @@ function draw_graph() {
           restart();
 
         };
-        // console.log(dataset.edges.map {e => e.id});
-        // console.log(dataset.edges);
-      });
-
     });
-  };
+  });
+
+  btn.addEventListener("click", (event) => {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
+
+
+    const fd = new FormData();
+    const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
+    fd.append('timelink', link_info);
+
+
+    fetch('/timelinks/create',
+      { method: "POST",
+        body: fd,
+        headers: {
+          'X-CSRF-Token': token
+        },
+        credentials: 'same-origin'
+      })
+    .then(response => response.json())
+    .then(data => {
+
+      if (data.id) {
+        dataset.edges.push({target: to_id, source: from_id});
+
+        force
+          .nodes(dataset.nodes)
+          .links(dataset.edges)
+          .start();
+
+        restart();
+
+      };
+    });
+
+
+  });
+
 
   function undisplay_btn() {
     document.querySelector('#create_link_btn').style.display = "none";
@@ -164,7 +169,7 @@ function draw_graph() {
                 .attr("y", function(d) { return d.y; });
 
       edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
-                                         //console.log(d)
+
                                          return path});
   });
 
@@ -224,7 +229,7 @@ function draw_graph() {
                 .style('fill',select2_col)
                 .classed('select2', true);
               select2 = this;
-              display_btn(select1,select2);
+              display_btn();
             };
           } else {
             if (this == select1) {
@@ -252,7 +257,7 @@ function draw_graph() {
                 .style("fill",select2_col)
                 .classed('select2', true);
               select2 = this;
-              display_btn(select1,select2);
+              display_btn();
             };
           };
         });
@@ -288,7 +293,6 @@ function draw_graph() {
               .attr('fill', '#ccc')
               .attr('stroke','#ccc');
 
-    // console.log(dataset.edges.map {e => e.id })
   };
 
 export { draw_graph };
