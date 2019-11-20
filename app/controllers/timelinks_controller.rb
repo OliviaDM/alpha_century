@@ -5,17 +5,16 @@ class TimelinksController < ApplicationController
     @timelink = Timelink.new(parent_event_id: args["from"], child_event_id: args["to"])
     @timelink.save
     render json: @timelink
-    # @result = { response: timelink.save }
+  end
 
-
-
-    # marker = Coordinate.find_by(map_id: hello["map_id"].to_i, card_id: hello["card_id"].to_i)
-    # if marker
-    #   @coordinate = Coordinate.update(hello)
-    # else
-    #   @coordinate = Coordinate.new(hello)
-    #   @coordinate.save
-    # end
-    # render json: @coordinate
+  def destroy
+    args = JSON.parse(params[:timelink])
+    find_timelink = Timelink.find_by(parent_event_id: args["from"], child_event_id: args["to"])
+    if find_timelink
+      @timelink = find_timelink.destroy
+    else
+      @timelink = nil
+    end
+    render json: @timelink
   end
 end

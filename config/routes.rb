@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'coordinates/destroy'
   post 'coordinates/index'
   post 'timelinks/create'
+  post 'timelinks/destroy'
   resources :worlds do
     resources :tags, only: [:create, :update]
     resources :cards do

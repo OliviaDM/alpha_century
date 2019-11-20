@@ -24,6 +24,55 @@ function draw_graph() {
 
 
         const token = $('meta[name=csrf-token]').attr('content');
+
+
+
+        d_btn.addEventListener("click", (event) => {
+          const fd = new FormData();
+          const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
+          fd.append('timelink', link_info);
+
+
+          fetch('/timelinks/destroy',
+            { method: "POST",
+              body: fd,
+              headers: {
+                'X-CSRF-Token': token
+              },
+              credentials: 'same-origin'
+            })
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              // console.log(dataset.edges);
+              // console.log(dataset.nodes[to_id]);
+              // console.log(dataset.edges.indexOf({target: dataset.nodes[to_id], source: dataset.nodes[from_id]}));
+              // console.log(to_id);
+              // console.log(from_id);
+              // console.log(dataset.nodes.map( e => [e.id, e.index, e.name]));
+              // console.log(dataset.edges.map( e => [e.target.index, e.source.index] ));
+              const edgy = dataset.edges.find( e => e.target.index == to_id && e.source.index == from_id);
+              const ind = dataset.edges.indexOf(edgy);
+              dataset.edges.splice(ind, 1);
+
+
+              // dataset.edges.push({target: to_id, source: from_id});
+
+              force
+                .nodes(dataset.nodes)
+                .links(dataset.edges)
+                .start();
+
+              restart();
+
+            };
+            });
+        });
+
+
+
+
+
         btn.addEventListener("click", (event) => {
           const fd = new FormData();
           const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
@@ -49,28 +98,6 @@ function draw_graph() {
                 .start();
 
               restart();
-              // edges
-              //   .data(dataset.edges)
-              //   .enter()
-              //   .append("line")
-              //   .attr("id",function(d,i) {return 'edge'+i})
-              //   .attr('marker-end','url(#arrowhead)')
-              //   .attr("style", function(d) { return ("stroke-width: 3px;");})
-              //   .style("stroke","#ccc")
-              //   .style("pointer-events", "none");
-
-              // edgepaths
-              //   .data(dataset.edges)
-              //   .enter()
-              //   .append('path')
-              //   .attr({'d': function(d) {console.log(d); return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
-              //    'class':'edgepath',
-              //    'fill-opacity':0,
-              //    'stroke-opacity':0,
-              //    'fill':'blue',
-              //    'stroke':'red',
-              //    'id':function(d,i) {return 'edgepath'+i}})
-              //   .style("pointer-events", "none");;
 
             };
             });
@@ -99,20 +126,6 @@ function draw_graph() {
 
         edges.exit().remove();
 
-
-        // nodes.exit().remove();
-            // .call(force.drag)
-
-        // !sel1 !sel2 --> sel1, make node sel1
-        // sel1 !sel2 -->
-               //this node = sel1 --> !sel1, unselct node
-              // this node not sel1 --> sel2, make node sel2
-        // sel1 sel2 -->
-               //this node is sel1 --> unmake sel1, make other node sel1, !sel2
-               //
-
-        // nodelabels.exit().remove();
-
         let edgepaths = svg.selectAll(".edgepath")
           .data(dataset.edges);
 
@@ -128,23 +141,6 @@ function draw_graph() {
           .style("pointer-events", "none");
 
         edgepaths.exit().remove();
-
-      //   var edgelabels = svg.selectAll(".edgelabel")
-      //     .data(dataset.edges)
-      //     .enter()
-      //     .append('text')
-      //     .style("pointer-events", "none")
-      //     .attr({'class':'edgelabel',
-      //            'id':function(d,i){return 'edgelabel'+i},
-      //            'dx':80,
-      //            'dy':0,
-      //            'font-size':10,
-      //            'fill':'#aaa'});
-
-      // edgelabels.append('textPath')
-      //     .attr('xlink:href',function(d,i) {return '#edgepath'+i})
-      //     .style("pointer-events", "none")
-      //     .text(function(d,i){return 'label '+i});
 
       force.on("tick", function(){
 
