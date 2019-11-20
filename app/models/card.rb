@@ -24,8 +24,8 @@ class Card < ApplicationRecord
     cards
   end
 
-  def self.events_tag_search(tag_array)
-    Card.where(is_event: true) & Card.tag_search(tag_array)
+  def self.events_tag_search(tag_array, world_id)
+    Card.where(is_event: true, world_id: world_id) & Card.tag_search(tag_array)
   end
 
   def clean_content
