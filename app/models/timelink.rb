@@ -3,6 +3,6 @@ class Timelink < ApplicationRecord
   belongs_to :child_event, class_name: "Card"
 
   validates :parent_event, presence: true
-  validates :child_event, presence: true
+  validates :child_event, presence: true, uniqueness: { scope: :parent_event }
 
 end
