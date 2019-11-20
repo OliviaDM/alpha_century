@@ -26,12 +26,12 @@
             <h2><%= link_to world.name, world_cards_path(world_id: world.id) %></h2>
           </div>
           <div class="world-text">
-            <% if (sanitize world.description).bytesize > 150 %>
-              <p><%= sanitize world.description[0..150] %>
+            <% if (sanitize world.description).bytesize > 240 %>
+              <p><%= sanitize world.description[0..240] %>
                 <span class="dots"
                       data-target="read.dots">...</span>
                 <span class="more"
-                      data-target="read.more"><%= sanitize world.description[151..(sanitize world.description).bytesize] %></span>
+                      data-target="read.more"><%= sanitize world.description[241..(sanitize world.description).bytesize] %></span>
               </p>
               <% content = sanitize world.description  %>
               <button class="btn btn-link myBtn"
