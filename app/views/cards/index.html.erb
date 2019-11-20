@@ -10,8 +10,13 @@
         <span class="more"
             data-target="read.more"><%= sanitize @world.description %></span>
       </p>
-        <button class="btn btn-link myBtn" id="read_more_btn"
-                data-action="click->read#readMore">Read more</button>
+      <% content = sanitize @world.description  %>
+        <button class="btn btn-link myBtn"
+                      class="read_more_btn"
+                      data-action="click->read#readMore"
+                      data-toggle="modal"
+                      data-title="<%= @world.name %>"
+                      data-content="<%= content %>">Read more</button>
     <% else %>
       <p><%= sanitize @world.description %></p>
     <% end %>
@@ -65,6 +70,7 @@
                       data-toggle="modal"
                       data-target="#modal<%= index %>"
                       data-content="<%= content %>"
+                      data-title="<%= card.title %>"
                       data-index="<%= index %>">Read more</button>
 
             <% else %>

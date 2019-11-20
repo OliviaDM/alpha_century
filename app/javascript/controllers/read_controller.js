@@ -9,18 +9,31 @@ export default class extends Controller {
 
   readMore(e) {
 
+    const modal = document.querySelector('#fuckthisworld')
+    console.log(modal)
 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('content') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-      recipient.innerText = modal.find('.modal-body input').val(recipient)
+    const texty = e.currentTarget.dataset.content
+    console.log(texty)
 
-    })
+    const titley = e.currentTarget.dataset.title
+    console.log(titley)
+
+    const modalyTitle = modal.querySelector('#exampleModalLabel')
+    console.log(modalyTitle.innerText)
+
+    modalyTitle.innerText = titley
+    console.log(modalyTitle.innerText)
+
+    const modalyText = modal.querySelector('.modal-body')
+    console.log(modalyText.innerText)
+
+    modalyText.innerText = texty
+    console.log(modalyText.innerText)
+
+    $('#fuckthisworld').modal('show')
+
+
+
 
   }
 }

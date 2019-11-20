@@ -33,14 +33,16 @@
                 <span class="more"
                       data-target="read.more"><%= sanitize world.description[241..(sanitize world.description).bytesize] %></span>
               </p>
+              <% content = sanitize world.description  %>
               <button class="btn btn-link myBtn"
-                      id="read_more_btn"
+                      class="read_more_btn"
                       data-action="click->read#readMore"
                       data-toggle="modal"
                       data-target="#world<%= index %>"
-                      data-index="<%= index %>">Read more</button>
-                <% content = sanitize world.description  %>
-                <%= render partial: "worlds/modal", locals: { name: "world#{index}", text: content } %>
+                      data-index="<%= index %>"
+                      data-title="<%= world.name %>"
+                      data-content="<%= content %>">Read more</button>
+                <%#= render partial: "worlds/modal", locals: { name: "world#{index}", text: content } %>
             <% else %>
               <p><%= sanitize world.description %></p>
             <% end %>
