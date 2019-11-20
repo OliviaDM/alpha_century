@@ -357,6 +357,7 @@ Timelink.create!(parent_event: timeline_card, child_event: ending_card)
 Timelink.create!(parent_event: placemarker_card, child_event: getlost_card)
 Timelink.create!(parent_event: getlost_card, child_event: loseit_card)
 Timelink.create!(parent_event: loseit_card, child_event: saviour_card)
+Timelink.create!(parent_event: loseit_card, child_event: getlost_card)
 Timelink.create!(parent_event: saviour_card, child_event: timeline_card)
 
 
