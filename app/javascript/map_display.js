@@ -62,9 +62,7 @@ function map_display() {
     const map_y = map_img.offsetLeft;
 
     map_img.addEventListener("contextmenu", (event) => {
-      // console.log(event);
 
-      console.log(event);
       event.preventDefault();
       h = document.getElementById("map-img").clientHeight;
 
@@ -86,13 +84,11 @@ function map_display() {
         })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         coordinate_object = data;
         if(selected_id != "null") {
           draw_marker(event.offsetY, event.offsetX);
           }
         });
-        // .then(json => console.log(json));
 
       function draw_marker(x, y) {
         if(document.querySelector(`#marker-${selected_id}`)){
@@ -104,7 +100,6 @@ function map_display() {
       };
 
       // draw_marker(event.clientY, event.clientX);
-      // console.log(coordinate_object)
       // draw_marker(event.offsetY, event.offsetX, coordinate_object["id"]);
     });
     const card_id_array = []
@@ -127,7 +122,6 @@ function map_display() {
   let selected_id = "null";
 
   function card_on_click(card) {
-    console.log("CLICK");
     card.classList.toggle('selected');
     if (selected_id == card.id) {
       selected_id = "null";
@@ -141,7 +135,7 @@ function map_display() {
 
 
   let tags = [];
-  const search_btn = document.querySelector('#tag-btn');
+  const search_btn = document.querySelector('.tag-btn');
 
   function refresh_search_tags() {
     const search_tags = document.querySelectorAll('.select2-selection__choice');
@@ -161,16 +155,20 @@ function map_display() {
   function refresh_cards() {
     const array_of_id = [];
     cards.forEach((card) => {
-      const card_tags = card.dataset.cardtags.split(',');
-      tags.forEach( (tag) => {
-        if (!card_tags.includes(tag)) {
-          card.style.display = "none";
-          return false;
-        };
-        card.style.display = "block";
-        array_of_id.push(card.id)
-        return true;
-      });
+      if(!card.classList.contains("modal-dialog")){
+        const card_tags = card.dataset["cardtags"].split(',');
+        tags.forEach( (tag) => {
+          let has_tags = true;
+          if (!card_tags.includes(tag)) {
+            card.style.display = "none";
+            has_tags = false;
+          };
+          if (has_tags) {
+            array_of_id.push(card.id);
+            card.style.display = "block";
+          }
+        });
+      }
     });
     display_markers(array_of_id)
   };
@@ -198,9 +196,9 @@ function map_display() {
       })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       data.forEach((element) => {
         const title = document.getElementById(`${element.card_id}`).innerText;
+        console.log(title)
         map.insertAdjacentHTML('beforeend', `<div id="parent-${element.card_id}"><img id="marker-${element.card_id}" class="marker nil" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Google_Maps_pin.svg/585px-Google_Maps_pin.svg.png" style="position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) - 10}px;"><div id="popup-${element.card_id}" style="background-color: white; display: none; position: absolute; top: ${(parseFloat(element.lat) * h) + 40}px; left: ${(parseFloat(element.long) * w) + 10}px;">${title}</div></div>`);
         marker_pop_up(element.card_id);
       });
