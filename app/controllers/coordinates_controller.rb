@@ -14,6 +14,9 @@ class CoordinatesController < ApplicationController
   def new
   end
 
+  def error404pls
+  end
+
   def create
     hello = JSON.parse(params[:coordinates])
     marker = Coordinate.find_by(map_id: hello["map_id"].to_i, card_id: hello["card_id"].to_i)

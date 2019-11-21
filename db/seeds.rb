@@ -27,7 +27,7 @@ my_little_pony = World.create!(name: "My Little Pony", description: "Friendship 
 my_little_pony.remote_photo_url = url2
 my_little_pony.save
 
-url4 = "https://upload.wikimedia.org/wikipedia/commons/5/5b/White_Hart_Lane_from_South_End.JPG"
+url4 = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/White_Hart_Lane_from_South_End.JPG/1920px-White_Hart_Lane_from_South_End.JPG"
 pitch = World.create!(name: "The Pitch", description:"Absolute pitch (AP), often called perfect pitch, is a rare ability of a person to identify or re-create a given musical note without the benefit of a reference tone. AP can be demonstrated via linguistic labeling ('naming' a note), auditory imagery, or sensorimotor responses. For example, an AP possessor can accurately reproduce a heard tone on a musical instrument without 'hunting' for the correct pitch. The frequency of AP in the general population is not known. The assumed occurrence of less than 1:10.000 is widely reported, but it is not supported by evidence. However, a review of more recent and international studies indicates prevalence of at least 4% amongst music students.", user_id: user.id)
 pitch.remote_photo_url = url4
 pitch.save
@@ -175,9 +175,189 @@ map_pitch.save
 character_tag2 = Tag.create!(world_id: pitch.id, name: "character")
 event_tag2 = Tag.create!(world_id: pitch.id, name: "event")
 location_tag2 = Tag.create(world_id: pitch.id, name: "location")
-
+olivia_tag = Tag.create(world_id: pitch.id, name: "olivia")
+corentin_tag = Tag.create(world_id: pitch.id, name: "corentin")
+nicola_tag = Tag.create(world_id: pitch.id, name: "nicola")
+arnaut_tag = Tag.create(world_id: pitch.id, name: "arnaut")
+you_tag = Tag.create(world_id: pitch.id, name: "you")
+speak_tag = Tag.create(world_id: pitch.id, name: "mouthwords")
+click_tag = Tag.create(world_id: pitch.id, name: "clickmagic")
 # notes
 
-me_content = ""
-me_card = Card.create!(world_id: pitch.id, title: "me", content: me_content)
-Tagging.create!(tag_id: character_tag.id, card_id: me_card.id)
+me_content = "Sometimes I'll start a sentence, and I don't even know where it's going. I just hope I find it along the way. Like an improv conversation. An improversation."
+me_card = Card.create!(world_id: pitch.id, title: "The Pitcher", content: me_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: me_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: me_card.id)
+
+
+support_content = "Ik ben blij dat gij in mijn team zit."
+support_card = Card.create!(world_id: pitch.id, title: "The Unsung Heroes", content: support_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: support_card.id)
+Tagging.create!(tag_id: olivia_tag.id, card_id: support_card.id)
+Tagging.create!(tag_id: nicola_tag.id, card_id: support_card.id)
+
+
+audience_content = "*Shout the region we're presenting in, followed by a generic and totally 'genuine' remark that this audience is the best we've seen, that we love them and that this would not have been possible without them*"
+audience_card = Card.create!(world_id: pitch.id, title: "Audience", content: audience_content)
+Tagging.create!(tag_id: character_tag2.id, card_id: audience_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: audience_card.id)
+
+
+google_content = "How does any genius figure out his inventions? I mean, how did Leonardo DiCaprio figure out about gravity? 'Cause the *censored* was sleepin' underneath a tree and an apple hit him on his head."
+google_card = Card.create!(world_id: pitch.id, title: "Google Digital Atelier", content: google_content)
+Tagging.create!(tag_id: location_tag2.id, card_id: google_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: olivia_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: nicola_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: google_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: google_card.id)
+
+
+opening_content = "*insert bold statement here*"
+opening_card = Card.create!(world_id: pitch.id, title: "Bold statement", content: opening_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: opening_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: opening_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: opening_card.id)
+
+
+statistic_content = "*insert mind-blowing statistic here*"
+statistic_card = Card.create!(world_id: pitch.id, title: "Mind-blowing statistic", content: statistic_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: statistic_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: statistic_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: statistic_card.id)
+
+
+segway_content = "*insert clever segway here*"
+segway_card = Card.create!(world_id: pitch.id, title: "Clever segway", content: segway_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: segway_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: segway_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: segway_card.id)
+
+
+painpoint_content = "The painpoint is unstructured notes, lack of acessibility to structuring tools that are scalable and aren't timeconsuming. Really focus on the 'niche' of storytellers-creators like writers/videogame designers/etc., even though the app can be used for a multitude of things."
+painpoint_card = Card.create!(world_id: pitch.id, title: "Pain point", content: painpoint_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: painpoint_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: painpoint_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: painpoint_card.id)
+
+
+worldpage_content = ""
+worldpage_card = Card.create!(world_id: pitch.id, title: "Display World page", content: worldpage_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: worldpage_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: worldpage_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: worldpage_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: worldpage_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: worldpage_card.id)
+
+
+deleteworld_content = "Destroy all evidence of the Pitcher being a Brony"
+deleteworld_card = Card.create!(world_id: pitch.id, title: "Burn a World", content: deleteworld_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: deleteworld_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: deleteworld_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: deleteworld_card.id)
+
+
+cardpage_content = ""
+cardpage_card = Card.create!(world_id: pitch.id, title: "Display notes", content: cardpage_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: cardpage_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: cardpage_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: cardpage_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: cardpage_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: cardpage_card.id)
+
+
+createcard_content = "Whoopsiedaisy I forgot my assistant"
+createcard_card = Card.create!(world_id: pitch.id, title: "Create note", content: createcard_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: createcard_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: createcard_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: createcard_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: createcard_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: createcard_card.id)
+
+
+mappage_content = "I want yooouuu, to show me the waaaay! (everyday)"
+mappage_card = Card.create!(world_id: pitch.id, title: "Display map", content: mappage_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: mappage_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: mappage_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: mappage_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: mappage_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: mappage_card.id)
+
+
+placemarker_content = "NAVIGATED B*RITCHES*"
+placemarker_card = Card.create!(world_id: pitch.id, title: "Marker", content: placemarker_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: placemarker_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: placemarker_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: placemarker_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: placemarker_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: placemarker_card.id)
+
+
+timeline_content = "Dr. Who would approve"
+timeline_card = Card.create!(world_id: pitch.id, title: "Show timeline", content: timeline_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: timeline_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: timeline_card.id)
+Tagging.create!(tag_id: click_tag.id, card_id: timeline_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: timeline_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: timeline_card.id)
+
+
+getlost_content = "Ooh no I missed my next train of thought"
+getlost_card = Card.create!(world_id: pitch.id, title: "Get lost", content: getlost_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: getlost_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: getlost_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: getlost_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: getlost_card.id)
+
+
+loseit_content = "This is fine."
+loseit_card = Card.create!(world_id: pitch.id, title: "NO GOD NOO", content: loseit_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: loseit_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: loseit_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: loseit_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: loseit_card.id)
+
+
+saviour_content = "I saved a life: my own. Am I a hero? I really can't say... but, yes."
+saviour_card = Card.create!(world_id: pitch.id, title: "The Rescue", content: saviour_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: saviour_card.id)
+Tagging.create!(tag_id: corentin_tag.id, card_id: saviour_card.id)
+Tagging.create!(tag_id: olivia_tag.id, card_id: saviour_card.id)
+Tagging.create!(tag_id: nicola_tag.id, card_id: saviour_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: saviour_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: saviour_card.id)
+
+
+ending_content = "Cut to black. Audience goes f*udging* apesh*ivers*."
+ending_card = Card.create!(world_id: pitch.id, title: "The end", content: ending_content, is_event: true)
+Tagging.create!(tag_id: event_tag2.id, card_id: ending_card.id)
+Tagging.create!(tag_id: arnaut_tag.id, card_id: ending_card.id)
+Tagging.create!(tag_id: speak_tag.id, card_id: ending_card.id)
+Tagging.create!(tag_id: you_tag.id, card_id: ending_card.id)
+
+# TIMELINKS
+
+Timelink.create!(parent_event: opening_card, child_event: statistic_card)
+Timelink.create!(parent_event: statistic_card, child_event: segway_card)
+Timelink.create!(parent_event: segway_card, child_event: painpoint_card)
+Timelink.create!(parent_event: painpoint_card, child_event: worldpage_card)
+Timelink.create!(parent_event: worldpage_card, child_event: deleteworld_card)
+Timelink.create!(parent_event: deleteworld_card, child_event: cardpage_card)
+Timelink.create!(parent_event: cardpage_card, child_event: createcard_card)
+Timelink.create!(parent_event: createcard_card, child_event: mappage_card)
+Timelink.create!(parent_event: mappage_card, child_event: placemarker_card)
+
+#NORMAL TIMELINE
+
+Timelink.create!(parent_event: placemarker_card, child_event: timeline_card)
+Timelink.create!(parent_event: timeline_card, child_event: ending_card)
+
+# BRANCH
+
+Timelink.create!(parent_event: placemarker_card, child_event: getlost_card)
+Timelink.create!(parent_event: getlost_card, child_event: loseit_card)
+Timelink.create!(parent_event: loseit_card, child_event: saviour_card)
+Timelink.create!(parent_event: loseit_card, child_event: getlost_card)
+Timelink.create!(parent_event: saviour_card, child_event: timeline_card)
+
+

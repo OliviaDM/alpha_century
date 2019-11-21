@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get 'coordinates/update'
   post 'coordinates/destroy'
   post 'coordinates/index'
+  post 'timelinks/create'
+  post 'timelinks/destroy'
+  get 'coordinates/error404pls'
   resources :worlds do
     resources :tags, only: [:create, :update]
     resources :cards do

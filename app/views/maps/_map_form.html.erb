@@ -1,10 +1,15 @@
 <%= simple_form_for([@world, @map]) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="container">
+    <div>
+      <h3 style="color: white"><%= f.label :title %></h3>
+      <%= f.text_field :title %>
+    </div>
 
-  <%= f.input :photo %>
-  <%= f.input :photo_cache, as: :hidden %>
+    <div style="margin-top: 10px">
+      <h3 style="color: white; font-size: 18px"><%= f.input :photo %></h3>
+      <%= f.input :photo_cache, as: :hidden %>
+    </div>
 
-  <%= f.submit %>
+  <h3 style="color: white; font-size: 18px"><%= f.submit class: "btn btn-primary"%></h3>
 
 <% end %>

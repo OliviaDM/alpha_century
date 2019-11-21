@@ -1,8 +1,13 @@
 <%= simple_form_for([@world, @card]) do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div style="margin-bottom: 10px">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
 
+  <%= f.label :content %>
   <%= f.trix_editor :content %>
-  <%= f.submit %>
-
+  <%= f.input :is_event, as: :boolean %>
+  <div style="margin-top: 10px">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
 <% end %>

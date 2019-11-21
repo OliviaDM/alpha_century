@@ -1,178 +1,298 @@
 //import * as d3 from "d3";
 function draw_graph() {
 
-      let dataset = JSON.parse(document.querySelector('#timeline').dataset.string);
-      // console.log(data_hash.links);
+  let dataset = JSON.parse(document.querySelector('#timeline').dataset.string);
+  let select1 = null;
+  let select2 = null;
+  const select1_col = 'rgb(12,220,245)';
+  const select2_col = 'rgb(12,250,200)';
+  const unselect_col = "rgb(198, 45, 205)";
 
-      const w = 1000, h = 600;
+  const btn = document.querySelector('#create_link_btn');
+  const d_btn = document.querySelector('#delete_link_btn');
 
-      const linkDistance = 100;
-      const colors = d3.scale.category10();
 
-      const svg = d3.select("#timeline").append("svg").attr({"width":w,"height":h});
+  function display_btn() {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
 
-      const force = d3.layout.force()
+
+    btn.innerHTML = `Create a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
+    btn.style.display = "inline";
+
+    d_btn.innerHTML = `Delete a link from <strong>${dataset.nodes[from_id].name}</strong> to <strong>${dataset.nodes[to_id].name}</strong>`;
+    d_btn.style.display = "inline";
+  };
+
+  const token = $('meta[name=csrf-token]').attr('content');
+
+  d_btn.addEventListener("click", (event) => {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
+
+
+    const fd = new FormData();
+    const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
+    fd.append('timelink', link_info);
+
+
+    fetch('/timelinks/destroy',
+    {
+      method: "POST",
+      body: fd,
+      headers: {
+        'X-CSRF-Token': token
+      },
+      credentials: 'same-origin'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          const edgy = dataset.edges.find( e => e.target.index == to_id && e.source.index == from_id);
+          const ind = dataset.edges.indexOf(edgy);
+          dataset.edges.splice(ind, 1);
+
+          force
+            .nodes(dataset.nodes)
+            .links(dataset.edges)
+            .start();
+
+          restart();
+
+        };
+    });
+  });
+
+  btn.addEventListener("click", (event) => {
+    const from_id = parseInt(select1.id.substring(4),10);
+    const to_id = parseInt(select2.id.substring(4),10);
+
+
+    const fd = new FormData();
+    const link_info = JSON.stringify({ from: dataset.nodes[from_id].id, to: dataset.nodes[to_id].id });
+    fd.append('timelink', link_info);
+
+
+    fetch('/timelinks/create',
+      { method: "POST",
+        body: fd,
+        headers: {
+          'X-CSRF-Token': token
+        },
+        credentials: 'same-origin'
+      })
+    .then(response => response.json())
+    .then(data => {
+
+      if (data.id) {
+        dataset.edges.push({target: to_id, source: from_id});
+
+        force
           .nodes(dataset.nodes)
           .links(dataset.edges)
-          .size([w,h])
-          .linkDistance([linkDistance])
-          .charge([-500])
-          .theta(0.1)
-          .gravity(0.05)
           .start();
 
-      const edges = svg.selectAll("line")
-          .data(dataset.edges)
-          .enter()
-          .append("line")
-          .attr("id",function(d,i) {return 'edge'+i})
-          .attr('marker-end','url(#arrowhead)')
-          .attr("style", function(d) { return ("stroke-width: 1px;");})
-          .style("stroke","#ccc")
-          .style("pointer-events", "none")
-          .on('mouseover', function(d,i) {
-            d3.select(this)
-              .attr("style", function(d) { return ("stroke-width: 3px;");});
-          })
-          .on('mouseout', function(d,i) {
-            d3.select(this)
-              .attr("style", function(d) { return ("stroke-width: 1px;");});
-          });
+        restart();
 
-      const nodes = svg.selectAll("circle")
-          .data(dataset.nodes)
-          .enter()
-          .append("circle")
-          .attr("id",function(d,i) {return 'node'+i})
-          .attr({"r":7})
-          .style("fill","rgb(198, 45, 205)")
-          .on('mouseover', function(d,i) {
-            d3.select(this)
-              .attr({'r':10});
-            d3.select(`#${this.id}label`)
-              .attr({'display':'inline'});
-          })
-          .on('mouseout', function(d,i) {
-            d3.select(this)
-              .attr({'r':7});
-            d3.select(`#${this.id}label`)
-              .attr({'display':'none'});
+      };
+    });
 
-          })
-          .on('click', function(d,i) {
-            if (d3.select(this).classed("selected")) {
-              d3.select(this)
-                .style("fill","rgb(198, 45, 205)")
-                .classed('selected', false);
-            } else {
-              d3.select('.selected')
-                .style("fill","rgb(198, 45, 205)")
-                .classed('selected', false);
-              d3.select(this)
-                .style('fill','rgb(12,240,233)')
-                .classed('selected', true);
-            };
-          })
-          // .call(force.drag)
 
-      const nodelabels = svg.selectAll(".nodelabel")
-         .data(dataset.nodes)
-         .enter()
-         .append("text")
-         .attr("id",function(d,i) {return 'node'+i+'label'})
-         .attr({"x":function(d){return d.x;},
-                "y":function(d){return d.y;},
-                "class":"nodelabel",
-                "stroke":"white",
-                "font-weight":"lighter",
-                "display":"none",
-                "font-size":24})
-         .text(function(d){return d.name;});
+  });
 
-      const edgepaths = svg.selectAll(".edgepath")
-        .data(dataset.edges)
-        .enter()
-        .append('path')
-        .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
-               'class':'edgepath',
-               'fill-opacity':0,
-               'stroke-opacity':0,
-               'fill':'blue',
-               'stroke':'red',
-               'id':function(d,i) {return 'edgepath'+i}})
+
+  function undisplay_btn() {
+    document.querySelector('#create_link_btn').style.display = "none";
+    document.querySelector('#delete_link_btn').style.display = "none";
+  };
+
+  const name_toggle = document.querySelector('#name_toggle');
+  name_toggle.addEventListener("click", (event) => {
+    if (name_toggle.checked) {
+      nodelabels.attr({'display':'inline'});
+    } else {
+      nodelabels.attr({'display':'none'});
+    };
+  });
+
+  function restart() {
+
+
+    let edges = svg.selectAll("line")
+        .data(dataset.edges);
+
+    edges.enter()
+        .append("line")
+        .attr("id",function(d,i) {return 'edge'+i})
+        .attr('marker-end','url(#arrowhead)')
+        .attr("style", function(d) {
+          // if (d.original) {
+            // return ("stroke-width: 2px;");
+          // } else {
+            return ("stroke-width: 1px;");
+          // };
+        })
+        .style("stroke","#ccc")
         .style("pointer-events", "none");
 
-    //   var edgelabels = svg.selectAll(".edgelabel")
-    //     .data(dataset.edges)
-    //     .enter()
-    //     .append('text')
-    //     .style("pointer-events", "none")
-    //     .attr({'class':'edgelabel',
-    //            'id':function(d,i){return 'edgelabel'+i},
-    //            'dx':80,
-    //            'dy':0,
-    //            'font-size':10,
-    //            'fill':'#aaa'});
+    edges.exit().remove();
 
-    // edgelabels.append('textPath')
-    //     .attr('xlink:href',function(d,i) {return '#edgepath'+i})
-    //     .style("pointer-events", "none")
-    //     .text(function(d,i){return 'label '+i});
+    let edgepaths = svg.selectAll(".edgepath")
+      .data(dataset.edges);
 
+    edgepaths.enter()
+      .append('path')
+      .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+             'class':'edgepath',
+             'fill-opacity':0,
+             'stroke-opacity':0,
+             'fill':'blue',
+             'stroke':'red',
+             'id':function(d,i) {return 'edgepath'+i}})
+      .style("pointer-events", "none");
 
-    svg.append('defs').append('marker')
-        .attr({'id':'arrowhead',
-               'viewBox':'-0 -5 10 10',
-               'refX':25,
-               'refY':0,
-               //'markerUnits':'strokeWidth',
-               'orient':'auto',
-               'markerWidth':10,
-               'markerHeight':10,
-               'xoverflow':'visible'})
-        .append('svg:path')
-            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#ccc')
-            .attr('stroke','#ccc');
-
+    edgepaths.exit().remove();
 
     force.on("tick", function(){
 
-        edges.attr({"x1": function(d){return d.source.x;},
-                    "y1": function(d){return d.source.y;},
-                    "x2": function(d){return d.target.x;},
-                    "y2": function(d){return d.target.y;}
-        });
+      edges.attr({"x1": function(d){return d.source.x;},
+                  "y1": function(d){return d.source.y;},
+                  "x2": function(d){return d.target.x;},
+                  "y2": function(d){return d.target.y;}
+      });
 
-        nodes.attr({"cx":function(d){return d.x;},
-                    "cy":function(d){return d.y;}
-        });
+      nodes.attr({"cx":function(d){return d.x;},
+                  "cy":function(d){return d.y;}
+      });
 
-        nodelabels.attr("x", function(d) { return d.x; })
-                  .attr("y", function(d) { return d.y; });
+      nodelabels.attr("x", function(d) { return d.x; })
+                .attr("y", function(d) { return d.y; });
 
-        edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
-                                           //console.log(d)
-                                           return path});
+      edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
 
+                                         return path});
+  });
 
-    });
-
-    // const edgeElements = document.querySelectorAll("line");
-    // edgeElements.forEach((e) => {
-    //   e.addEventListener("click", (ev) => {
-    //     console.log("CLICKED");
-    //   });
-    // });
-
-
-    // const nodeElements = document.querySelectorAll("circle");
-    // edgeElements.forEach((e) => {
-    //   e.addEventListener("mouseover", (event) => {
-    //     document.querySelector(`${e.id}label`).style.display = "inline";
-    //     console.log("ON IT");
-    //   });
-    // });
 };
+
+    const w = 1000, h = 600;
+
+    const linkDistance = 100;
+    const colors = d3.scale.category10();
+
+    const svg = d3.select("#timeline").append("svg").attr({"width":w,"height":h});
+    const force = d3.layout.force()
+        .nodes(dataset.nodes)
+        .links(dataset.edges)
+        .size([w,h])
+        .linkDistance([linkDistance])
+        .charge([-500])
+        .theta(0.1)
+        .gravity(0.05)
+        .start();
+
+    const nodes = svg.selectAll("circle")
+        .data(dataset.nodes)
+        .enter()
+        .append("circle")
+        .attr("id",function(d,i) {return 'node'+i})
+        .attr({"r":7})
+        .style("fill", unselect_col)
+        .on('mouseover', function(d,i) {
+          d3.select(this)
+            .attr({'r':10});
+          d3.select(`#${this.id}label`)
+            .attr({'display':'inline'});
+        })
+        .on('mouseout', function(d,i) {
+          d3.select(this)
+            .attr({'r':7});
+          if (!name_toggle.checked) {
+            d3.select(`#${this.id}label`)
+              .attr({'display':'none'});
+          };
+        })
+        .on('click', function(d,i) {
+          if (!select1) {
+            d3.select(this)
+              .style('fill',select1_col)
+              .classed('select1', true);
+            select1 = this;
+          } else if (!select2) {
+            if (this == select1) {
+              d3.select(this)
+                .style("fill", unselect_col)
+                .classed('select1', false);
+              select1 = null;
+            } else {
+              d3.select(this)
+                .style('fill',select2_col)
+                .classed('select2', true);
+              select2 = this;
+              display_btn();
+            };
+          } else {
+            if (this == select1) {
+              d3.select(this)
+                .style("fill", unselect_col)
+                .classed('select1', false);
+              d3.select(select2)
+                .style("fill",select1_col)
+                .classed('select1', true)
+                .classed('select2', false);
+              select1 = select2
+              select2 = null;
+              undisplay_btn();
+            } else if (this == select2) {
+              d3.select(this)
+                .style('fill', unselect_col)
+                .classed('select2', false);
+              select2 = null;
+              undisplay_btn();
+            } else {
+              d3.select(select2)
+                .style("fill", unselect_col)
+                .classed('select2', false);
+              d3.select(this)
+                .style("fill",select2_col)
+                .classed('select2', true);
+              select2 = this;
+              display_btn();
+            };
+          };
+        });
+
+    const nodelabels = svg.selectAll(".nodelabel")
+       .data(dataset.nodes)
+       .enter()
+       .append("text")
+       .attr("id",function(d,i) {return 'node'+i+'label'})
+       .attr({"x":function(d){return d.x;},
+              "y":function(d){return d.y;},
+              "class":"nodelabel",
+              "stroke":"grey",
+              "font-weight":"lighter",
+              "display":"none",
+              "font-size":20})
+       .text(function(d){return d.name;});
+
+    restart();
+
+    svg.append('defs').append('marker')
+          .attr({'id':'arrowhead',
+                 'viewBox':'-0 -5 10 10',
+                 'refX':25,
+                 'refY':0,
+                 //'markerUnits':'strokeWidth',
+                 'orient':'auto',
+                 'markerWidth':10,
+                 'markerHeight':10,
+                 'xoverflow':'visible'})
+          .append('svg:path')
+              .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+              .attr('fill', '#ccc')
+              .attr('stroke','#ccc');
+
+  };
 
 export { draw_graph };

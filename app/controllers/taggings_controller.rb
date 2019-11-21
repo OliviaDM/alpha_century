@@ -9,6 +9,7 @@ class TaggingsController < ApplicationController
       @tagging.save
 
     elsif !tagname.blank?
+      p params[:world_id]
       tag = Tag.create!(world_id: params[:world_id], name: tagname)
       @tagging = Tagging.create!(tag_id: tag.id, card_id: params[:card_id])
 
