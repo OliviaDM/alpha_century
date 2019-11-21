@@ -33,11 +33,11 @@
 <% array_of_tag = @tags.to_json %>
 
 <form id="search_bar" action='<%="/worlds/#{@world.id}/cards"%>' name="query" method="get" data-tags='<%= array_of_tag%>' class="container">
-  <div>
+  <input type="submit" id="search-button" class="btn btn-primary" value="Search">
+  <div class="marclongdong">
     <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
     </select>
   </div>
-  <input type="submit" class="btn btn-primary" value="Search">
   </form>
 
 <div class="container pb-2">
