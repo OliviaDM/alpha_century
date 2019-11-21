@@ -26,12 +26,12 @@
             <h2><%= link_to world.name, world_cards_path(world_id: world.id) %></h2>
           </div>
           <div class="world-text">
-            <% if (sanitize world.description).bytesize > 240 %>
-              <p><%= sanitize world.description[0..240] %>
+            <% if (sanitize world.description).bytesize > 400 %>
+              <p><%= sanitize world.description[0..400] %>
                 <span class="dots"
                       data-target="read.dots">...</span>
                 <span class="more"
-                      data-target="read.more"><%= sanitize world.description[241..(sanitize world.description).bytesize] %></span>
+                      data-target="read.more"><%= sanitize world.description[401..(sanitize world.description).bytesize] %></span>
               </p>
               <% content = sanitize world.description  %>
               <button class="btn btn-link myBtn"
@@ -40,8 +40,12 @@
                       data-toggle="modal"
                       data-target="#world<%= index %>"
                       data-index="<%= index %>"
-                      data-title="<%= world.name %>"
-                      data-content="<%= content %>">Read more</button>
+                      data-title="<%= world.name %>">Read more</button>
+              <div
+                class="hidden-content"
+                data-index="<%= index %>"
+                style="display: none;"
+              ><%= sanitize world.description %></div>
             <% else %>
               <p><%= sanitize world.description %></p>
             <% end %>

@@ -3,20 +3,23 @@
 <div class="banner-world" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @world.photo.url %>); height: 16vh;">
   <div class="container", data-controller="read">
     <h1><%= sanitize @world.name %></h1>
-    <% if (sanitize @world.description).bytesize > 140 %>
-      <p><span class="less" data-target="read.less"><%= sanitize @world.description[0..140] %></span>
+    <% if (sanitize @world.description).bytesize > 240 %>
+      <p><span class="less" data-target="read.less"><%= sanitize @world.description[0..240] %></span>
         <span class="dots"
             data-target="read.dots">...</span>
         <span class="more"
             data-target="read.more"><%= sanitize @world.description %></span>
       </p>
-      <% content = sanitize @world.description  %>
+
         <button class="btn btn-link myBtn"
                       class="read_more_btn"
                       data-action="click->read#readMore"
                       data-toggle="modal"
-                      data-title="<%= @world.name %>"
-                      data-content="<%= content %>">Read more</button>
+                      data-title="<%= @world.name %>">Read more</button>
+        <div
+          class="hidden-content"
+          style="display: none;"
+        ><%= sanitize sanitize @world.description  %></div>
     <% else %>
       <p><%= sanitize @world.description %></p>
     <% end %>
@@ -66,17 +69,19 @@
                   <%= sanitize card.img_content("100%") %>
                 </span>
               </p>
-              <% content = sanitize card.content  %>
               <button class="btn btn-link myBtn"
                       data-action="click->read#readMore"
                       data-toggle="modal"
                       data-target="#modal<%= index %>"
-                      data-content="<%= content %>"
                       data-title="<%= card.title %>"
                       data-index="<%= index %>">Read more</button>
-
+              <div
+                class="hidden-content"
+                data-index="<%= index %>"
+                style="display: none;"
+              ><%= sanitize card.content %></div>
             <% else %>
-              <p class="card-text"><%= sanitize card.content %></p>
+              <p class="card-text"><%= sanitize card.clean_content %></p>
             <% end %>
         </div>
         <div class="card-footer"

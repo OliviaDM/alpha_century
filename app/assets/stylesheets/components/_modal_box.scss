@@ -2,12 +2,20 @@
 
 }
 
-.modal-dialog {
+.modal-dialog.card {
   margin-top: 12vh;
   max-height: 80vh;
   overflow: scroll;
+  display: flex;
+  min-height: initial;
+}
+
+.modal-body {
+  font-family: 'Raleway', sans-serif;
+  text-align: left;
+  width: 100%;
 }
 
 .modal-footer {
-  align-content: flex-end;
+  display: flex;
 }

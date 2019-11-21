@@ -11,12 +11,22 @@ export default class extends Controller {
     const modal = document.querySelector('#fuckthisworld')
 
     const titley = e.currentTarget.dataset.title
+    const index = e.currentTarget.dataset.index
+    let hiddenContents = document.querySelectorAll(".hidden-content")
+    let hiddenContent;
+    hiddenContents.forEach(entry => {
+      if (entry.dataset.index === index){
+        hiddenContent = entry
+      }
+    })
+
     const modalyTitle = modal.querySelector('#exampleModalLabel')
     modalyTitle.innerText = titley
 
-    const texty = e.currentTarget.dataset.content
+    console.dir(hiddenContent)
+    const texty = hiddenContent.innerHTML
     const modalyText = modal.querySelector('.modal-body')
-    modalyText.innerText = texty
+    modalyText.innerHTML = texty
 
     if (this.hasTagsTarget) {
       const tagsy = this.tagsTarget
