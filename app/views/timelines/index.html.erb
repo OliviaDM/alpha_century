@@ -1,33 +1,34 @@
-<h1>Timeline</h1>
+<div class="container">
+  <h1>Timeline</h1>
 
-<% array_of_tag = @tags.to_json %>
+  <% array_of_tag = @tags.to_json %>
 
-<form id="search_bar" action='<%="/worlds/#{@world.id}/timelines"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
-  <input type="submit" class="tag-btn" id="timeline-btn">
-  <div class="marclongdong">
-    <label for="id_label_multiple" style="width: 75%">
-      <div>
-        <% if params[:states].present? %>
-          <% params[:states].each do |tag| %>
-            <%= tag %>
+  <form id="search_bar" action='<%="/worlds/#{@world.id}/timelines"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
+    <input type="submit" class="tag-btn" id="timeline-btn">
+    <div class="marclongdong">
+      <label for="id_label_multiple" style="width: 75%">
+        <div>
+          <% if params[:states].present? %>
+            <% params[:states].each do |tag| %>
+              <%= tag %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <select id="id_label_multiple" class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
-      </select>
-    </label>
-  </div>
-</form>
+        </div>
+        <select id="id_label_multiple" class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
+        </select>
+      </label>
+    </div>
+  </form>
 
-<input type="checkbox" id="name_toggle"> Toggle event names
+  <input type="checkbox" id="name_toggle"> Toggle event names
 
-<br>
-<div id="timeline"  data-string='<%= @hash %>'> </div>
-<br>
+  <br>
+  <div id="timeline"  data-string='<%= @hash %>'> </div>
+  <br>
 
-<button id="create_link_btn" class="btn btn-secondary" style="display: none; width: 40%">
-</button>
-<button id="delete_link_btn" class="btn btn-warning" style="display: none; width: 40%">
-</button>
-
+  <button id="create_link_btn" class="btn btn-secondary" style="display: none; width: 40%">
+  </button>
+  <button id="delete_link_btn" class="btn btn-warning" style="display: none; width: 40%">
+  </button>
+</div>
 
