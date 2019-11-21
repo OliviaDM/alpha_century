@@ -135,7 +135,7 @@ function map_display() {
 
 
   let tags = [];
-  const search_btn = document.querySelector('#tag-btn');
+  const search_btn = document.querySelector('.tag-btn');
 
   function refresh_search_tags() {
     const search_tags = document.querySelectorAll('.select2-selection__choice');

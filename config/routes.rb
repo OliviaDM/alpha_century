@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   post 'coordinates/index'
   post 'timelinks/create'
   post 'timelinks/destroy'
-  get 'coordinates/error404pls'
+  get '/user', to: "worlds#index", :as => :user_root
+
+
   resources :worlds do
     resources :tags, only: [:create, :update]
     resources :cards do
