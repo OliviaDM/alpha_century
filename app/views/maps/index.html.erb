@@ -15,11 +15,11 @@
 
 <% array_of_tag = @tags.to_json %>
 <form id="search_bar" action='<%="/worlds/#{@world.id}/maps"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
-  <div>
+  <button class="tag-btn">Search</button>
+  <div class="marclongdong">
     <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
     </select>
   </div>
-  <button id="tag-btn">Search</button>
 </form>
 
 <div class="cards">
