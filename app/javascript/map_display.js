@@ -169,10 +169,10 @@ function map_display() {
         };
         card.style.display = "block";
         array_of_id.push(card.id)
+        display_markers(array_of_id)
         return true;
       });
     });
-    display_markers(array_of_id)
   };
 
   search_btn.addEventListener("click", (event) => {

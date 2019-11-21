@@ -1,38 +1,33 @@
-<div class="container mt-3">
-  <%= link_to "Add map", new_world_map_path(world_id: @world) %>
+<%= link_to "Add map", new_world_map_path(world_id: @world) %>
 
-  <select name="map-select" id="map-select">
-    <option value=-1>Select a map</option>
-    <% @map_hash[:maps].each do |map| %>
-      <option value=<%= map["id"] %>><%= map["title"] %></option>
-    <% end %>
-
+<select name="map-select" id="map-select">
+  <option value=-1>Select a map</option>
+  <% @map_hash[:maps].each do |map| %>
+    <option value=<%= map["id"] %>><%= map["title"] %></option>
+  <% end %>
   </select>
-  <button id="delete_marker">Delete marker</button>
-</div>
+<button id="delete_marker">Delete marker</button>
+
 <div id="map" data-hash='<%=@map_hash.to_json%>'>
 </div>
 
-<div class="container mb-4">
-  <% array_of_tag = @tags.to_json %>
-  <form id="search_bar" action='<%="/worlds/#{@world.id}/maps"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
-    <button class="tag-btn">Search</button>
-    <div class="marclongdong">
-      <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
-      </select>
-    </div>
-  </form>
-
-  <div class="cards">
-    <% @cards.each do |card| %>
-      <% tag_string = "" %>
-      <% card.tags.each do |tag| %>
-        <% tag_string += "#{tag.name}," %>
-      <% end %>
-      <div class="card" data-cardtags="<%= tag_string %>" id="<%= card.id%>" style="height: 40px; min-height:40px; padding: 10px;">
-        <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
-      </div>
-
-    <% end %>
+<% array_of_tag = @tags.to_json %>
+<form id="search_bar" action='<%="/worlds/#{@world.id}/maps"%>' name="query" method="get" data-tags='<%= array_of_tag%>'>
+  <button class="tag-btn">Search</button>
+  <div class="marclongdong">
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 75%">
+    </select>
   </div>
+</form>
+
+<div class="cards">
+  <% @cards.each do |card| %>
+    <% tag_string = "" %>
+    <% card.tags.each do |tag| %>
+      <% tag_string += "#{tag.name}," %>
+    <% end %>
+    <div class="card" data-cardtags="<%= tag_string %>" id="<%= card.id%>" style="height: 40px; min-height:40px; padding: 10px;">
+      <h6 class="card-subtitle mb-2 text-muted"><%= card.title %></h6>
+    </div>
+  <% end %>
 </div>
