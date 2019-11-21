@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
   <h1>Timeline</h1>
 
   <% array_of_tag = @tags.to_json %>
@@ -21,11 +21,12 @@
   </form>
 
   <input type="checkbox" id="name_toggle"> Toggle event names
+</div>
+<br>
+<div id="timeline"  data-string='<%= @hash %>'> </div>
+<br>
 
-  <br>
-  <div id="timeline"  data-string='<%= @hash %>'> </div>
-  <br>
-
+<div class="container mb-3">
   <button id="create_link_btn" class="btn btn-secondary" style="display: none; width: 40%">
   </button>
   <button id="delete_link_btn" class="btn btn-warning" style="display: none; width: 40%">
