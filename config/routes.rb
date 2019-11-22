@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :timelines, only: [:index]
   end
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   root to: 'pages#home'
   get 'profile', to: 'pages#profile'
   get 'about', to: 'pages#about'
