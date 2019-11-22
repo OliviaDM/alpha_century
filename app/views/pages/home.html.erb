@@ -5,7 +5,9 @@
     </a>
   </h1>
     <% if !user_signed_in? %>
-      <button>Sign Up!</button>
+      <button type="button" data-toggle="modal" data-target="#signup">
+        Sign Up
+      </button>
     <% end %>
 </div>
 <div class="landing-wrapper">
