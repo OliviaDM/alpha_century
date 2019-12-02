@@ -165,7 +165,7 @@ Timelink.create!(parent_event: event5c_card, child_event: event1b_card)
 # ___________________________________________________________
 
 # PITCH
-url5 = "https://images-na.ssl-images-amazon.com/images/I/81qB66B7bsL._SX450_.jpg"
+url5 = "https://www.surfaceamerica.com/wp-content/uploads/2015/04/miracle-league-turf-southlake-tx-960x396.jpg"
 map_pitch = Map.new(title: "Pitch", world_id: pitch.id)
 map_pitch.remote_photo_url = url5
 map_pitch.save
